@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Comvi Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+  <link href="{{url_for ('static',filename='index/css/bd-wizard.css')}}" rel="stylesheet"/>
+  <script src="https://use.fontawesome.com/7b8791f2e0.js"></script>
+
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-sm navbar-light bg-white">
+      <div class="container">
+        <a class="navbar-brand" href="#"><img src="/static/index/images/logo.png" alt="logo" style="max-width: 100px;"></a>
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+          aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/client">Client</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Database
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/dashboard/vendor/supplier">Supplier</a>
+                <a class="dropdown-item" href="/dashboard/vendor/customer">Customer</a>
+                <a class="dropdown-item" href="/dashboard/vendor/tukang">Tukang</a>                
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Inventory
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/dashboard/inventory/bahan">Inventory Bahan</a>
+                <a class="dropdown-item" href="/dashboard/inventory/barang jadi">Inventory Barang Jadi</a>
+                    
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout/user">Log Out</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  {% block content %}
+  
+
+  {% endblock %}
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="{{url_for ('static',filename='index/js/jquery.steps.min.js')}}" type="text/javascript"></script> 
+ 
+  <script src="{{url_for ('static',filename='index/js/bd-wizard.js')}}" type="text/javascript"></script> 
+   <script src="{{url_for ('static',filename='index/js/bd-wizard.js')}}" type="text/javascript"></script> 
+  <script>
+    $(function() {
+         $( ".dtpick" ).datepicker({
+             changeYear:true,
+         yearRange: "-100:+1"   
+            });
+        });
+    </script>        
+
+  <script type="text/javascript">
+   $(document).ready(function() {
+  $('#tallModal').modal('show');
+});
+ </script>     
+
+
+
+
+  
+</body>
+</html>
