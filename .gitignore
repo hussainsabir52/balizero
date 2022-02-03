@@ -5,5 +5,4 @@ config.py
 *.pyc
 /env
 config.pyc
-/static/images
 /migrations
