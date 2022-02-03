@@ -23,16 +23,22 @@ class AddUserForm(FlaskForm):
 
 
 
+class FormOne(FlaskForm):
+	name = StringField("Your Name",validators=[InputRequired(),Length(max=100)])		
+	email  = StringField("Email",validators=[InputRequired(),Length(max=100)])	
+	time =  SelectField("How Long You Plan To Stay",choices=[("Less than 30 days","Less than 30 days")
+		,("More than 1 month and less than 6 month","More than 1 month and less than 6 month"),
+		("Long term more than 6 month","Long term more than 6 month")])
+	purpose = SelectField("My Travel Purpose",choices=[("Tourism","Tourism"),("Business/Other","Business/Other"),
+		("Staycation/Business/Work Remotely","Staycation/Business/Work Remotely"),("Work","Work"),
+		("Investment","Investment"),("I'm Retired","I'm Retired"),("I'm Married With Indonesian Citizen","I'm Married With Indonesian Citizen")])
+
+
 class FormTwo(FlaskForm):
+	name = StringField("Your Name",validators=[InputRequired(),Length(max=100)])		
+	email  = StringField("Email",validators=[InputRequired(),Length(max=100)])	
 	holder =  SelectField("Travel Document Holder of ",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),
 		("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])
 	current = SelectField("Permanent Residency / Current Location",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),
 		("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])
-
-
-class FormOne(FlaskForm):
-	passport =  SelectField("Passport Type",choices=[("Ordinary Passport","Ordinary Passport"),("Diplomatic Passport","Diplomatic Passport"),
-		("Travel","Travel"),("Public Affair","Public Affair")])
-	purpose = SelectField("Purpose of Visit",choices=[("Leisure","Leisure"),("Medical","Medical"),
-		("Working","Working"),("Seminar","Seminar")])	 
 
