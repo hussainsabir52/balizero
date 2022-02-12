@@ -83,7 +83,7 @@
 	    </div>
 	  </div>
 	</div>  
-	<div class="hero-wrap js-fullheight" style="background-image: url('/static/assets/images/bg_4.jpg');">
+	<div class="hero-wrap js-fullheight" style="background-image: url('/static/assets/images/yoga.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
@@ -96,9 +96,10 @@
 					<p class="caps">Travel to the any corner of the world, without going around in circles</p>-->
 					<p><a href="#" class="btn btn-primary py-3 px-4">Apply Now</a></p>
 				</div>
+				<!--
 				<a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex align-items-center justify-content-center mb-4">
 					<span class="fa fa-play"></span>
-				</a>
+				</a> -->
 			</div>
 		</div>
 	</div>
@@ -113,8 +114,7 @@
 								<div class="nav nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 									<a class="nav-link active mr-md-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Which Visa Type Should I Apply</a>
 
-									<a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Am I Eligibled Apply Online</a>
-
+									
 									<a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Track My Visa</a>
 
 								</div>
@@ -163,45 +163,7 @@
 										</form>
 									</div>
 
-									<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-performance-tab">
-										{% from "includes/_formhelpers.html" import render_field %}
-							             <form method="POST" action="{{ url_for('Index2') }}" enctype="multipart/form-data" class="search-property-1">
-							               {{ formtwo.hidden_tag() }}
-										
-											<div class="row no-gutters">
-												
-												<div class="col-md d-flex">
-													<div class="form-group p-4">
-														{{ render_field(formtwo.holder, class="form-control",autocomplete="off",placeholder="")}}
-													</div>
-												</div>
-												<div class="col-md d-flex">
-													<div class="form-group p-4">
-														{{ render_field(formtwo.current, class="form-control",autocomplete="off",placeholder="")}}
-													</div>
-												</div>
-												<div class="col-md d-flex">
-													<div class="form-group p-4 border-0">
-														{{ render_field(formtwo.name, class="form-control",autocomplete="off",placeholder="")}}
-													</div>
-												</div>
-												<div class="col-md d-flex">
-													<div class="form-group p-4">
-														{{ render_field(formtwo.email, class="form-control",autocomplete="off",placeholder="")}}
-													</div>
-												</div>
-												
-												
-												<div class="col-lg d-flex">
-													<div class="form-group d-flex w-100 border-0">
-														<div class="form-field w-100 align-items-center d-flex">
-															<input type="submit" value="Search" class="align-self-stretch form-control btn btn-primary p-0">
-														</div>
-													</div>
-												</div>
-											</div>
-										</form>
-									</div>
+									
 									<div class="tab-pane fade show" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
 										<form action="#" class="search-property-1">
 											<div class="row no-gutters">
@@ -251,42 +213,49 @@
 					<div class="col-md-12">
 						<div class="row">
 							<div class="col-md-12 col-lg-3 d-flex align-self-stretch ftco-animate">
-								<div class="services services-1 d-block img" style="background-image: url(https://images.pexels.com/photos/920382/pexels-photo-920382.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);">
+								<div class="services services-1 d-block">
 									<div class="icon d-flex align-items-center justify-content-center"><h3 class="" style="color: #fff; font-size: 20px;">SATU</h3></div>
 									<div class="media-body">
-										<h3 class="heading mb-3">Create an Account</h3>
-										<p>A small river named Duden flows by their place and supplies it with the necessary</p>
+										<br>
+										<h3 class="heading mb-3 account" style="color:#474747;">01. Create an Account</h3>
+										
 									</div>
 								</div>      
 							</div>
+
 							<div class="col-md-12 col-lg-3 d-flex align-self-stretch ftco-animate">
-								<div class="services services-1 d-block img" style="background-image: url(https://images.pexels.com/photos/4022011/pexels-photo-4022011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);">
+								<div class="services services-1 d-block">
 									<div class="icon d-flex align-items-center justify-content-center"><h3 class="" style="color: #fff; font-size: 20px;">DUA</h3></div>
 									<div class="media-body">
-										<h3 class="heading mb-3">Upload Document</h3>
-										<p>A small river named Duden flows by their place and supplies it with the necessary</p>
+										<br>
+										<h3 class="heading mb-3 account" style="color:#474747;">02. Upload Your Document</h3>
+										
 									</div>
 								</div>      
 							</div>
+
 							<div class="col-md-12 col-lg-3 d-flex align-self-stretch ftco-animate">
-								<div class="services services-1 d-block img" style="background-image: url(https://images.pexels.com/photos/6801867/pexels-photo-6801867.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);">
+								<div class="services services-1 d-block">
 									<div class="icon d-flex align-items-center justify-content-center"><h3 class="" style="color: #fff; font-size: 20px;">TIGA</h3></div>
 									<div class="media-body">
-										<h3 class="heading mb-3">Track Status</h3>
-										<p>A small river named Duden flows by their place and supplies it with the necessary</p>
-									</div>
-								</div>    
-							</div>
-							
-							<div class="col-md-12 col-lg-3 d-flex align-self-stretch ftco-animate">
-								<div class="services services-1 d-block img" style="background-image: url(https://images.pexels.com/photos/1753677/pexels-photo-1753677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);">
-									<div class="icon d-flex align-items-center justify-content-center"><h3 class="" style="color: #fff; font-size: 20px;">EMPAT</h3></div>
-									<div class="media-body">
-										<h3 class="heading mb-3">Get Your Visa</h3>
-										<p>A small river named Duden flows by their place and supplies it with the necessary</p>
+										<br>
+										<h3 class="heading mb-3 account" style="color:#474747;">03. Complete The Payment</h3>
+										
 									</div>
 								</div>      
 							</div>
+							<div class="col-md-12 col-lg-3 d-flex align-self-stretch ftco-animate">
+								<div class="services services-1 d-block">
+									<div class="icon d-flex align-items-center justify-content-center"><h3 class="" style="color: #fff; font-size: 20px;">EMPAT</h3></div>
+									<div class="media-body">
+										<br>
+										<h3 class="heading mb-3 account" style="color:#474747;">04. Track Status & Get Your Visa</h3>
+										
+									</div>
+								</div>      
+							</div>
+							
+														
 						</div>
 					</div>
 				</div>
@@ -478,7 +447,7 @@
 			</div>
 		</section>
 
-<section class="ftco-section ftco-about ftco-no-pt img" id="about">
+		<section class="ftco-section ftco-about ftco-no-pt img" id="about">
 			<div class="container">
 				<div class="row d-flex">
 					<div class="col-md-12 about-intro">
@@ -490,48 +459,45 @@
 										<span class="subheading">About Us</span>
 										<h2 class="mb-4">Make Your Tour Memorable and Safe With Us</h2>
 										<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-										<p><a href="#" class="btn btn-primary">Book Your Destination</a></p>
+										<p><a href="#" class="btn btn-primary">Apply Now</a></p>
 									</div>
 								</div>
 							</div>			
 							<div class="row">		
-							<div class="col-md-4">
+								<div class="col-md-1"></div>
+							<div class="col-md-2">
 								<img src="/static/assets/images/team/Slide2.PNG" class="w-100" style="border:solid 1px; border-color: #fff; border-radius: 20px;">
 								<h2 class="text-center team">Team Name</h2>
 								<p class="text-center">Posistion or Job Desc</p>
 							</div>	
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<img src="/static/assets/images/team/Slide3.PNG" class="w-100" style="border:solid 1px; border-color: #fff; border-radius: 20px;">
 								<h2 class="text-center team">Team Name</h2>
 								<p class="text-center">Posistion or Job Desc</p>
 							</div>	
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<img src="/static/assets/images/team/Slide4.PNG" class="w-100" style="border:solid 1px; border-color: #fff; border-radius: 20px;">
 								<h2 class="text-center team">Team Name</h2>
 								<p class="text-center">Posistion or Job Desc</p>
 							</div>		
-							</div>
-							<div class="row" style="margin-top: 40px;">
-							<div class="col-md-2"></div>
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<img src="/static/assets/images/team/Slide5.PNG" class="w-100" style="border:solid 1px; border-color: #fff; border-radius: 20px;">
 								<h2 class="text-center team">Team Name</h2>
 								<p class="text-center">Posistion or Job Desc</p>
 							</div>		
-							<div class="col-md-4">
+							<div class="col-md-2">
 								<img src="/static/assets/images/team/Slide6.PNG" class="w-100" style="border:solid 1px; border-color: #fff; border-radius: 20px;">
 								<h2 class="text-center team">Team Name</h2>
 								<p class="text-center">Posistion or Job Desc</p>
 							</div>		
 							</div>
-
+							
 
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-
 
 		<section class="ftco-section testimony-section bg-bottom" style="background-image: url(/static/assets/images/bg_1.jpg);" id="testimonial">
 			<div class="overlay"></div>
@@ -555,7 +521,7 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4" style="font-size: 13px;">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(/static/assets/images/person_1.jpg)"></div>
 											<div class="pl-3">
@@ -576,7 +542,7 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4"  style="font-size: 13px;">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(/static/assets/images/person_2.jpg)"></div>
 											<div class="pl-3">
@@ -597,7 +563,7 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4"  style="font-size: 13px;">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(/static/assets/images/person_3.jpg)"></div>
 											<div class="pl-3">
@@ -618,7 +584,7 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4" style="font-size: 13px;">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(/static/assets/images/person_1.jpg)"></div>
 											<div class="pl-3">
@@ -639,7 +605,7 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4" style="font-size: 13px;">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(/static/assets/images/person_2.jpg)"></div>
 											<div class="pl-3">
@@ -714,7 +680,7 @@
 			</div>
 		</section>
 
-		<section class="ftco-footer bg-bottom ftco-no-pt grey" style="background-image: url(https://ik.imagekit.io/tvlk/image/imageResource/2021/04/29/1619688649372-4a2d7a38b5279f26f065d8f5ace4186b.jpeg?tr=q-75);" id="contact">
+		<section class="ftco-footer bg-bottom ftco-no-pt grey" style="background-image: url(/static/assets/images/balilut.jpg);" id="contact">
 			<div class="overlay"></div>
 		  <div class="container">
 		    <div class="row">
