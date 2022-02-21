@@ -1,5 +1,6 @@
 body {
   font-family: 'Karla', sans-serif;
+  background-color: #000;
  }
 
 a {  
@@ -29,6 +30,21 @@ button:focus {
 dt{
     font-weight: 500 !important;
 }
+
+
+.container-card{
+    margin-top: 50px;
+    border-radius: 20px;
+    margin-bottom: 50px;
+    box-shadow: rgb(0 0 0 / 15%) 0px 4px 12px 0px;
+}
+
+
+
+
+
+
+
 
 
 
@@ -339,3 +355,7 @@ input[type='radio']:checked+label {
 input[type='radio']:checked:before {
   background:green;
 }
+
+
+
+

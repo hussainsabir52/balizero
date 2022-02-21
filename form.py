@@ -44,8 +44,15 @@ class FormTwo(FlaskForm):
 
 
 
-class StepOneForm(FlaskForm):
-	services = SelectField("Services",choices=[("On Shore","On Shore"),("Off Shore","Off Shore")])
+class StepOneBusinessForm(FlaskForm):
+	services = SelectField("Services",choices=[("E-Visa Regular Proccess Service","E-Visa Regular Proccess Service - IDR2.999.000"),
+		("E-Visa Express Proccess Service","E-Visa Express Proccess Service - IDR3.800.000"),
+		("E-Visa Regular Proccess Service + Visa Extention","E-Visa Regular Proccess Service + Visa Extention - IDR7.000.000")])
+	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal")])
+
+class StepOneSocialForm(FlaskForm):
+	services = SelectField("Services",choices=[("E-Visa Service","E-Visa Service - IDR3.300.000"),
+		("E-Visa Service + Visa Extention","E-Visa Service + Visa Extention - IDR6.500.000")])
 	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal")])
 
 
@@ -90,8 +97,8 @@ class StepFourForm(FlaskForm):
 	date_expired = DateField("Date expired",format="%m/%d/%Y")
 	visit_purpose = SelectField("Visit Purpose",choices=[("Business Visit","Business Visit"),("Investment Visit","Investment Visit"),("Business Meeting","Business Meeting"),("Tourist Visit Purpose","Tourist Visit Purpose")])  
 	activities = TextAreaField("Description of Your Activities")
-	deported = SelectField("Do you has ever been deported from Indonesia? ",choices=[("Yes","Yes"),("No","No")])  
-	overstay = SelectField("Do you has ever overstay in Indonesia?",choices=[("Yes","Yes"),("No","No")])  
+	deported = SelectField("Do you has ever been deported from Indonesia? ",choices=[("No","No"),("Yes","Yes")])  
+	overstay = SelectField("Do you has ever overstay in Indonesia?",choices=[("No","No"),("Yes","Yes")])  
 
 
 class UploadForm(FlaskForm):	
