@@ -7,7 +7,9 @@
 
     <div class="row text-center justify-content-center mb-5">
         <div class="col-xl-12 col-lg-12">
-            <h2 class="font-weight-bold" style="margin-top: 40px;">Single Entry Visit e-Visa B211A (ONSHORE)</h2>
+
+             {% include "includes/_message.html" %}   
+              <h2 class="font-weight-bold" style="margin-top: 40px;">{{ booking.tipe | title}}  </h2>
         </div>
     </div>
 
@@ -99,7 +101,7 @@
             </div>
             <div class="col-md-6">  
               <div class="form-group">
-                {{ render_field(form.phone, class="form-control",autocomplete="off",placeholder="")}}   
+                {{ render_field(form.phone, class="form-control",autocomplete="off",placeholder="Please use + in the beggining, eg +62817181822")}}   
               </div>
             </div>
             
@@ -140,38 +142,14 @@
            </div>
 
             <hr>
-           <p style="font-weight: 600;">Address in Indonesia (Accommodation Address, Hotels, Villas etc.) *</p>
-           <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                {{ render_field(form.indo_address, class="form-control",autocomplete="off",placeholder="")}}  
-              </div>
-            </div>
+          
+           <br>
+           <br>
 
-            <div class="col-md-6">  
-              <div class="form-group">
-                {{ render_field(form.indo_city, class="form-control",autocomplete="off",placeholder="")}}   
-              </div>
-            </div>
-            <div class="col-md-6">  
-              <div class="form-group">
-                {{ render_field(form.indo_state, class="form-control",autocomplete="off",placeholder="")}}   
-              </div>
-            </div>
-           
-            <div class="col-md-6">  
-              <div class="form-group">
-                {{ render_field(form.indo_zip, class="form-control",autocomplete="off",placeholder="")}}   
-              </div>
-            </div>
+
             
-           </div>
-           <br>
-           <br>
-
-
-
-            <button type="submit" class="btn btn-outline-dark float-right">Submit Data</button>
+            <button type="submit" class="btn btn-outline-dark float-right" style="margin:5px;">Next Step</button>
+            <a href="/sub/step1/{{url }}" class="btn btn-outline-dark float-right" style="margin:5px;">Previous Step</a>
           </form>
         </div>  
 

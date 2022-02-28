@@ -20,7 +20,7 @@ import random
 from flask_compress import Compress
 from werkzeug.utils import secure_filename
 import os
-from form import StepOneSocialForm,StepOneBusinessForm,StepTwoForm,StepThreeForm,StepFourForm,UploadForm
+from form import StepOneSocialForm,StepOneBusinessForm,StepTwoForm,StepThreeForm,StepFourForm,UploadForm,SubmitForm
 
 
 
@@ -156,28 +156,6 @@ class Document(db.Model):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @app.route("/",methods=["GET","POST"])
 def Index():
     formone = FormOne()
@@ -277,7 +255,7 @@ def Services(name):
         return render_template("freelance.html")
     elif name == "social-visa-onshore":
         return render_template("social.html")
-    elif name == "business-visa-onshore":
+    elif name == "business-visa-offshore":
         return render_template("business.html")
     elif name == "set-up-pt-pma":
         return render_template("pma.html")    
@@ -311,39 +289,81 @@ def CreateOrder(tipe):
 @app.route("/sub/step1/<url>",methods=["GET","POST"])
 def StepOne(url):
     booking = Booking.query.filter_by(url=url).first()
-    if booking.tipe == "business visa offshore":
-        form = StepOneBusinessForm()  
-    else:    
-        form = StepOneSocialForm()
-      
-    if form.validate_on_submit():
-        checked = request.form.getlist("vehicle")
-        if len(checked) == 10:
-            services = form.services.data 
-            if services == "E-Visa Service":
-                booking.pricing = 3300000
-                db.session.commit()
-            elif services == "E-Visa Service + Visa Extention":
-                booking.pricing = 6500000
-                db.session.commit()
-            elif services == "E-Visa Regular Proccess Service":
-                booking.pricing = 2999000
-                db.session.commit() 
-            elif services == "E-Visa Express Proccess Service":
-                booking.pricing = 3800000
-                db.session.commit() 
+    if booking.services == None: 
+        if booking.tipe == "business visa offshore":
+            form = StepOneBusinessForm()  
+        else:    
+            form = StepOneSocialForm()   
+
+        if form.validate_on_submit():
+            checked = request.form.getlist("vehicle")
+            if len(checked) == 4:
+                services = form.services.data 
+                if services == "E-Visa Service":
+                    booking.pricing = 3300000
+                    db.session.commit()
+                elif services == "E-Visa Service + Visa Extention":
+                    booking.pricing = 6500000
+                    db.session.commit()
+                elif services == "E-Visa Super Express Proccess Service":
+                    booking.pricing = 329
+                    db.session.commit() 
+                elif services == "E-Visa Express Proccess Service":
+                    booking.pricing = 259
+                    db.session.commit() 
+                else:
+                    booking.pricing = 700
+                    db.session.commit()                    
+                               
+
+                booking.paymentmethod = form.payment.data 
+                booking.services = form.services.data 
+                db.session.commit()          
+
+                return redirect(url_for("StepTwo",url=url))
             else:
-                booking.pricing = 7000000
-                db.session.commit()    
-                
-                           
+                flash("Please select all the check box","danger")    
+    else:
 
-            booking.paymentmethod = form.payment.data 
-            booking.services = form.services.data 
-            db.session.commit()          
+        booking = Booking.query.filter_by(url=url).first()
+        if booking.tipe == "business visa offshore":
+            form = StepOneBusinessForm()  
+        else:    
+            form = StepOneSocialForm()
 
-            return redirect(url_for("StepTwo",url=url))
-    return render_template("submission/stepone.html",form=form,tipe=booking.tipe)
+        form.services.data = booking.services
+        form.payment.data = booking.paymentmethod     
+        if form.validate_on_submit():
+            checked = request.form.getlist("vehicle")
+            if len(checked) == 4:
+
+                services = request.form["services"]
+                if services == "E-Visa Service":
+                    booking.pricing = 3300000
+                    db.session.commit()
+                elif services == "E-Visa Service + Visa Extention":
+                    booking.pricing = 6500000
+                    db.session.commit()
+                elif services == "E-Visa Super Express Proccess Service":
+                    booking.pricing = 329
+                    db.session.commit() 
+                elif services == "E-Visa Express Proccess Service":
+                    booking.pricing = 259
+                    db.session.commit() 
+                else:
+                    booking.pricing = 700
+                    db.session.commit()    
+                booking.services = services    
+                booking.paymentmethod = request.form["payment"]
+                db.session.commit()
+
+                return redirect(url_for("StepTwo",url=url))
+            
+            else:
+                flash("Please select all the check box","danger")    
+                    
+    return render_template("submission/stepone.html",form=form,tipe=booking.tipe,booking=booking,
+        url=url)
 
 
 
@@ -351,74 +371,165 @@ def StepOne(url):
 def StepTwo(url):
     booking = Booking.query.filter_by(url=url).first()
     form = StepTwoForm()    
-    if form.validate_on_submit():
-        booking.fullname =   form.fullname.data
-        booking.gender =  form.gender.data   
-        booking.birthplace =   form.birthplace.data
-        booking.birthdate =  form.birthdate.data
-        booking.martial =  form.martial.data 
-        booking.nationality =   form.nationality.data
-        booking.email =  form.email.data   
-        booking.phone =  form.phone.data 
-        booking.original_address = form.original_address.data 
-        booking.original_city = form.original_city.data
-        booking.original_state =form.original_state.data
-        booking.original_zip =  form.original_zip.data
-        booking.original_country =  form.original_country.data
-        booking.indo_address = form.indo_address.data
-        booking.indo_city =form.indo_city.data
-        booking.indo_state =  form.indo_state.data
-        booking.indo_zip =  form.indo_zip.data
-        db.session.commit()
-        return redirect(url_for("StepThree",url=url))
-    return render_template("submission/steptwo.html",form=form)    
+    if booking.fullname == None:
+        if form.validate_on_submit():
+            phone = form.phone.data
+            if phone[0] == "+":
+                booking.fullname =   form.fullname.data
+                booking.gender =  form.gender.data   
+                booking.birthplace =   form.birthplace.data
+                booking.birthdate =  form.birthdate.data
+                booking.martial =  form.martial.data 
+                booking.nationality =   form.nationality.data
+                booking.email =  form.email.data   
+                booking.phone =  form.phone.data 
+                booking.original_address = form.original_address.data 
+                booking.original_city = form.original_city.data
+                booking.original_state =form.original_state.data
+                booking.original_zip =  form.original_zip.data
+                booking.original_country =  form.original_country.data       
+                db.session.commit()
+                return redirect(url_for("StepThree",url=url))
+            else:
+                flash("Please use + on the whatsapp form","danger")
+    else:
+        form.fullname.data= booking.fullname
+        form.gender.data  = booking.gender
+        form.birthplace.data= booking.birthplace
+        form.birthdate.data= booking.birthdate
+        form.martial.data = booking.martial
+        form.nationality.data= booking.nationality
+        form.email.data = booking.email
+        form.phone.data = booking.phone
+        form.original_address.data = booking.original_address
+        form.original_city.data= booking.original_city
+        form.original_state.data= booking.original_state
+        form.original_zip.data= booking.original_zip
+        form.original_country.data  = booking.original_country
+        if form.validate_on_submit():
+            phone =  form.phone.data = request.form["phone"]
+            if phone[0] == "+":
+                booking.fullname= request.form["fullname"]
+                booking.gender  = request.form["gender"] 
+                booking.birthplace= request.form["birthplace"]
+                date = datetime.strptime(request.form["birthdate"], '%m/%d/%Y').strftime('%Y-%m-%d') 
+                booking.birthdate= date
+                booking.martial = request.form["martial"]
+                booking.nationality= request.form["nationality"]
+                booking.email = request.form["email"]  
+                booking.phone = request.form["phone"]
+                booking.original_address = request.form["original_address"]
+                booking.original_city= request.form["original_city"]
+                booking.original_state= request.form["original_state"]
+                booking.original_zip= request.form["original_zip"]
+                booking.original_country  = request.form["original_country"]
+                db.session.commit()     
+                return redirect(url_for("StepThree",url=url))
+            else:
+                flash("Please use + on the whatsapp form","danger")
+                                   
+    return render_template("submission/steptwo.html",form=form,booking=booking,url=url)    
 
 
 @app.route("/sub/step3/<url>",methods=["GET","POST"])
 def StepThree(url):
     booking = Booking.query.filter_by(url=url).first()
     form = StepThreeForm()    
-    if form.validate_on_submit():
-        booking.emergency_name = form.emergency_name.data 
-        booking.emergency_status =  form.emergency_status.data
-        booking.emergency_address =  form.emergency_address.data
-        booking.emergency_city = form.emergency_city.data
-        booking.emergency_state = form.emergency_state.data
-        booking.emergency_zip =  form.emergency_zip.data
-        booking.emergency_country =  form.emergency_country.data
-        booking.emergency_email = form.emergency_email.data
-        booking.emergency_phone =  form.emergency_phone.data
-        db.session.commit()
-        return redirect(url_for("StepFour",url=url))
-    return render_template("submission/stepthree.html",form=form)    
+    if booking.emergency_name == None:
+        if form.validate_on_submit():
+            booking.emergency_name = form.emergency_name.data 
+            booking.emergency_status =  form.emergency_status.data
+            booking.emergency_address =  form.emergency_address.data
+            booking.emergency_city = form.emergency_city.data
+            booking.emergency_state = form.emergency_state.data
+            booking.emergency_zip =  form.emergency_zip.data
+            booking.emergency_country =  form.emergency_country.data
+            booking.emergency_email = form.emergency_email.data
+            booking.emergency_phone =  form.emergency_phone.data
+            db.session.commit()
+            return redirect(url_for("StepFour",url=url))
+    else:
+        form.emergency_name.data  = booking.emergency_name
+        form.emergency_status.data = booking.emergency_status
+        form.emergency_address.data = booking.emergency_address
+        form.emergency_city.data = booking.emergency_city
+        form.emergency_state.data = booking.emergency_state
+        form.emergency_zip.data = booking.emergency_zip
+        form.emergency_country.data = booking.emergency_country
+        form.emergency_email.data = booking.emergency_email
+        form.emergency_phone.data = booking.emergency_phone        
+        if form.validate_on_submit():
+            booking.emergency_name  = request.form["emergency_name"]
+            booking.emergency_status = request.form["emergency_status"]
+            booking.emergency_address = request.form["emergency_address"]
+            booking.emergency_city = request.form["emergency_city"]
+            booking.emergency_state = request.form["emergency_state"]
+            booking.emergency_zip = request.form["emergency_zip"]
+            booking.emergency_country = request.form["emergency_country"]
+            booking.emergency_email = request.form["emergency_email"]
+            booking.emergency_phone = request.form["emergency_phone"]
+            db.session.commit()
+            return redirect(url_for("StepFour",url=url))
+                    
+    return render_template("submission/stepthree.html",form=form,booking=booking,url=url)    
 
 
 @app.route("/sub/step4/<url>",methods=["GET","POST"])
 def StepFour(url):
     booking = Booking.query.filter_by(url=url).first()
+    travel = TravelDocument.query.filter_by(traveldocumentowner_id=booking.id).first()
     form = StepFourForm() 
-    if form.validate_on_submit():
-        travel = TravelDocument(tipe=form.tipe.data,document_number=form.document_number.data,
-            place_issued=form.place_issued.data,date_issued=form.date_issued.data,date_expired=form.date_expired.data,
-            traveldocumentowner_id=booking.id)
-        db.session.add(travel)
-        db.session.commit()
+    if travel:
+        form.tipe.data = travel.tipe
+        form.document_number.data = travel.document_number
+        form.place_issued.data = travel.place_issued
+        form.date_issued.data = travel.date_issued        
+        form.date_expired.data = travel.date_expired
+        if form.validate_on_submit():
+            expired = datetime.strptime(request.form["date_expired"], '%m/%d/%Y').strftime('%Y-%m-%d') 
+            issued = datetime.strptime(request.form["date_issued"], '%m/%d/%Y').strftime('%Y-%m-%d') 
+            travel.tipe = request.form["tipe"]
+            travel.document_number = request.form["document_number"]
+            travel.place_issued = request.form["place_issued"]
+            travel.date_issued = issued
+            travel.date_expired = expired
+            db.session.commit()        
+            return redirect(url_for("StepFive",url=url))
 
-        booking.visit_purpose = form.visit_purpose.data
-        booking.activities = form.activities.data
-        booking.deported = form.deported.data
-        booking.overstay = form.overstay.data
-        db.session.commit()
+    else: 
+        if form.validate_on_submit():
+            travel = TravelDocument(tipe=form.tipe.data,document_number=form.document_number.data,
+                    place_issued=form.place_issued.data,date_issued=form.date_issued.data,date_expired=form.date_expired.data,
+                    traveldocumentowner_id=booking.id)
+            db.session.add(travel)
+            db.session.commit()                           
+            return redirect(url_for("StepFive",url=url))
 
-        return redirect(url_for("StepFive",url=url))
-    return render_template("submission/stepfour.html",form=form)  
+    return render_template("submission/stepfour.html",form=form,booking=booking,url=url)  
 
 
 @app.route("/sub/step5/<url>",methods=["GET","POST"])
 def StepFive(url):
     booking = Booking.query.filter_by(url=url).first()
-    all_document = Document.query.filter_by(documentowner_id=booking.id).all()       
-    return render_template("submission/stepfive.html",all_document=all_document,booking=booking,Document=Document)  
+    all_document = Document.query.filter_by(documentowner_id=booking.id).all() 
+    form = SubmitForm()
+    if form.validate_on_submit():
+        if len(all_document) == 3 :        
+            booking.status = "complete order"
+            db.session.commit()
+
+            email = booking.email
+            msg = Message("Bali Zero Invoice", sender="info@balizero.com", recipients=[email])
+
+            link = url_for("InvoiceId", url=url, _external=True)
+            msg.body = "Thank you for your order, you can access the invoice in this link {}".format(link)
+            mail.send(msg)
+            return redirect(url_for("InvoiceId",url=url))
+        else:
+            flash("Please complete your data","danger")  
+            return redirect(url_for("StepFive",url=url))      
+          
+    return render_template("submission/stepfive.html",form=form,url=url,all_document=all_document,booking=booking,Document=Document)  
 
 
 @app.route("/sub/step5/<url>/upload/<tipe>",methods=["GET","POST"])
@@ -453,19 +564,15 @@ def DeleteDocument(url,tipe,filename):
 
 
 
-
 @app.route("/sub/step6/<url>/finished",methods=["GET","POST"])
 def CheckFinishedData(url):
     booking = Booking.query.filter_by(url=url).first()
     all_document = Document.query.filter_by(documentowner_id=booking.id).all()  
-    if len(all_document) == 5 :
+    if len(all_document) == 3 :
         booking.status = "complete order"
         db.session.commit()
         return redirect(url_for("InvoiceId",url=url))
-    else:
-        flash("Please complete your data","danger")
-        return redirect(url_for("StepFive",url=url))    
-
+    
 
 
 

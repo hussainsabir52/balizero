@@ -2,12 +2,17 @@
 
 {% block content %}
 
+
+
+
+
 <div class="container card container-card" >
 
 
     <div class="row text-center justify-content-center mb-5">
         <div class="col-xl-12 col-lg-12">
-            <h2 class="font-weight-bold" style="margin-top: 40px;">Single Entry Visit e-Visa B211A (ONSHORE)</h2>
+            {% include "includes/_message.html" %}   
+            <h2 class="font-weight-bold" style="margin-top: 40px;">{{ booking.tipe | title}}  </h2>
         </div>
     </div>
 
@@ -52,37 +57,37 @@
 
       <div class="container">
        <div class="row">
-        
+        <div class="col-md-12">
+          {% from "includes/_formhelpers.html" import render_field %} 
+        </div>
         <div class="col-md-12" style="margin-top: 75px; margin-bottom: 50px;">
-         
+
+          <br>          
           <p style="font-weight: 600;">PLEASE READ ALL THE DETAILS INFORMATION BEFORE YOU FILLING UP THE APPLICATION FORM</p>
           <p style="font-weight: 600;">Document Checklist</p>
 
 
-         {% from "includes/_formhelpers.html" import render_field %}
+         
             <form method="POST" enctype="multipart/form-data" id="form">
                {{ form.hidden_tag() }}
-            <div class="row">
+            <div class="row"> 
+            
+            <div class="col-md-12">
+                <input type="checkbox" onchange="checkAll(this)" name="select" value="Bike">
+                 <label for="select">Select all</label><br>
+            </div>
             
             <div class="col-md-6">
+
               <input type="checkbox" id="vehicle1" name="vehicle" value="Bike">
               <label for="vehicle1">  Scanning of the page of the passport details</label><br>
-              <input type="checkbox" id="vehicle2" name="vehicle" value="Car">
-              <label for="vehicle2"> Bank statement</label><br>
-              <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
-              <label for="vehicle3">Address in Indonesia (hotel or villa)</label><br>
-              <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
-              <label for="vehicle3">Emergency contact details (family members)</label><br>
-              <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
-              <label for="vehicle3">Passports valid for at least 12 months at the date of entry</label><br>
+               <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
+              <label for="vehicle3">Personal contact details</label><br>
+             
             </div>  
             <div class="col-md-6">
-              <input type="checkbox" id="vehicle1" name="vehicle" value="Bike">
-              <label for="vehicle1">Scanning of the page of the passport cover</label><br>
-              <input type="checkbox" id="vehicle2" name="vehicle" value="Car">
-              <label for="vehicle2">Address in original country</label><br>
-              <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
-              <label for="vehicle3">Personal contact details</label><br>
+             
+             
               <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
               <label for="vehicle3">Covid-19 Vaccine Certificate/Card (in English)</label><br>
               <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
@@ -114,7 +119,7 @@
             <br>
 
 
-          <button type="submit" class="btn btn-outline-dark float-right">Submit Data</button>
+          <button type="submit" class="btn btn-outline-dark float-right">Next Step</button>
           </form>
         </div>  
 
@@ -136,4 +141,22 @@
 
 </div>
 
+<script type="text/javascript">
+  function checkAll(ele) {
+       var checkboxes = document.getElementsByTagName('input');
+       if (ele.checked) {
+           for (var i = 0; i < checkboxes.length; i++) {
+               if (checkboxes[i].type == 'checkbox' ) {
+                   checkboxes[i].checked = true;
+               }
+           }
+       } else {
+           for (var i = 0; i < checkboxes.length; i++) {
+               if (checkboxes[i].type == 'checkbox') {
+                   checkboxes[i].checked = false;
+               }
+           }
+       }
+   }
+ </script>
 {% endblock %}

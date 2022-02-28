@@ -22,7 +22,9 @@ class AddUserForm(FlaskForm):
 
 
 
-
+class SubmitForm(FlaskForm):
+	submit = SubmitField("")
+	
 class FormOne(FlaskForm):
 	name = StringField("Your Name",validators=[InputRequired(),Length(max=100)])		
 	email  = StringField("Email",validators=[InputRequired(),Length(max=100)])	
@@ -45,9 +47,9 @@ class FormTwo(FlaskForm):
 
 
 class StepOneBusinessForm(FlaskForm):
-	services = SelectField("Services",choices=[("E-Visa Regular Proccess Service","E-Visa Regular Proccess Service - IDR2.999.000"),
-		("E-Visa Express Proccess Service","E-Visa Express Proccess Service - IDR3.800.000"),
-		("E-Visa Regular Proccess Service + Visa Extention","E-Visa Regular Proccess Service + Visa Extention - IDR7.000.000")])
+	services = SelectField("Services",choices=[("E-Visa Super Express Proccess Service","E-Visa Super Express Proccess Service - USD 329"),
+		("E-Visa Express Proccess Service","E-Visa Express Proccess Service - USD 259"),
+		("E-Visa Super Express + Accomodation in COZero Living","E-Visa Super Express + Accomodation in COZero Living - USD 700")])
 	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal")])
 
 class StepOneSocialForm(FlaskForm):
@@ -65,17 +67,14 @@ class StepTwoForm(FlaskForm):
 	nationality = SelectField("Nationality",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),
 		("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])  
 	email =   StringField("email",validators=[InputRequired(),Length(max=100)])
-	phone =   StringField("phone",validators=[InputRequired(),Length(max=100)])
+	phone =   StringField("whatsapp",validators=[InputRequired(),Length(max=100)])
 	original_address =   StringField("address",validators=[InputRequired(),Length(max=100)])
 	original_city =  StringField("city",validators=[InputRequired(),Length(max=100)])
 	original_state =   StringField("state/province/region",validators=[InputRequired(),Length(max=100)])
 	original_zip =   StringField("zip",validators=[InputRequired(),Length(max=100)])
 	original_country = SelectField("country",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),
 		("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])
-	indo_address =   StringField("address",validators=[InputRequired(),Length(max=100)])
-	indo_city =  StringField("city",validators=[InputRequired(),Length(max=100)])
-	indo_state =  StringField("state/province/region",validators=[InputRequired(),Length(max=100)])
-	indo_zip =   StringField("zip",validators=[InputRequired(),Length(max=100)])
+	
 
 class StepThreeForm(FlaskForm):
 	emergency_name =  StringField("full name",validators=[InputRequired(),Length(max=100)])
@@ -90,6 +89,15 @@ class StepThreeForm(FlaskForm):
 	emergency_phone =  	StringField("phone",validators=[InputRequired(),Length(max=100)])
 
 class StepFourForm(FlaskForm):
+	tipe = SelectField("Type of Travel Document ",choices=[("Passport","Passport"),("Other Travel Document","Other Travel Document")])  
+	document_number = StringField("Document Number",validators=[InputRequired(),Length(max=100)])
+	place_issued = StringField("Place issued",validators=[InputRequired(),Length(max=100)])
+	date_issued = DateField("Date issued",format="%m/%d/%Y")
+	date_expired = DateField("Date expired",format="%m/%d/%Y")
+	
+
+
+class step(FlaskForm):
 	tipe = SelectField("Type of Travel Document ",choices=[("Passport","Passport"),("Other Travel Document","Other Travel Document")])  
 	document_number = StringField("Document Number",validators=[InputRequired(),Length(max=100)])
 	place_issued = StringField("Place issued",validators=[InputRequired(),Length(max=100)])

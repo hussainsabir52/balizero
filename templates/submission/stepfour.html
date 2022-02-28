@@ -7,7 +7,7 @@
 
     <div class="row text-center justify-content-center mb-5">
         <div class="col-xl-12 col-lg-12">
-            <h2 class="font-weight-bold" style="margin-top: 40px;">Single Entry Visit e-Visa B211A (ONSHORE)</h2>
+             <h2 class="font-weight-bold" style="margin-top: 40px;">{{ booking.tipe | title}}  </h2>
         </div>
     </div>
 
@@ -90,40 +90,15 @@
             </div>
             
            </div>
-           <hr>
-           <p style="font-weight: 600;">Supporting Document</p>
-           <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                {{ render_field(form.visit_purpose, class="form-control",autocomplete="off",placeholder="")}}  
-              </div>
-            </div>
-
-            <div class="col-md-12">  
-              <div class="form-group">
-                {{ render_field(form.activities, class="form-control",autocomplete="off",placeholder="")}}   
-              </div>
-            </div>
-            <div class="col-md-6">  
-              <div class="form-group">
-                {{ render_field(form.deported, class="form-control",autocomplete="off",placeholder="")}}   
-              </div>
-            </div>
            
-            <div class="col-md-6">  
-              <div class="form-group">
-                {{ render_field(form.overstay, class="form-control",autocomplete="off",placeholder="")}}   
-              </div>
-            </div>
-            
-           </div>
            <br>
            <br>
 
 
 
 
-            <button type="submit" class="btn btn-outline-dark float-right">Submit Data</button>
+             <button type="submit" class="btn btn-outline-dark float-right" style="margin:5px;">Next Step</button>
+            <a href="/sub/step3/{{url }}" class="btn btn-outline-dark float-right" style="margin:5px;">Previous Step</a>
           </form>
         </div>  
 

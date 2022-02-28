@@ -52,7 +52,7 @@
 						  <li><a class="dropdown-item" href="/services/working-kitas"> Working Kitas </a></li>
 						  <li><a class="dropdown-item" href="/services/freelance-kitas"> Freelance Kitas </a></li>
 						  <li><a class="dropdown-item" href="/services/social-visa-onshore"> Social Visa Onshore </a></li>
-						  <li><a class="dropdown-item" href="/services/business-visa-offshore"> Business Visa Offshore </a></li>
+						  <li><a class="dropdown-item" href="/services/business-visa-onshore"> Business Visa Offshore </a></li>
 						  <li><a class="dropdown-item" href="/services/set-up-pt-pma"> Set Up PT PMA </a></li>
 						  <li><a class="dropdown-item" href="/services/cozero-living"> COZero Living </a></li>
 						
@@ -108,30 +108,29 @@
 								<div class="tab-content" id="v-pills-tabContent">
 
 									<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-										 {% from "includes/_formhelpers.html" import render_field %}
-							             <form method="POST" action="{{ url_for('Index') }}" enctype="multipart/form-data" class="search-property-1">
-							               {{ formone.hidden_tag() }}
-										
+										 <form method="POST">
+							               									
 											<div class="row no-gutters">
 												
 												<div class="col-md d-flex">
 													<div class="form-group p-4  border-0">
-														{{ render_field(formone.time, class="form-control",autocomplete="off",placeholder="")}}
+														<select id="system"><option></option> </select>
 													</div>
 												</div>
 												<div class="col-md d-flex">
 													<div class="form-group p-4  border-0">
-														{{ render_field(formone.purpose, class="form-control",autocomplete="off",placeholder="")}}
+														<select id="game"></select>
+													</div>
+												</div>
+												
+												<div class="col-md d-flex">
+													<div class="form-group p-4 border-0">
+														
 													</div>
 												</div>
 												<div class="col-md d-flex">
 													<div class="form-group p-4 border-0">
-														{{ render_field(formone.name, class="form-control",autocomplete="off",placeholder="")}}
-													</div>
-												</div>
-												<div class="col-md d-flex">
-													<div class="form-group p-4 border-0">
-														{{ render_field(formone.email, class="form-control",autocomplete="off",placeholder="")}}
+														
 													</div>
 												</div>
 												
@@ -860,60 +859,7 @@
 		   </div>
 		 </div>
 		</section>
-	
-
-		<footer class="ftco-footer bg-bottom ftco-no-pt" style="background-color: #000;color: #fff;">
-			<div class="container">
-				<div class="row mb-5">
-					<div class="col-md pt-5">
-						<div class="ftco-footer-widget pt-md-5 mb-4">
-							<h2 class="ftco-heading-2" style="color: #fff;">About</h2>
-							<p style="color: #fff;">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-							<br>
-							<ul class="ftco-footer-social list-unstyled float-md-left float-lft">
-								<li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-								<li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-								<li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md pt-5">
-						<div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
-							<h2 class="ftco-heading-2" style="color: #fff;">Menu</h2>
-							<ul class="list-unstyled">
-								<li><a href="/" class="py-2 d-block" style="color: #fff;">Home</a></li>
-								<li><a href="/#about" class="py-2 d-block" style="color: #fff;">About</a></li>
-								<li><a href="/tracking" class="py-2 d-block" style="color: #fff;">Tracking</a></li>
-								<li><a href="/#blog" class="py-2 d-block" style="color: #fff;">Blog</a></li>
-								<li><a href="/#contact" class="py-2 d-block" style="color: #fff;">Contact</a></li>
-								
-					
-						</div>
-					</div>
-					
-					<div class="col-md pt-5">
-						<div class="ftco-footer-widget pt-md-5 mb-4">
-							<h2 class="ftco-heading-2">Have a Questions?</h2>
-							<div class="block-23 mb-3">
-								<ul>
-									<li><span class="icon fa fa-map-marker"></span><span class="text" style="color: #fff !important; ">Jl. Raya Semer, Kerobokan, Kec. Kuta Utara, Kabupaten Badung, Bali, 80361</span></li>
-									<li><a href="#"><span class="icon fa fa-phone"></span><span class="text" style="color: #fff !important;">+62816117171</span></a></li>
-									<li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text" style="color: #fff!important;">info@balizero.com</span></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 text-center">
-
-						<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-						</div>
-					</div>
-				</div>
-			</footer>					
+				
 			
 
 
@@ -978,7 +924,106 @@
 
 
 
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+    "use strict";
 
+    var systems = {{ systems|tojson }};
+
+    var form = $('form');
+    var system = $('select#system');
+    var game = $('select#game');
+    var characters = $('select#characters');
+
+    for (var key in systems) {
+        system.append($('<option/>', {'value': key, 'text': key}));
+    }
+
+    system.change(function(ev) {
+        game.empty();
+        game.append($('<option/>'));
+
+        var games = systems[system.val()];
+
+        for (var i in games) {
+            game.append($('<option/>', {'value': i, 'text': i}));
+        }
+    });
+    
+    game.change(function(evV) {
+        characters.empty();
+        characters.append($('<option/>'));
+
+        var games = systems[system.val()][game.val()];
+
+        for (var i in games) {
+            characters.append($('<option/>', {'value': games[i], 'text': games[i]}));
+        }
+    });
+
+</script>
 
 		</body>
 		</html>
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/form")
+def ViewForm():
+    systems = {
+        'PlayStation': {'Spyro': ['1', '2', '3'], 'Crash': ['4', '5', '6'], 'Ico': ['7', '8']},
+        'N64': {'Mario Kart': ['Mario', 'Luigi'], 'Superman': ['12', '13', '14']}
+    }
+    
+    if request.method == "POST":
+
+        systemGet = request.form.get("system")
+        gameGet = request.form.get("game")
+        charactersGet = request.form.get("characters")
+        
+        print(systemGet)
+        print(gameGet)
+        print(charactersGet)
+
+        return redirect('temp.html')
+
+
+    return render_template("form.html",systems=systems)
+
+
+
+@app.route("/new")
+def NewViewForm():
+    systems = {
+        'Less than 30 days': {'Tourism': ['1', '2', '3'], 'Business/Other': ['4', '5', '6']},
+        'More than 1 month and less than 6 month': {'Staycation/Business/Work Remotely': ['Mario', 'Luigi'], 'work': ['12', '13', '14'], 'Investment': ['12', '13', '14']},
+        'Long term more than 6 month': {'Retired': ['1', '2', '3'], 'Married With Indonesian Citizen': ['4', '5', '6'], 
+        'Investment': ['4', '5', '6'],'Staycation/Business/Work Remotely': ['4', '5', '6'],'work': ['4', '5', '6']}
+    }
+    
+    if request.method == "POST":
+
+        systemGet = request.form.get("system")
+        gameGet = request.form.get("game")
+        charactersGet = request.form.get("characters")
+        
+        print(systemGet)
+        print(gameGet)
+        print(charactersGet)
+
+        return redirect('temp.html')
+
+
+    return render_template("new.html",systems=systems)    
+
+
+		
