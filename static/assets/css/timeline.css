@@ -4479,8 +4479,8 @@ background: linear-gradient(180deg, rgba(48,60,112,0.9) 0%, rgba(48,60,112,0.9) 
 }
 
 .apply-style-two .single-item .inner-box:hover .icon-box {
-    background: #ff0000;
-    border-color: #ff0000; /*F17E52*/
+    background: #e3242b;
+    border-color: #e3242b; /*F17E52*/
 }
 .apply-style-two .single-item .inner-box:hover .icon-box{
   color: #fff !important;
