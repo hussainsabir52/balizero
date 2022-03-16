@@ -4419,7 +4419,9 @@ background: linear-gradient(180deg, rgba(48,60,112,0.9) 0%, rgba(48,60,112,0.9) 
 
 .apply-style-two{
   position: relative;
-  padding: 105px 0px;
+
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
 
 .apply-style-two .top-inner{
@@ -4456,7 +4458,7 @@ background: linear-gradient(180deg, rgba(48,60,112,0.9) 0%, rgba(48,60,112,0.9) 
 
 .apply-style-two .single-item .inner-box .icon-box .arrow{
   position: absolute;
-  top: 32px;
+  top: 52px;
   left: 142px;
   width: 125px;
   height: 21px;

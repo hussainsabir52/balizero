@@ -32,8 +32,20 @@ class FormOne(FlaskForm):
 		,("More than 1 month and less than 6 month","More than 1 month and less than 6 month"),
 		("Long term more than 6 month","Long term more than 6 month")])
 	purpose = SelectField("My Travel Purpose",choices=[("Tourism","Tourism"),("Business/Other","Business/Other"),
-		("Staycation/Business/Work Remotely","Staycation/Business/Work Remotely"),("Work","Work"),
+		("Staycation/Business/Remotely","Staycation/Business/Remotely"),("Work","Work"),
 		("Investment","Investment"),("I'm Retired","I'm Retired"),("I'm Married With Indonesian Citizen","I'm Married With Indonesian Citizen")])
+
+
+class AppliedForm(FlaskForm):	
+	name = StringField("Your Name",validators=[InputRequired(),Length(max=100)])		
+	email  = StringField("Email",validators=[InputRequired(),Length(max=100)])	
+	time =  SelectField("Stay Duration",choices=[("Less than 30 days","Less than 30 days")
+		,("More than 1 month and less than 6 month","More than 1 month and less than 6 month"),
+		("Long term more than 6 month","Long term more than 6 month")])   
+	one = SelectField("My Travel Purpose",choices=[("Tourism","Tourism"),("Business/Other","Business/Other")])    
+	two = SelectField("My Travel Purpose",choices=[("Staycation/Business/Work","Staycation/Business/Work"),("Work","Work")])
+	three = SelectField("My Travel Purpose",choices=[("Investment","Investment"),("I'm Retired","I'm Retired"),("I'm Married With Indonesian Citizen","I'm Married With Indonesian Citizen")])
+
 
 
 class FormTwo(FlaskForm):
@@ -47,14 +59,14 @@ class FormTwo(FlaskForm):
 
 
 class StepOneBusinessForm(FlaskForm):
-	services = SelectField("Services",choices=[("E-Visa Super Express Proccess Service","E-Visa Super Express Proccess Service - USD 329"),
-		("E-Visa Express Proccess Service","E-Visa Express Proccess Service - USD 259"),
+	services = SelectField("Services",choices=[("E-Visa Super Express Proccess Service","E-Visa Super Express Proccess Service - 4M IDR + 50 USD (329 $)"),
+		("E-Visa Express Proccess Service","E-Visa Express Proccess Service - 3M IDR + 50 USD (249 $)"),
 		("E-Visa Super Express + Accomodation in COZero Living","E-Visa Super Express + Accomodation in COZero Living - USD 700")])
 	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal")])
 
 class StepOneSocialForm(FlaskForm):
-	services = SelectField("Services",choices=[("E-Visa Service","E-Visa Service - IDR3.300.000"),
-		("E-Visa Service + Visa Extention","E-Visa Service + Visa Extention - IDR6.500.000")])
+	services = SelectField("Services",choices=[("E-Visa Service","E-Visa Service - 2,8M IDR + 50 USD (245 $)"),
+		("E-Visa Service + Visa Extention","E-Visa Service + Visa Extention - 3,8 IDR + 50 USD (315 $)")])
 	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal")])
 
 
@@ -111,3 +123,11 @@ class step(FlaskForm):
 
 class UploadForm(FlaskForm):	
 	file = FileField("",validators=[FileRequired()])	
+
+
+class AppointmentForm(FlaskForm):	
+	name = StringField("Your Name",validators=[InputRequired(),Length(max=100)])		
+	email  = StringField("Email",validators=[InputRequired(),Length(max=100)])	
+	date =  DateField("Date",format="%m/%d/%Y")
+	meeting = SelectField("Meeting Preferences",choices=[("Video Meeting","Video Meeting"),("Office Visit","Office Visit")])    
+	

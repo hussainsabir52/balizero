@@ -67,7 +67,9 @@
             In this section you will be collecting all the documents needed to do it and choosing the best service you want to buy.</p>
             <p>Some suggestions for you: </p>
             <ul>
+              {% if booking.tipe != "social visa onshore" %}
               <li>Book your flight only after your visa in your mailbox</li>
+              {% endif %}
               <li>Make sure the documents you are uploading are clear, flat, readable, no shadow, no flash</li>
               <li>Remember to not scan the documents showing your finger</li> 
               <li>Stay always updated about Indonesia government new rules through our blog</li>
@@ -84,10 +86,6 @@
                {{ form.hidden_tag() }}
             <div class="row"> 
             
-            <div class="col-md-12">
-                <input type="checkbox" onchange="checkAll(this)" name="select" value="Bike">
-                 <label for="select">Select all</label><br>
-            </div>
             
             <div class="col-md-6">
 
@@ -102,9 +100,20 @@
              
               <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
               <label for="vehicle3">Covid-19 Vaccine Certificate/Card (in English)</label><br>
+              {% if booking.tipe != "social visa onshore" %}
+          
               <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
               <label for="vehicle3">Passport Photo in colour 4 x 6 digital</label><br>
+              {% endif %}
+             
+              <input type="checkbox" onchange="checkAll(this)" name="select" value="Bike">
+                 <label for="select">Select all</label><br>
             </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                
+            </div>
+            
           </div>
             
             

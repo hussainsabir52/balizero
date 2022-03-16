@@ -38,12 +38,14 @@
 </div>
 
 
+
 <div class="container card container-card" >
 
 
     <div class="row text-center justify-content-center mb-5">
         <div class="col-xl-12 col-lg-12">
-            <h2 class="font-weight-bold" style="margin-top: 40px;">Single Entry Visit e-Visa B211A (ONSHORE)</h2>
+            {% include "includes/_message.html" %}   
+             <h2 class="font-weight-bold" style="margin-top: 40px;">{{ booking.tipe | title}}  </h2>
         </div>
     </div>
 
@@ -98,8 +100,33 @@
                 <p>Example of The Passport Details</p>
               </div>  
               <div class="col-md-6">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img class="d-block w-100" src="/static/assets/images/doc/3.jpg" alt="First slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="/static/assets/images/doc/2.jpg" alt="Second slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="/static/assets/images/doc/1.jpg" alt="Second slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="/static/assets/images/doc/4.jpg" alt="Second slide">
+                      </div>
+                      
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                </div>
                 
-                <img src="https://submission.balivisas.com/global_assets/images/sampleScanPassport.jpeg" style="width: 300px; height: 400px;">
+               
               </div>  
 
               {% set document = Document.query.filter_by(documentowner_id=booking.id,tipe="passport").first() %} 
@@ -136,96 +163,34 @@
             </div>
 
 
-            <div class="row" style="margin-top: 50px;">  
-              <br>
-              <div class="col-md-6">
-                <p>Example of The Passport Cover</p>
-                <img src="https://submission.balivisas.com/global_assets/images/sampleScanCover.jpeg" style="max-width: 300px;">
-              </div>  
-
-              {% set document = Document.query.filter_by(documentowner_id=booking.id,tipe="cover").first() %} 
-              {% if document %} 
-              <div class="col-md-6">
-                <br>
-                  {% if  (".pdf" in document.filename)  %}
-                  <iframe src="/static/document/{{document.filename}}" style="width: 300px; height: 400px;" frameborder="0"></iframe>
-                  {% else  %}
-                  <img src="/static/document/{{document.filename}}" style="max-width: 300px;">
-                  {% endif  %}
-                  
-                  <br>
-                  <a href="/sub/step5/{{booking.url}}/delete/cover/{{document.filename}}">delete</a>
-              </div>        
-
-                        
-              
-              {% else %}  
-              <div class="col-md-6" style="margin-top: auto; margin-bottom: auto;">
-                 <div class="row">
-                    <div class="col-md-12">
-                      <div class="card" style="padding-top: 100px; padding-bottom: 100px;">
-                        <div class="card-body text-center">
-                          <div class="form-check">
-                            <a href="/sub/step5/{{booking.url}}/upload/cover"><p>Upload Passport Cover Here</p></a>
-                          </div>                    
-                        </div>
-                      </div>
-                    </div>     
-                 </div>        
-              </div>  
-              {% endif %}   
-              
-            </div>
+            
+            
 
 
-            <div class="row" style="margin-top: 50px;">  
-              <br>
-              <div class="col-md-6">
-                <p>Example of Bank Statement</p>
-                <img src="https://submission.balivisas.com/global_assets/images/bank_statement_example.png" style="max-width: 300px;">
-              </div>  
-              {% set document = Document.query.filter_by(documentowner_id=booking.id,tipe="bank").first() %} 
-              {% if document %} 
-              <div class="col-md-6">
-                <br>
-                  {% if  (".pdf" in document.filename)  %}
-                  <iframe src="/static/document/{{document.filename}}" style="width: 300px; height: 400px;" frameborder="0"></iframe>
-                  {% else  %}
-                  <img src="/static/document/{{document.filename}}" style="max-width: 300px;">
-                  {% endif  %}
-                  
-                  <br>
-                  <a href="/sub/step5/{{booking.url}}/delete/bank/{{document.filename}}">delete</a>
-              </div>        
-
-                        
-              
-              {% else %}  
-              <div class="col-md-6" style="margin-top: auto; margin-bottom: auto;">
-                 <div class="row">
-                    <div class="col-md-12">
-                      <div class="card" style="padding-top: 100px; padding-bottom: 100px;">
-                        <div class="card-body text-center">
-                          <div class="form-check">
-                            <a href="/sub/step5/{{booking.url}}/upload/bank"><p>Upload Bank Statement Here</p></a>
-                          </div>                    
-                        </div>
-                      </div>
-                    </div>     
-                 </div>        
-              </div>  
-              {% endif %}   
-              
-            </div>
-
-
-
-
+             {% if booking.tipe != "social visa onshore" %}
             <div class="row" style="margin-top: 50px;">    
               <br>
               <div class="col-md-6">
                 <p>Example of Covid-19 Vaccine Certificate/Card</p>
-                <img src="https://submission.balivisas.com/global_assets/images/VaccineSertificate.jpeg" style="max-width: 300px;">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img class="d-block w-100" src="/static/assets/images/doc/c1.jpg" alt="First slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="/static/assets/images/doc/c2.jpg" alt="Second slide">
+                      </div>
+                      
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                </div>
               </div>  
               {% set document = Document.query.filter_by(documentowner_id=booking.id,tipe="covid").first() %} 
               {% if document %} 
@@ -260,15 +225,15 @@
               {% endif %}   
               
              </div>
-
+              {% endif %}
 
 
 
 
             <div class="row" style="margin-top: 50px;">  
               <div class="col-md-6">
-               <p>Example of Passport Photo in Colour 4 x 6 Digital</p>
-                <img src="https://submission.balivisas.com/global_assets/images/pass-photo.jpg" style="max-width: 300px;">
+               <p>Example of selfie picture in colour</p>
+                <img src="/static/assets/images/doc/selfie.jpg" style="max-width: 300px;">
               </div>  
               {% set document = Document.query.filter_by(documentowner_id=booking.id,tipe="photo").first() %} 
               {% if document %} 
@@ -293,7 +258,7 @@
                       <div class="card" style="padding-top: 100px; padding-bottom: 100px;">
                         <div class="card-body text-center">
                           <div class="form-check">
-                            <a href="/sub/step5/{{booking.url}}/upload/photo"><p>Upload Passport Photo</p></a>
+                            <a href="/sub/step5/{{booking.url}}/upload/photo"><p>Upload Selfie Pic</p></a>
                           </div>                    
                         </div>
                       </div>
@@ -309,7 +274,10 @@
 
             <br>
             <br>
-            <a href="/sub/invoice/{{booking.url}}" type="submit" class="btn btn-outline-dark float-right">Submit Data</a>
+
+            <a data-toggle="modal" data-target="#exampleModalLong" class="btn btn-outline-dark float-right" style="margin:5px;">Submit Data</a>
+            <a href="/sub/step4/{{url }}" class="btn btn-outline-dark float-right" style="margin:5px;">Previous Step</a>
+            
           </form>
         </div>  
 

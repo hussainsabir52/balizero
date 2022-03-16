@@ -1,0 +1,81 @@
+{% extends "layouts/sub.html" %}
+
+{% block content %}
+
+<div class="container card container-card" >
+
+
+    <div class="row text-center justify-content-center mb-5">
+        <div class="col-xl-12 col-lg-12">
+
+             {% include "includes/_message.html" %}   
+              <h2 class="font-weight-bold" style="margin-top: 40px;">{{ services | title}}  </h2>
+        </div>
+    </div>
+
+   
+
+      <div class="container">
+       <div class="row">
+        
+        <div class="col-md-12" style="margin-top: 20px; margin-bottom: 50px;">
+         
+          <p style="font-weight: 600;">Please fill this form to book an appointment</p>
+         
+         {% from "includes/_formhelpers.html" import render_field %}
+            <form method="POST" enctype="multipart/form-data" id="form">
+               {{ form.hidden_tag() }}
+                       
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                {{ render_field(form.name, class="form-control",autocomplete="off",placeholder="")}}  
+              </div>
+            </div>
+            <div class="col-md-6">  
+              <div class="form-group">
+                {{ render_field(form.email, class="form-control",autocomplete="off",placeholder="")}}   
+              </div>
+            </div>
+            <div class="col-md-6">  
+              <div class="form-group">
+                {{ render_field(form.meeting, class="form-control",autocomplete="off",placeholder="")}}   
+              </div>
+            </div>
+            <div class="col-md-6">  
+              <div class="form-group">
+                {{ render_field(form.date, class="form-control dtpick",autocomplete="off",placeholder="")}}   
+              </div>
+            </div>
+            
+            
+
+           </div>
+           
+           <br>
+
+
+            
+            <button type="submit" class="btn btn-outline-dark float-right" style="margin:5px;">Submit Data</button>
+          </form>
+        </div>  
+
+        
+        
+      </div>
+      <br>
+      <br>
+
+    </div>  
+
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}

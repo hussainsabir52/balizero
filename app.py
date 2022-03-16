@@ -20,8 +20,8 @@ import random
 from flask_compress import Compress
 from werkzeug.utils import secure_filename
 import os
-from form import StepOneSocialForm,StepOneBusinessForm,StepTwoForm,StepThreeForm,StepFourForm,UploadForm,SubmitForm
-
+from form import AppliedForm,StepOneSocialForm,StepOneBusinessForm,StepTwoForm,StepThreeForm,StepFourForm,UploadForm,SubmitForm
+from form import AppointmentForm
 
 
 
@@ -150,6 +150,16 @@ class Document(db.Model):
     documentowner_id =  db.Column(db.Integer(), db.ForeignKey("booking.id"))
 
 
+class Appointment(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(200))
+    email = db.Column(db.String(200))
+    services = db.Column(db.String(200))
+    meeting = db.Column(db.String(200))
+    date = db.Column(db.DateTime()) 
+    url = db.Column(db.String(200))
+
+
 
 
 
@@ -158,64 +168,71 @@ class Document(db.Model):
 
 @app.route("/",methods=["GET","POST"])
 def Index():
-    formone = FormOne()
+    formone = AppliedForm()
     formtwo = FormTwo()
-    if formone.validate_on_submit():
-        time = formone.time.data 
-        purpose = formone.purpose.data
-        if time == "Less than 30 days":
-            if purpose == "Tourism":
-                messages = "SINCE MARCH 2020 COMING FOR TOURISM PORPOSE IS POSSIBEL ONLY WITH A B211A ENTRY VISA"
-                url = "APPLY FOR SINGLE ENTRY VISA"
-            elif purpose == "Business/Other":
-                messages = "YOU CAN APPLY WITH US. WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                url = "APPLY FOR SINGLE ENTRY VISA"
-            else:
-                messages = "NO SERVICES WAS FOUND"    
-                url = "GET HELP"
+    if request.method == "POST":
+        if "form1" in request.form:
+            time = request.form["vehicle"]
+            purpose = request.form["manufacturer"]
+            if time == "Less than 30 days":
+                if purpose == "Tourism":
+                    messages = "SINCE MARCH 2020 COMING FOR TOURISM PORPOSE IS POSSIBEL ONLY WITH A B211A ENTRY VISA"
+                    url = "APPLY FOR SINGLE ENTRY VISA"
+                elif purpose == "Business/Other":
+                    messages = "YOU CAN APPLY WITH US. WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
+                    url = "APPLY FOR SINGLE ENTRY VISA"
+                else:
+                    messages = "NO SERVICES WAS FOUND"    
+                    url = "GET HELP"
 
-        elif time == "More than 1 month and less than 6 month":
-            if purpose == "Staycation/Business/Work Remotely":
-                messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                url = "APPLY FOR SINGLE ENTRY VISA"
-            elif purpose == "Work":
-                messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
-                url = "WANT TO KNOW MORE ABOUT WORKING VISA"
-            elif purpose == "Investment":
-                messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                url = "APPLY FOR INVESTOR KITAS"    
-            else:
-                messages = "NO SERVICES WAS FOUND"    
-                url = "GET HELP"
+                return redirect(url_for("Result",messages=messages,url=url))     
 
-        elif time == "Long term more than 6 month":
-            if purpose == "I'm Retired":
-                messages = "IF YOU HAVE MORE THAN 55 YEARS OLD YOU CAN APPLY FOR A LONG TERM STAY PERMIT"
-                url = "APPLY FOR RETIREMENT VISA"
+            elif time == "More than 1 month and less than 6 month":
+                if purpose == "Staycation/Business/Remotely":
+                    messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
+                    url = "APPLY FOR SINGLE ENTRY VISA"
+                elif purpose == "Work":
+                    messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
+                    url = "WANT TO KNOW MORE ABOUT WORKING VISA"
+                elif purpose == "Investment":
+                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
+                    url = "APPLY FOR INVESTOR KITAS"    
+                else:
+                    messages = "NO SERVICES WAS FOUND"    
+                    url = "GET HELP"
 
-            elif purpose == "I'm Married With Indonesian Citizen":
-                messages = "IF YOU MERRIED AND INDONESIAN CITIZEN YOU CANAPPLY FOR A LONG TERM STAY PERMIT"
-                url = "APPLY FOR MARRIAGE VISA"
+                return redirect(url_for("Result",messages=messages,url=url))     
 
-            elif purpose == "Investment":
-                messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                url = "APPLY FOR INVESTOR KITAS"    
+            elif time == "Long term more than 6 month":
+                if purpose == "I'm Retired":
+                    messages = "IF YOU HAVE MORE THAN 55 YEARS OLD YOU CAN APPLY FOR A LONG TERM STAY PERMIT"
+                    url = "APPLY FOR RETIREMENT VISA"
 
-            elif purpose == "Staycation/Business/Work Remotely":
-                messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                url = "APPLY FOR SINGLE ENTRY VISA"
-            elif purpose == "Work":
-                messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
-                url = "WANT TO KNOW MORE ABOUT WORKING VISA"
-            elif purpose == "Investment":
-                messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                url = "APPLY FOR INVESTOR KITAS"        
+                elif purpose == "I'm Married With Indonesian":
+                    messages = "IF YOU MERRIED AND INDONESIAN CITIZEN YOU CANAPPLY FOR A LONG TERM STAY PERMIT"
+                    url = "APPLY FOR MARRIAGE VISA"
 
-            else:
-                messages = "NO SERVICES WAS FOUND"    
-                url = "GET HELP"        
+                elif purpose == "Investment":
+                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
+                    url = "APPLY FOR INVESTOR KITAS"    
+
+                elif purpose == "Staycation/Business/Remotely":
+                    messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
+                    url = "APPLY FOR SINGLE ENTRY VISA"
+                elif purpose == "Work":
+                    messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
+                    url = "WANT TO KNOW MORE ABOUT WORKING VISA"
+                elif purpose == "Investment":
+                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
+                    url = "APPLY FOR INVESTOR KITAS"        
+
+                else:
+                    messages = "NO SERVICES WAS FOUND"    
+                    url = "GET HELP"        
                     
-        return redirect(url_for("Result",messages=messages,url=url)) 
+                return redirect(url_for("Result",messages=messages,url=url)) 
+        if "form2" in request.form:        
+            return "--"
     return render_template("index.html",formone=formone,formtwo=formtwo)    
 
 
@@ -237,6 +254,69 @@ def Index2():
 def Result(messages,url):
     formone = FormOne()
     formtwo = FormTwo() 
+    if request.method == "POST":
+        if "form1" in request.form:
+            time = request.form["vehicle"]
+            purpose = request.form["manufacturer"]
+            if time == "Less than 30 days":
+                if purpose == "Tourism":
+                    messages = "SINCE MARCH 2020 COMING FOR TOURISM PORPOSE IS POSSIBEL ONLY WITH A B211A ENTRY VISA"
+                    url = "APPLY FOR SINGLE ENTRY VISA"
+                elif purpose == "Business/Other":
+                    messages = "YOU CAN APPLY WITH US. WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
+                    url = "APPLY FOR SINGLE ENTRY VISA"
+                else:
+                    messages = "NO SERVICES WAS FOUND"    
+                    url = "GET HELP"
+
+                return redirect(url_for("Result",messages=messages,url=url))     
+
+            elif time == "More than 1 month and less than 6 month":
+                if purpose == "Staycation/Business/Remotely":
+                    messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
+                    url = "APPLY FOR SINGLE ENTRY VISA"
+                elif purpose == "Work":
+                    messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
+                    url = "WANT TO KNOW MORE ABOUT WORKING VISA"
+                elif purpose == "Investment":
+                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
+                    url = "APPLY FOR INVESTOR KITAS"    
+                else:
+                    messages = "NO SERVICES WAS FOUND"    
+                    url = "GET HELP"
+
+                return redirect(url_for("Result",messages=messages,url=url))     
+
+            elif time == "Long term more than 6 month":
+                if purpose == "I'm Retired":
+                    messages = "IF YOU HAVE MORE THAN 55 YEARS OLD YOU CAN APPLY FOR A LONG TERM STAY PERMIT"
+                    url = "APPLY FOR RETIREMENT VISA"
+
+                elif purpose == "I'm Married With Indonesian":
+                    messages = "IF YOU MERRIED AND INDONESIAN CITIZEN YOU CANAPPLY FOR A LONG TERM STAY PERMIT"
+                    url = "APPLY FOR MARRIAGE VISA"
+
+                elif purpose == "Investment":
+                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
+                    url = "APPLY FOR INVESTOR KITAS"    
+
+                elif purpose == "Staycation/Business/Remotely":
+                    messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
+                    url = "APPLY FOR SINGLE ENTRY VISA"
+                elif purpose == "Work":
+                    messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
+                    url = "WANT TO KNOW MORE ABOUT WORKING VISA"
+                elif purpose == "Investment":
+                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
+                    url = "APPLY FOR INVESTOR KITAS"        
+
+                else:
+                    messages = "NO SERVICES WAS FOUND"    
+                    url = "GET HELP"        
+                    
+                return redirect(url_for("Result",messages=messages,url=url)) 
+        if "form2" in request.form:        
+            return "--"
     return render_template("result.html",formone=formone,formtwo=formtwo,messages=messages,url=url)   
 
 
@@ -263,7 +343,35 @@ def Services(name):
         return render_template("cozero-living.html")  
                          
                      
+
+@app.route("/sub/appointment/<services>",methods=["GET","POST"])
+def CreateAppointment(services):
+    form = AppointmentForm()
+    if form.validate_on_submit():      
+        string = []
+        chars = 'abccdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+        finished = False
+        while not finished:
+            for x in range(1, 6+1):
+                string.append(random.choice(chars))
+            string = "".join(string)
+            check = Appointment.query.filter_by(url=string).all()
+            if len(check) < 1:
+                finished = True
+
+        order = Appointment(name=form.name.data,email=form.email.data,date=form.date.data,meeting=form.meeting.data,
+            services=services,url=string)
+        db.session.add(order)
+        db.session.commit()
+        return redirect(url_for("ThankYou",url=order.url))
+    return render_template("submission/appointment.html",form=form,services=services)    
     
+@app.route("/sub/appointment/<url>/thanks",methods=["GET","POST"])
+def ThankYou(url):
+    order = Appointment.query.filter_by(url=url).first()
+    form = AppointmentForm()
+    return render_template("submission/thankyou.html",order=order,form=form)        
+
 
 @app.route("/sub/order/<tipe>",methods=["GET","POST"])
 def CreateOrder(tipe):
@@ -300,10 +408,10 @@ def StepOne(url):
             if len(checked) == 4:
                 services = form.services.data 
                 if services == "E-Visa Service":
-                    booking.pricing = 3300000
+                    booking.pricing = 245
                     db.session.commit()
                 elif services == "E-Visa Service + Visa Extention":
-                    booking.pricing = 6500000
+                    booking.pricing = 315
                     db.session.commit()
                 elif services == "E-Visa Super Express Proccess Service":
                     booking.pricing = 329
@@ -514,20 +622,39 @@ def StepFive(url):
     all_document = Document.query.filter_by(documentowner_id=booking.id).all() 
     form = SubmitForm()
     if form.validate_on_submit():
-        if len(all_document) == 3 :        
-            booking.status = "complete order"
-            db.session.commit()
+        if booking.tipe == "social visa onshore":
+            if len(all_document) == 0 :        
+                booking.status = "complete order"
+                db.session.commit()
 
-            email = booking.email
-            msg = Message("Bali Zero Invoice", sender="info@balizero.com", recipients=[email])
+                email = booking.email
+                msg = Message("Bali Zero Invoice", sender="info@balizero.com", recipients=[email])
 
-            link = url_for("InvoiceId", url=url, _external=True)
-            msg.body = "Thank you for your order, you can access the invoice in this link {}".format(link)
-            mail.send(msg)
-            return redirect(url_for("InvoiceId",url=url))
+                link = url_for("InvoiceId", url=url, _external=True)
+                msg.body = "Thank you for your order"
+                msg.html = "<p>Hello  {},</p><p>We received your request, thank you.<br>We will check your documentation quickly and will make sure your process starts as soon as possible.<br>Important:<br>To be effective and in order to start your application process the payment has to be undertaken to our secure credit card/pay pal page at this invoice link {}<p></p>Once the payment is done will get back to you within the next 24hours, often quicker!<br>If you have any further questions please send an email to info@balizero.com</p><p>Thank you<br>Bali Zero Team<br>https://www.balizero.com</p>".format(booking.fullname,link)
+                mail.send(msg)
+                return redirect(url_for("InvoiceId",url=url))
+            else:
+                flash("Please complete your data","danger")  
+                return redirect(url_for("StepFive",url=url))      
         else:
-            flash("Please complete your data","danger")  
-            return redirect(url_for("StepFive",url=url))      
+            if len(all_document) == 0 :        
+                booking.status = "complete order"
+                db.session.commit()
+
+                email = booking.email
+                msg = Message("Bali Zero Invoice", sender="info@balizero.com", recipients=[email])
+
+                link = url_for("InvoiceId", url=url, _external=True)
+                msg.body = "Thank you for your order"
+                msg.html = "<p>Hello  {},</p><p>We received your request, thank you.<br>We will check your documentation quickly and will make sure your process starts as soon as possible.<br>Important:<br>To be effective and in order to start your application process the payment has to be undertaken to our secure credit card/pay pal page at this invoice link {}<p></p>Once the payment is done will get back to you within the next 24hours, often quicker!<br>If you have any further questions please send an email to info@balizero.com</p><p>Thank you<br>Bali Zero Team<br>https://www.balizero.com</p>".format(booking.fullname,link)
+                mail.send(msg)
+                return redirect(url_for("InvoiceId",url=url))
+            else:
+                flash("Please complete your data","danger")  
+                return redirect(url_for("StepFive",url=url))      
+                    
           
     return render_template("submission/stepfive.html",form=form,url=url,all_document=all_document,booking=booking,Document=Document)  
 

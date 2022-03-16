@@ -6,7 +6,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add New Budget</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Application</h5>
         
       </div>
       <div class="modal-body">
@@ -15,7 +15,7 @@
                {{ form.hidden_tag() }}
                <div class="row">  
                     <div class="col-md-12">
-                       <p>All of your data will be submited to our system. You will receive email with invoice link. Also you will be redirected to invoice page </p>
+                       <p>All of your data will be submited to our system. You will receive email with invoice link. Now you will be redirected to payment page to complete the application </p>
                     </div>   
                                     
                    
@@ -162,7 +162,7 @@
             
 
 
-
+             {% if booking.tipe != "social visa onshore" %}
             <div class="row" style="margin-top: 50px;">    
               <br>
               <div class="col-md-6">
@@ -220,7 +220,7 @@
               {% endif %}   
               
              </div>
-
+              {% endif %}
 
 
 
@@ -253,7 +253,7 @@
                       <div class="card" style="padding-top: 100px; padding-bottom: 100px;">
                         <div class="card-body text-center">
                           <div class="form-check">
-                            <a href="/sub/step5/{{booking.url}}/upload/photo"><p>Upload Passport Photo</p></a>
+                            <a href="/sub/step5/{{booking.url}}/upload/photo"><p>Upload Selfie Pic</p></a>
                           </div>                    
                         </div>
                       </div>
