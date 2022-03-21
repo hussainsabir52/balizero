@@ -623,7 +623,7 @@ def StepFive(url):
     form = SubmitForm()
     if form.validate_on_submit():
         if booking.tipe == "social visa onshore":
-            if len(all_document) == 0 :        
+            if len(all_document) == 3 :        
                 booking.status = "complete order"
                 db.session.commit()
 
@@ -639,7 +639,7 @@ def StepFive(url):
                 flash("Please complete your data","danger")  
                 return redirect(url_for("StepFive",url=url))      
         else:
-            if len(all_document) == 0 :        
+            if len(all_document) == 3 :        
                 booking.status = "complete order"
                 db.session.commit()
 
