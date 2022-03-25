@@ -34,7 +34,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="/">Bali Zero</a>
+       <a class="navbar-brand" href="/"><img src="/static/assets/images/balizero.png" alt="logo" style="max-width: 75px;"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
@@ -43,19 +43,24 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
-          <li class="nav-item dropdown"> <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Services</a>
-          
+               <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">  Services  </a>
               <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/services/investor-kitas"> Investor Kitas </a></li>
-              <li><a class="dropdown-item" href="/services/retirment-kitas"> Retirment Kitas </a></li>
-              <li><a class="dropdown-item" href="/services/spouse-kitas"> Spouse Kitas </a></li>
-              <li><a class="dropdown-item" href="/services/working-kitas"> Working Kitas </a></li>
-              <li><a class="dropdown-item" href="/services/freelance-kitas"> Freelance Kitas </a></li>
+              <li><a class="dropdown-item" href="/services/business-visa-offshore"> Business Visa Offshore</a></li>             
               <li><a class="dropdown-item" href="/services/social-visa-onshore"> Social Visa Onshore </a></li>
-              <li><a class="dropdown-item" href="/services/business-visa-offshore"> Business Visa Offshore </a></li>
-              <li><a class="dropdown-item" href="/services/set-up-pt-pma"> Set Up PT PMA </a></li>
-              <li><a class="dropdown-item" href="/services/cozero-living"> COZero Living </a></li>
-            
+              <li><a class="dropdown-item" href="#"> Other Visa &raquo </a>
+               <ul class="submenu dropdown-menu">
+                <li><a class="dropdown-item" href="/services/investor-kitas"> Investor Kitas </a></li>
+                <li><a class="dropdown-item" href="/services/retirment-kitas"> Retirment Kitas </a></li>
+                <li><a class="dropdown-item" href="/services/spouse-kitas"> Spouse Kitas </a></li>
+                <li><a class="dropdown-item" href="/services/working-kitas"> Working Kitas </a></li>
+                <li><a class="dropdown-item" href="/services/freelance-kitas"> Freelance Kitas </a></li>
+                <li><a class="dropdown-item" href="/services/set-up-pt-pma"> Set Up PT PMA </a></li>
+                <li><a class="dropdown-item" href="/services/cozero-living"> COZero Living </a></li>
+                
+               </ul>
+              </li>
+             
               </ul>
           </li>
           <li class="nav-item"><a href="/#testimonial" class="nav-link">Testimonial</a></li>
@@ -129,7 +134,7 @@
                     <br>
                   
                     <p><a href="/sub/order/social visa onshore" class="btn btn-primary">Apply Here</a> </p>
-                    <p style="font-size: 20px; color:#000 !important;"><a data-toggle="modal" data-target="#exampleModalLong"><u>We Update The New Regulation</u></a></p>
+                    <p style="font-size: 20px; color:#000 !important;"><a data-toggle="modal" data-target="#exampleModalLong"><u>Before to apply check out the latest regulation</u></a></p>
                   </div>
                 </div>
               </div>
@@ -237,7 +242,7 @@
     </section>
 
 
-<section class="ftco-section">
+<section class="ftco-section" style="padding-top: 0em !important; padding-bottom: 1em !important;">
       <div class="container">
         <div class="row justify-content-center pb-4">
           <div class="col-md-12 heading-section text-center ftco-animate">
@@ -459,7 +464,24 @@
 });
  </script>     
 
+<script type="text/javascript">
+  $(document).on('click', '.dropdown-menu', function (e) {
+  e.stopPropagation();
+});
 
+// make it as accordion for smaller screens
+if ($(window).width() < 992) {
+  $('.dropdown-menu a').click(function(e){
+    e.preventDefault();
+      if($(this).next('.submenu').length){
+        $(this).next('.submenu').toggle();
+      }
+      $('.dropdown').on('hide.bs.dropdown', function () {
+     $(this).find('.submenu').hide();
+  })
+  });
+}
+</script>
 
 </body>
 </html>

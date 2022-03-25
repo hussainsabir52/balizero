@@ -62,7 +62,7 @@ class StepOneBusinessForm(FlaskForm):
 	services = SelectField("Services",choices=[("E-Visa Super Express Proccess Service","E-Visa Super Express Proccess Service - 4M IDR + 50 USD (329 $)"),
 		("E-Visa Express Proccess Service","E-Visa Express Proccess Service - 3M IDR + 50 USD (249 $)"),
 		("E-Visa Super Express + Accomodation in COZero Living","E-Visa Super Express + Accomodation in COZero Living - USD 700")])
-	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal")])
+	payment = SelectField("Payment",choices=[("Transferwise","Transferwise")])
 
 class StepOneSocialForm(FlaskForm):
 	services = SelectField("Services",choices=[("E-Visa Service","E-Visa Service - 2,8M IDR + 50 USD (245 $)"),
@@ -98,7 +98,7 @@ class StepThreeForm(FlaskForm):
 	emergency_zip =  StringField("zip",validators=[InputRequired(),Length(max=100)])
 	emergency_country =  SelectField("country",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])
 	emergency_email =  StringField("email",validators=[InputRequired(),Length(max=100)])
-	emergency_phone =  	StringField("phone",validators=[InputRequired(),Length(max=100)])
+	emergency_phone =  	StringField("whatsapp",validators=[InputRequired(),Length(max=100)])
 
 class StepFourForm(FlaskForm):
 	tipe = SelectField("Type of Travel Document ",choices=[("Passport","Passport"),("Other Travel Document","Other Travel Document")])  
@@ -126,8 +126,11 @@ class UploadForm(FlaskForm):
 
 
 class AppointmentForm(FlaskForm):	
-	name = StringField("Your Name",validators=[InputRequired(),Length(max=100)])		
+	name = StringField("Full Name",validators=[InputRequired(),Length(max=100)])		
 	email  = StringField("Email",validators=[InputRequired(),Length(max=100)])	
-	date =  DateField("Date",format="%m/%d/%Y")
+	date =  DateField("Date Preferences",format="%m/%d/%Y")
+	phone =   StringField("whatsapp",validators=[InputRequired(),Length(max=100)])
 	meeting = SelectField("Meeting Preferences",choices=[("Video Meeting","Video Meeting"),("Office Visit","Office Visit")])    
-	
+	time = SelectField("Time Preferences",choices=[("01","01"),("02","02"),("03","03"),("04","04"),("05","05"),("06","06")
+		,("07","07"),("08","08"),("09","09"),("10","10"),("11","11"),("12","12")])  
+	ampm = SelectField("Time Preferences",choices=[("AM","AM"),("PM","PM")])  

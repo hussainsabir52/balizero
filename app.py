@@ -154,10 +154,12 @@ class Appointment(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(200))
     email = db.Column(db.String(200))
+    phone = db.Column(db.String(200))
     services = db.Column(db.String(200))
     meeting = db.Column(db.String(200))
     date = db.Column(db.DateTime()) 
     url = db.Column(db.String(200))
+    time = db.Column(db.String(200))
 
 
 
@@ -171,69 +173,85 @@ def Index():
     formone = AppliedForm()
     formtwo = FormTwo()
     if request.method == "POST":
-        if "form1" in request.form:
-            time = request.form["vehicle"]
-            purpose = request.form["manufacturer"]
-            if time == "Less than 30 days":
-                if purpose == "Tourism":
-                    messages = "SINCE MARCH 2020 COMING FOR TOURISM PORPOSE IS POSSIBEL ONLY WITH A B211A ENTRY VISA"
-                    url = "APPLY FOR SINGLE ENTRY VISA"
-                elif purpose == "Business/Other":
-                    messages = "YOU CAN APPLY WITH US. WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                    url = "APPLY FOR SINGLE ENTRY VISA"
-                else:
-                    messages = "NO SERVICES WAS FOUND"    
-                    url = "GET HELP"
+        email = request.form["email"]
+        if "@" in email:
 
-                return redirect(url_for("Result",messages=messages,url=url))     
+            if "form1" in request.form:
+                time = request.form["vehicle"]
+                purpose = request.form["manufacturer"]
+                if time == "Less than 30 days":
+                    if purpose == "Tourism":
+                        messages = "SINCE MARCH 2020 COMING FOR TOURISM PORPOSE IS POSSIBEL ONLY WITH A B211A ENTRY VISA"
+                        url = "APPLY FOR SINGLE ENTRY VISA"
+                    elif purpose == "Business/Other":
+                        messages = "YOU CAN APPLY WITH US. WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
+                        url = "APPLY FOR SINGLE ENTRY VISA"
+                    else:
+                        messages = "NO SERVICES WAS FOUND"    
+                        url = "GET HELP"
 
-            elif time == "More than 1 month and less than 6 month":
-                if purpose == "Staycation/Business/Remotely":
-                    messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                    url = "APPLY FOR SINGLE ENTRY VISA"
-                elif purpose == "Work":
-                    messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
-                    url = "WANT TO KNOW MORE ABOUT WORKING VISA"
-                elif purpose == "Investment":
-                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                    url = "APPLY FOR INVESTOR KITAS"    
-                else:
-                    messages = "NO SERVICES WAS FOUND"    
-                    url = "GET HELP"
+                    return redirect(url_for("Result",messages=messages,url=url))     
 
-                return redirect(url_for("Result",messages=messages,url=url))     
+                elif time == "More than 1 month and less than 6 month":
+                    if purpose == "Staycation/Business/Remotely":
+                        messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
+                        url = "APPLY FOR SINGLE ENTRY VISA"
+                    elif purpose == "Work":
+                        messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
+                        url = "WANT TO KNOW MORE ABOUT WORKING VISA"
+                    elif purpose == "Investment":
+                        messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
+                        url = "APPLY FOR INVESTOR KITAS"    
+                    else:
+                        messages = "NO SERVICES WAS FOUND"    
+                        url = "GET HELP"
 
-            elif time == "Long term more than 6 month":
-                if purpose == "I'm Retired":
-                    messages = "IF YOU HAVE MORE THAN 55 YEARS OLD YOU CAN APPLY FOR A LONG TERM STAY PERMIT"
-                    url = "APPLY FOR RETIREMENT VISA"
+                    return redirect(url_for("Result",messages=messages,url=url))     
 
-                elif purpose == "I'm Married With Indonesian":
-                    messages = "IF YOU MERRIED AND INDONESIAN CITIZEN YOU CANAPPLY FOR A LONG TERM STAY PERMIT"
-                    url = "APPLY FOR MARRIAGE VISA"
+                elif time == "Long term more than 6 month":
+                    if purpose == "I'm Retired":
+                        messages = "IF YOU HAVE MORE THAN 55 YEARS OLD YOU CAN APPLY FOR A LONG TERM STAY PERMIT"
+                        url = "APPLY FOR RETIREMENT VISA"
 
-                elif purpose == "Investment":
-                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                    url = "APPLY FOR INVESTOR KITAS"    
+                    elif purpose == "I'm Married With Indonesian":
+                        messages = "IF YOU MERRIED AND INDONESIAN CITIZEN YOU CANAPPLY FOR A LONG TERM STAY PERMIT"
+                        url = "APPLY FOR MARRIAGE VISA"
 
-                elif purpose == "Staycation/Business/Remotely":
-                    messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                    url = "APPLY FOR SINGLE ENTRY VISA"
-                elif purpose == "Work":
-                    messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
-                    url = "WANT TO KNOW MORE ABOUT WORKING VISA"
-                elif purpose == "Investment":
-                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                    url = "APPLY FOR INVESTOR KITAS"        
+                    elif purpose == "Investment":
+                        messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
+                        url = "APPLY FOR INVESTOR KITAS"    
 
-                else:
-                    messages = "NO SERVICES WAS FOUND"    
-                    url = "GET HELP"        
-                    
-                return redirect(url_for("Result",messages=messages,url=url)) 
-        if "form2" in request.form:        
-            return "--"
+                    elif purpose == "Staycation/Business/Remotely":
+                        messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
+                        url = "APPLY FOR SINGLE ENTRY VISA"
+                    elif purpose == "Work":
+                        messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
+                        url = "WANT TO KNOW MORE ABOUT WORKING VISA"
+                    elif purpose == "Investment":
+                        messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
+                        url = "APPLY FOR INVESTOR KITAS"        
+
+                    else:
+                        messages = "NO SERVICES WAS FOUND"    
+                        url = "GET HELP"        
+                        
+                    return redirect(url_for("Result",messages=messages,url=url)) 
+            if "form2" in request.form:        
+                return "--"
+        else:
+            return redirect(url_for("EnterEmail"))      
     return render_template("index.html",formone=formone,formtwo=formtwo)    
+
+
+
+@app.route("/calling",methods=["GET","POST"])
+def Calling():
+    return render_template("calling.html")
+
+
+@app.route("/email",methods=["GET","POST"])
+def EnterEmail():
+    return render_template("email.html")    
 
 
 
@@ -347,23 +365,28 @@ def Services(name):
 @app.route("/sub/appointment/<services>",methods=["GET","POST"])
 def CreateAppointment(services):
     form = AppointmentForm()
-    if form.validate_on_submit():      
-        string = []
-        chars = 'abccdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-        finished = False
-        while not finished:
-            for x in range(1, 6+1):
-                string.append(random.choice(chars))
-            string = "".join(string)
-            check = Appointment.query.filter_by(url=string).all()
-            if len(check) < 1:
-                finished = True
+    if form.validate_on_submit():     
+        phone = form.phone.data
+        if phone[0] == "+": 
+            string = []
+            chars = 'abccdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+            finished = False
+            while not finished:
+                for x in range(1, 6+1):
+                    string.append(random.choice(chars))
+                string = "".join(string)
+                check = Appointment.query.filter_by(url=string).all()
+                if len(check) < 1:
+                    finished = True
 
-        order = Appointment(name=form.name.data,email=form.email.data,date=form.date.data,meeting=form.meeting.data,
-            services=services,url=string)
-        db.session.add(order)
-        db.session.commit()
-        return redirect(url_for("ThankYou",url=order.url))
+            time = form.time.data + form.ampm.data         
+            order = Appointment(name=form.name.data,email=form.email.data,date=form.date.data,meeting=form.meeting.data,
+                services=services,url=string,phone=form.phone.data,time=time)
+            db.session.add(order)
+            db.session.commit()
+            return redirect(url_for("ThankYou",url=order.url))
+        else:
+            flash("Please use + country on whatsapp form","danger")    
     return render_template("submission/appointment.html",form=form,services=services)    
     
 @app.route("/sub/appointment/<url>/thanks",methods=["GET","POST"])
@@ -499,7 +522,7 @@ def StepTwo(url):
                 db.session.commit()
                 return redirect(url_for("StepThree",url=url))
             else:
-                flash("Please use + on the whatsapp form","danger")
+                flash("Please use + country on whatsapp form","danger")
     else:
         form.fullname.data= booking.fullname
         form.gender.data  = booking.gender
@@ -515,7 +538,7 @@ def StepTwo(url):
         form.original_zip.data= booking.original_zip
         form.original_country.data  = booking.original_country
         if form.validate_on_submit():
-            phone =  form.phone.data = request.form["phone"]
+            phone =  request.form["phone"]
             if phone[0] == "+":
                 booking.fullname= request.form["fullname"]
                 booking.gender  = request.form["gender"] 
@@ -534,7 +557,7 @@ def StepTwo(url):
                 db.session.commit()     
                 return redirect(url_for("StepThree",url=url))
             else:
-                flash("Please use + on the whatsapp form","danger")
+                flash("Please use + country on whatsapp form","danger")
                                    
     return render_template("submission/steptwo.html",form=form,booking=booking,url=url)    
 
@@ -545,17 +568,21 @@ def StepThree(url):
     form = StepThreeForm()    
     if booking.emergency_name == None:
         if form.validate_on_submit():
-            booking.emergency_name = form.emergency_name.data 
-            booking.emergency_status =  form.emergency_status.data
-            booking.emergency_address =  form.emergency_address.data
-            booking.emergency_city = form.emergency_city.data
-            booking.emergency_state = form.emergency_state.data
-            booking.emergency_zip =  form.emergency_zip.data
-            booking.emergency_country =  form.emergency_country.data
-            booking.emergency_email = form.emergency_email.data
-            booking.emergency_phone =  form.emergency_phone.data
-            db.session.commit()
-            return redirect(url_for("StepFour",url=url))
+            phone = form.emergency_phone.data
+            if phone[0] == "+":
+                booking.emergency_name = form.emergency_name.data 
+                booking.emergency_status =  form.emergency_status.data
+                booking.emergency_address =  form.emergency_address.data
+                booking.emergency_city = form.emergency_city.data
+                booking.emergency_state = form.emergency_state.data
+                booking.emergency_zip =  form.emergency_zip.data
+                booking.emergency_country =  form.emergency_country.data
+                booking.emergency_email = form.emergency_email.data
+                booking.emergency_phone =  form.emergency_phone.data
+                db.session.commit()
+                return redirect(url_for("StepFour",url=url))
+            else:
+                flash("Please use + country on whatsapp form","danger")    
     else:
         form.emergency_name.data  = booking.emergency_name
         form.emergency_status.data = booking.emergency_status
@@ -567,18 +594,22 @@ def StepThree(url):
         form.emergency_email.data = booking.emergency_email
         form.emergency_phone.data = booking.emergency_phone        
         if form.validate_on_submit():
-            booking.emergency_name  = request.form["emergency_name"]
-            booking.emergency_status = request.form["emergency_status"]
-            booking.emergency_address = request.form["emergency_address"]
-            booking.emergency_city = request.form["emergency_city"]
-            booking.emergency_state = request.form["emergency_state"]
-            booking.emergency_zip = request.form["emergency_zip"]
-            booking.emergency_country = request.form["emergency_country"]
-            booking.emergency_email = request.form["emergency_email"]
-            booking.emergency_phone = request.form["emergency_phone"]
-            db.session.commit()
-            return redirect(url_for("StepFour",url=url))
-                    
+            phone = request.form["emergency_phone"]
+            if phone[0] == "+":
+                booking.emergency_name  = request.form["emergency_name"]
+                booking.emergency_status = request.form["emergency_status"]
+                booking.emergency_address = request.form["emergency_address"]
+                booking.emergency_city = request.form["emergency_city"]
+                booking.emergency_state = request.form["emergency_state"]
+                booking.emergency_zip = request.form["emergency_zip"]
+                booking.emergency_country = request.form["emergency_country"]
+                booking.emergency_email = request.form["emergency_email"]
+                booking.emergency_phone = request.form["emergency_phone"]
+                db.session.commit()
+                return redirect(url_for("StepFour",url=url))
+            else:
+                flash("Please use + country on whatsapp form","danger")       
+                        
     return render_template("submission/stepthree.html",form=form,booking=booking,url=url)    
 
 

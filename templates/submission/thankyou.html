@@ -65,12 +65,28 @@
             </div>
             <div class="col-md-6">  
               <div class="form-group">
+                {{ render_field(form.phone, class="form-control",autocomplete="off",placeholder="")}}   
+              </div>
+            </div>
+
+            <div class="col-md-6">  
+              <div class="form-group">
                 {{ render_field(form.meeting, class="form-control",autocomplete="off",placeholder="")}}   
               </div>
             </div>
             <div class="col-md-6">  
               <div class="form-group">
                 {{ render_field(form.date, class="form-control dtpick",autocomplete="off",placeholder="")}}   
+              </div>
+            </div>
+             <div class="col-md-4">  
+              <div class="form-group">
+                {{ render_field(form.time, class="form-control dtpick",autocomplete="off",placeholder="")}}   
+              </div>
+            </div>
+            <div class="col-md-2">  
+              <div class="form-group">
+                {{ render_field(form.ampm, class="form-control dtpick",autocomplete="off",placeholder="")}}   
               </div>
             </div>
             
@@ -82,7 +98,7 @@
 
 
             
-            <button type="submit" class="btn btn-outline-dark float-right" style="margin:5px;">Submit Data</button>
+            <button type="submit" class="btn btn-outline-dark float-right" style="margin:5px;">Submit Request</button>
           </form>
         </div>  
 
