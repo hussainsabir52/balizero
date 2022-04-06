@@ -160,6 +160,275 @@ class Appointment(db.Model):
     date = db.Column(db.DateTime()) 
     url = db.Column(db.String(200))
     time = db.Column(db.String(200))
+    countrytime = db.Column(db.String(200))
+
+
+class CountryList(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(200))
+
+
+
+
+
+#populate country
+@app.route("/populate/country",methods=["GET","POST"])
+def PopulateCountry():
+    countrylist = [
+    "Afghanistan",
+    "Albania",
+    "Algeria",
+    "American Samoa",
+    "Andorra",
+    "Angola",
+    "Anguilla",
+    "Antarctica",
+    "Antigua and Barbuda",
+    "Argentina",
+    "Armenia",
+    "Aruba",
+    "Australia",
+    "Austria",
+    "Azerbaijan",
+    "Bahamas",
+    "Bahrain",
+    "Bangladesh",
+    "Barbados",
+    "Belarus",
+    "Belgium",
+    "Belize",
+    "Benin",
+    "Bermuda",
+    "Bhutan",
+    "Bolivia",
+    "Bonaire Sint Eustatius and Saba",
+    "Bosnia and Herzegovina",
+    "Botswana",
+    "Bouvet Island",
+    "Brazil",
+    "British Indian Ocean Territory",
+    "Brunei Darussalam",
+    "Bulgaria",
+    "Burkina Faso",
+    "Burundi",
+    "Cabo Verde",
+    "Cambodia",
+    "Cameroon",
+    "Canada",
+    "Cayman Islands",
+    "Central African Republic",
+    "Chad",
+    "Chile",
+    "China",
+    "Christmas Island",    
+    "Colombia",
+    "Comoros",   
+    "Congo",
+    "Cook Islands",
+    "Costa Rica",
+    "Croatia",
+    "Cuba",
+    "Curacao",
+    "Cyprus",
+    "Czechia",
+    "Cote d'Ivoire",
+    "Denmark",
+    "Djibouti",
+    "Dominica",
+    "Dominican Republic",
+    "Ecuador",
+    "Egypt",
+    "El Salvador",
+    "Equatorial Guinea",
+    "Eritrea",
+    "Estonia",
+    "Eswatini",
+    "Ethiopia",
+    "Falkland Islands",
+    "Faroe Islands",
+    "Fiji",
+    "Finland",
+    "France",
+    "French Guiana",
+    "French Polynesia",
+    "French Southern Territories",
+    "Gabon",
+    "Gambia",
+    "Georgia",
+    "Germany",
+    "Ghana",
+    "Gibraltar",
+    "Greece",
+    "Greenland",
+    "Grenada",
+    "Guadeloupe",
+    "Guam",
+    "Guatemala",
+    "Guernsey",
+    "Guinea",
+    "Guinea-Bissau",
+    "Guyana",
+    "Haiti",
+    "Heard Island and McDonald Islands",
+    "Holy See",
+    "Honduras",
+    "Hong Kong",
+    "Hungary",
+    "Iceland",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Ireland",
+    "Isle of Man",
+    "Israel",
+    "Italy",
+    "Jamaica",
+    "Japan",
+    "Jersey",
+    "Jordan",
+    "Kazakhstan",
+    "Kenya",
+    "Kiribati",
+    "Korea"
+    "Kuwait",
+    "Kyrgyzstan",
+    "Latvia",
+    "Lebanon",
+    "Lesotho",
+    "Liberia",
+    "Libya",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Macao",
+    "Madagascar",
+    "Malawi",
+    "Malaysia",
+    "Maldives",
+    "Mali",
+    "Malta",
+    "Martinique",
+    "Mauritania",
+    "Mauritius",
+    "Mayotte",
+    "Mexico",
+    "Monaco",
+    "Mongolia",
+    "Montenegro",
+    "Montserrat",
+    "Morocco",
+    "Mozambique",
+    "Myanmar",
+    "Namibia",
+    "Nauru",
+    "Nepal",
+    "Netherlands",
+    "New Caledonia",
+    "New Zealand",
+    "Nicaragua",
+    "Niger",
+    "Nigeria",
+    "Niue",
+    "Norfolk Island",
+    "Northern Mariana Islands",
+    "Norway",
+    "Oman",
+    "Pakistan",
+    "Palau",
+    "Palestine",
+    "Panama",
+    "Papua New Guinea",
+    "Paraguay",
+    "Peru",
+    "Philippines",
+    "Pitcairn",
+    "Poland",
+    "Portugal",
+    "Puerto Rico",
+    "Qatar",
+    "Republic of North Macedonia",
+    "Romania",
+    "Russian Federation",
+    "Rwanda",
+    "Saint Barthelemy",
+    "Saint Helena Ascension and Tristan da Cunha",
+    "Saint Kitts and Nevis",
+    "Saint Lucia",
+    "Saint Martin",
+    "Saint Pierre and Miquelon",
+    "Saint Vincent and the Grenadines",
+    "Samoa",
+    "San Marino",
+    "Sao Tome and Principe",
+    "Saudi Arabia",
+    "Senegal",
+    "Serbia",
+    "Seychelles",
+    "Sierra Leone",
+    "Singapore",
+    "Sint Maarten",
+    "Slovakia",
+    "Slovenia",
+    "Solomon Islands",
+    "Somalia",
+    "South Africa",
+    "South Georgia and the South Sandwich Islands",
+    "South Sudan",
+    "Spain",
+    "Sri Lanka",
+    "Sudan",
+    "Suriname",
+    "Svalbard and Jan Mayen",
+    "Sweden",
+    "Switzerland",
+    "Syrian Arab Republic",
+    "Taiwan",
+    "Tajikistan",
+    "Tanzania United Republic of",
+    "Thailand",
+    "Timor-Leste",
+    "Togo",
+    "Tokelau",
+    "Tonga",
+    "Trinidad and Tobago",
+    "Tunisia",
+    "Turkey",
+    "Turkmenistan",
+    "Turks and Caicos Islands",
+    "Tuvalu",
+    "Uganda",
+    "Ukraine",
+    "United Arab Emirates",
+    "United Kingdom of Great Britain and Northern Ireland",
+    "United States Minor Outlying Islands",
+    "United States of America",
+    "Uruguay",
+    "Uzbekistan",
+    "Vanuatu",
+    "Venezuela",
+    "Viet Nam",
+    "Virgin Islands",
+    "Wallis and Futuna",
+    "Western Sahara",
+    "Yemen",
+    "Zambia",
+    "Zimbabwe"
+];
+    for x in countrylist:
+        check = CountryList.query.filter_by(name=x).all()
+        if len(check) == 0:
+            added = CountryList(name=x)
+            db.session.add(added)
+            db.session.commit()
+    return "fuckup"  
+
+
+
+
+
+
+
 
 
 
@@ -289,7 +558,7 @@ def Result(messages,url):
 
                 return redirect(url_for("Result",messages=messages,url=url))     
 
-            elif time == "More than 1 month and less than 6 month":
+            elif time == "Less than 6 month":
                 if purpose == "Staycation/Business/Remotely":
                     messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
                     url = "APPLY FOR SINGLE ENTRY VISA"
@@ -365,6 +634,7 @@ def Services(name):
 @app.route("/sub/appointment/<services>",methods=["GET","POST"])
 def CreateAppointment(services):
     form = AppointmentForm()
+    form.countrytime.choices = [(str(x.name),str(x.name)) for x in CountryList.query.all()]    
     if form.validate_on_submit():     
         phone = form.phone.data
         if phone[0] == "+": 
@@ -379,12 +649,16 @@ def CreateAppointment(services):
                 if len(check) < 1:
                     finished = True
 
-            time = form.time.data + form.ampm.data         
+            
+            meeting = request.form["meeting"]
+            time = form.time.data + ""+ form.ampm.data         
+            country = CountryList.query.filter_by(name=form.countrytime.data).first()
             order = Appointment(name=form.name.data,email=form.email.data,date=form.date.data,meeting=form.meeting.data,
-                services=services,url=string,phone=form.phone.data,time=time)
+                    services=services,url=string,phone=form.phone.data,time=time,countrytime=country.name)
             db.session.add(order)
             db.session.commit()
             return redirect(url_for("ThankYou",url=order.url))
+                    
         else:
             flash("Please use + country on whatsapp form","danger")    
     return render_template("submission/appointment.html",form=form,services=services)    

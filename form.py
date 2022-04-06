@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField ,TextAreaField, IntegerField, Dat
 from wtforms.validators import InputRequired, EqualTo, Email, Length
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 from flask_wtf.file import FileField, FileAllowed, FileRequired
+from datetime import datetime, timedelta, date
 
 images = UploadSet("images",IMAGES)
 
@@ -128,9 +129,12 @@ class UploadForm(FlaskForm):
 class AppointmentForm(FlaskForm):	
 	name = StringField("Full Name",validators=[InputRequired(),Length(max=100)])		
 	email  = StringField("Email",validators=[InputRequired(),Length(max=100)])	
-	date =  DateField("Date Preferences",format="%m/%d/%Y")
+	date =  DateField("Date Preferences",format="%m/%d/%Y",default=datetime.today)
 	phone =   StringField("whatsapp",validators=[InputRequired(),Length(max=100)])
-	meeting = SelectField("Meeting Preferences",choices=[("Video Meeting","Video Meeting"),("Office Visit","Office Visit")])    
+	meeting = SelectField("Meeting Preferences",choices=[("No Meeting","No Meeting"),("Video Meeting","Video Meeting"),("Office Visit","Office Visit")])    
 	time = SelectField("Time Preferences",choices=[("01","01"),("02","02"),("03","03"),("04","04"),("05","05"),("06","06")
 		,("07","07"),("08","08"),("09","09"),("10","10"),("11","11"),("12","12")])  
-	ampm = SelectField("Time Preferences",choices=[("AM","AM"),("PM","PM")])  
+	ampm = SelectField("Time Preferences",choices=[("AM","AM"),("PM","PM")]) 
+	countrytime = SelectField('country time:',choices=[], render_kw={"placeholder": "*"}) 
+
+

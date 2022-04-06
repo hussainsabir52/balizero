@@ -28,13 +28,14 @@
 
 	<link href="{{url_for ('static',filename='assets/css/styles.css')}}" rel="stylesheet"/>
 	<link href="{{url_for ('static',filename='assets/css/timeline.css')}}" rel="stylesheet"/>
+	<link href="{{url_for ('static',filename='assets/css/time.css')}}" rel="stylesheet"/>
 </head>
 <body>
 
 
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="/"><img src="/static/assets/images/balizero.png" style="max-width: 75px;"></a>
+			<a class="navbar-brand" href="/"><img src="/static/assets/images/balizero.png" style="max-width: 120px;"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="oi oi-menu"></span> Menu
 			</button>
@@ -66,7 +67,7 @@
 					</li>
 					<li class="nav-item"><a href="/tracking" class="nav-link">Tracking</a></li>
 					<li class="nav-item"><a href="/#blog" class="nav-link">Blog</a></li>
-					<li class="nav-item"><a href="/#contact" class="nav-link">Contact</a></li>
+					<li class="nav-item"><a href="/#kontak" class="nav-link">Contact</a></li>
 				</ul>
 			</div>
 		</div>
@@ -81,13 +82,13 @@
 					<span class="subheading">Welcome to Bali Zero</span>
 					<h1 class="mb-4">Most Recommended Visa Application Center in Bali
 					</h1>
-					
-					<div id="apply"class="review-widget_net float-left" data-uuid="725cf030-8d24-49a9-b44f-9af6ed3e53ce" data-template="2" data-filter="" data-lang="en" data-theme="light"><a href="https://www.review-widget.net/" target="_blank" rel="noopener"><img src="https://grwapi.net/assets/spinner/spin.svg" title="Google Review Widget" alt="Review Widget" style="text-align: left !important;"></a></div><script async type="text/javascript" src="https://grwapi.net/widget.min.js"></script>
+					<!--
+					<div id="apply"class="review-widget_net float-left" data-uuid="725cf030-8d24-49a9-b44f-9af6ed3e53ce" data-template="2" data-filter="" data-lang="en" data-theme="light"><a href="https://www.review-widget.net/" target="_blank" rel="noopener"><img src="https://grwapi.net/assets/spinner/spin.svg" title="Google Review Widget" alt="Review Widget" style="text-align: left !important;"></a></div><script async type="text/javascript" src="https://grwapi.net/widget.min.js"></script>-->
 					<br>
 					<br>
 					<!--
 					<p class="caps">Travel to the any corner of the world, without going around in circles</p>-->
-					<p><a href="/calling" class="btn btn-primary py-3 px-4">Bali Calling</a></p>
+					<p><a href="/calling" class="btn btn-primary py-3 px-4">Bali Calling ?</a></p>
 				</div>
 				<!--
 				<a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex align-items-center justify-content-center mb-4">
@@ -126,13 +127,15 @@
 												<div class="col-md d-flex">
 													<div class="form-group p-4  border-0">
 														<label for="qmt-vehicle">Stay Duration:</label>
+														<div class="form-field">
 														<select id="qmt-vehicle" name="vehicle">
 														    <option></option>
 														    <option class="short" value="Less than 30 days">Less than 30 days</option>
-														    <option class="medium" value="More than 1 month and less than 6 month">More than 1 month and less than 6 month</option>
+														    <option class="medium" value="More than 1 month and less than 6 month">Lless than 6 month</option>
 														    <option class="long" value="Long term more than 6 month">Long term more than 6 month</option>
 														</select>
 													</div>
+												</div>
 												</div>
 												<div class="col-md d-flex">
 													<div class="form-group p-4  border-0">
@@ -267,67 +270,61 @@
 														
 						</div>
 					</div>
-					<div class="col-md-12">        <!-- apply-style-two -->
-				        <section class="apply-style-two">
-				            <div class="auto-container">
-				                
-								<div class="row clearfix">
-									
-									<div class="col-lg-3 col-md-6 col-sm-12 single-column">
-										<div class="single-item wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-											<div class="inner-box">
-												<div class="icon-box">
-													<div class="arrow" style="background-image: url(https://balisolve.com/themes/frontend/default/images/arrow-1.png);"><br></div>
+					<div class="col-md-12" style="padding-bottom: 50px;">        <!-- apply-style-two -->
+					    <div id="timeline-wrap">
+						  <div id="timeline"></div>
+						  
+						  <!-- This is the individual marker-->
+						  <div class="marker mfirst timeline-icon one">
+						      <i class="fa fa-upload">
+						        <p class="dayone" style="color: #fff;  padding-top: 5px;">1. Upload Document</p>
+						      </i>
+						      <p class="dayone" style="margin-top: -60px !important; font-size: 15px;">Day One</p>   
+						  </div>
 
-													<i class="fa fa-upload" style="padding-top: 20px !important;"><span style="padding-top: 10px !important;"><h6 style="color: #fff !important;">SATU</h6><span></i>
+						  <!-- / marker -->
 
-												</div><h6><a href="#" style="color: #000 !important;">1. Upload Your Document</a></h6>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-6 col-sm-12 single-column">
-										<div class="single-item wow fadeInUp animated animated" data-wow-delay="300ms" data-wow-duration="1500ms">
-											<div class="inner-box">
-												<div class="icon-box">
-													<div class="arrow" style="background-image: url(https://balisolve.com/themes/frontend/default/images/arrow-1.png);"><br></div>
-													<i class="fa fa-money" style="padding-top: 20px !important;"><span style="padding-top: 10px !important;"><h6 style="color: #fff !important;">DUA</h6><span></i>
-												</div>
-												<h6><a href="#" <a href="#" style="color: #000 !important;">2. Complete Your Payment</a></h6>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-6 col-sm-12 single-column">
-										<div class="single-item wow fadeInUp animated animated" data-wow-delay="300ms" data-wow-duration="1500ms">
-											<div class="inner-box">
-												<div class="icon-box">
-													<div class="arrow" style="background-image: url(https://balisolve.com/themes/frontend/default/images/arrow-1.png);"><br></div>
-												<i class="fa fa-search"  style="padding-top: 20px !important;"><span style="padding-top: 10px !important;"><h6 style="color: #fff !important;">TIGA</h6><span></i>
-												</div>
-												<h6><a href="#" <a href="#" style="color: #000 !important;">3. Track Your Visa Status </a></h6>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-6 col-sm-12 single-column">
-										<div class="single-item wow fadeInUp animated animated" data-wow-delay="600ms" data-wow-duration="1500ms">
-											<div class="inner-box">
-												<div class="icon-box">
-													<i class="fa fa-file" style="padding-top: 20px !important;"><span style="padding-top: 10px !important;"><h6 style=" color: #fff !important;">EMPAT</h6><span></i>
-												</div><h6><a href="#" <a href="#" style="color: #000 !important;">4. Get Your Visa</a>
-												</h6>
-											</div>
-										</div>
-									</div>
+						  <!-- This is the individual marker-->
+						  <div class="marker m2 timeline-icon two">
+						      <i class="fa fa-money">
+						        <p class="dayone" style="color: #fff;  padding-top: 5px;">2. Complete Payment</p>
+						      </i>
+						     
+						  </div>
+						  <!-- / marker -->
 
-							</div>        
-						</section>
-				        <!-- apply-style-two -->   		
-						
+						 
+						  
+						  <!-- This is the individual marker-->
+						  <div class="marker m3 timeline-icon three">
+						   <i class="fa fa-search">
+						        <p class="dayone" style="color: #fff;  padding-top: 5px;">3. Track Status</p>
+						      </i>
+						     
+						  </div>
+						  <!-- / marker -->
+
+						  
+						  <!-- This is the individual marker-->
+						  <div class="marker mlast timeline-icon four">
+						     <i class="fa fa-file">
+						        <p class="dayone" style="color: #fff;  padding-top: 5px;">4. Get Visa</p>
+						      </i>
+						       <p class="dayone" style="margin-top: -60px !important; font-size: 15px;">Day Five</p>  
+						  </div>
+						  <!-- / marker -->
+
+
+						 
+						</div>
+
+				       
 					</div>
 				</div>
 			</div>
 		</section>
-		
-		<section class="ftco-section" style="background-color: #000000; padding-top: 2em !important; padding-bottom: 0em !important;">
+
+		<section class="ftco-section" style="background-color: #000000; padding-top: 2em !important; padding-bottom: 0em !important;" id="services">
 			<div class="container">
 				<div class="row justify-content-center pb-4">
 					<div class="col-md-12 heading-section text-center ftco-animate">
@@ -341,22 +338,38 @@
         <div id="myCarousel" class="carousel slide w-100" data-ride="carousel">
             <div class="carousel-inner" role="listbox">
                 <div class="carousel-item py-5 active">
-                    <div class="row">                    	
-                        <div class="col-md-4 ftco-animate">
-                        	
-				          	<div class="project-wrap" style="border-radius: 15px !important;">
-					             <a href="/services/investor-kitas" class="img" style="background-image: url(/static/assets/images/wok2.jpeg); border-radius: 15px !important;">	
-					              <span class="price">From $990</span>	               
+                    <div class="row">               
+                    	<div class="col-md-4 ftco-animate">
+				          	<div class="project-wrap">
+					             <a href="/services/business-visa-offshore" class="img" style="background-image: url(/static/assets/images/pma.jpeg); border-radius: 15px !important;">	
+					              <span class="price">From $249</span>	               
 					            </a>
-					            <div class="text p-4"  style="border-radius: 15px !important;">
-					         		<a href="/services/investor-kitas">
-					                <span class="days">Investor Kitas</span>
-					                <h3 style="font-size: 14px;">Foreign Shareholder Visa</h3>
-					            	</a>
+					            <div class="text p-4" style="border-radius: 15px !important;">
+					            	<a href="/services/business-visa-offshore">
+					                <span class="days">Business Visa Offshore</span>
+					                <h3 style="font-size: 14px;">Entry Permit Up To 180 Days</h3>
+					            </a>
+					                
 					           </div>
 				      	  	</div>
-				      	  	
 				   		</div>
+
+				   		<div class="col-md-4 ftco-animate">
+				          	<div class="project-wrap">
+					             <a href="/services/social-visa-onshore" class="img" style="background-image: url(/static/assets/images/social.jpeg); border-radius: 15px !important;">	
+					              <span class="price">From $245</span>	               
+					            </a>
+					            <div class="text p-4" style="border-radius: 15px !important;">
+					            	<a href="/services/social-visa-onshore">
+					                <span class="days">Social Visa Onshore</span>
+					                <h3 style="font-size: 14px;">Stay Permit Up To 150 Days</h3>
+					            </a>
+					                
+					           </div>
+				      	  	</div>
+				   		</div>
+
+                       
 				   		
 				   		<div class="col-md-4 ftco-animate">
 				          	<div class="project-wrap">
@@ -374,20 +387,7 @@
 				      	  	</div>
 				   		</div>
 				   		
-				   		<div class="col-md-4 ftco-animate">
-				          	<div class="project-wrap">
-					             <a href="/services/spouse-kitas" class="img" style="background-image: url(/static/assets/images/spouse.jpeg); border-radius: 15px !important;">	
-					              <span class="price">From $745</span>	               
-					            </a>
-					            <div class="text p-4" style="border-radius: 15px !important;">
-					            	<a href="/services/spouse-kitas">
-					                <span class="days">Spouse Kitas</span>
-					                <h3 style="font-size: 14px;">Marriage Visa</h3>
-					            	</a>
-					                
-					           </div>
-				      	  	</div>
-				   		</div>
+				   		
                         
                     </div>
                 </div>
@@ -425,36 +425,39 @@
 				   		</div>
 				   		<div class="col-md-4 ftco-animate">
 				          	<div class="project-wrap">
-					             <a href="/services/social-visa-onshore" class="img" style="background-image: url(/static/assets/images/social.jpeg); border-radius: 15px !important;">	
-					              <span class="price">From $245</span>	               
+					             <a href="/services/spouse-kitas" class="img" style="background-image: url(/static/assets/images/spouse.jpeg); border-radius: 15px !important;">	
+					              <span class="price">From $745</span>	               
 					            </a>
 					            <div class="text p-4" style="border-radius: 15px !important;">
-					            	<a href="/services/social-visa-onshore">
-					                <span class="days">Social Visa Onshore</span>
-					                <h3 style="font-size: 14px;">Stay Permit Up To 150 Days</h3>
-					            </a>
+					            	<a href="/services/spouse-kitas">
+					                <span class="days">Spouse Kitas</span>
+					                <h3 style="font-size: 14px;">Marriage Visa</h3>
+					            	</a>
 					                
 					           </div>
 				      	  	</div>
 				   		</div>
+				   		
                     </div>
                 </div>
                 <div class="carousel-item py-5">
                     <div class="row">
-                        <div class="col-md-4 ftco-animate">
-				          	<div class="project-wrap">
-					             <a href="/services/business-visa-offshore" class="img" style="background-image: url(/static/assets/images/pma.jpeg); border-radius: 15px !important;">	
-					              <span class="price">From $249</span>	               
+                    	 <div class="col-md-4 ftco-animate">
+                        	
+				          	<div class="project-wrap" style="border-radius: 15px !important;">
+					             <a href="/services/investor-kitas" class="img" style="background-image: url(/static/assets/images/wok2.jpeg); border-radius: 15px !important;">	
+					              <span class="price">From $990</span>	               
 					            </a>
-					            <div class="text p-4" style="border-radius: 15px !important;">
-					            	<a href="/services/business-visa-offshore">
-					                <span class="days">Business Visa Offshore</span>
-					                <h3 style="font-size: 14px;">Entry Permit Up To 180 Days</h3>
-					            </a>
-					                
+					            <div class="text p-4"  style="border-radius: 15px !important;">
+					         		<a href="/services/investor-kitas">
+					                <span class="days">Investor Kitas</span>
+					                <h3 style="font-size: 14px;">Foreign Shareholder Visa</h3>
+					            	</a>
 					           </div>
 				      	  	</div>
+				      	  	
 				   		</div>
+                        
                        <div class="col-md-4 ftco-animate">
 				          	<div class="project-wrap">
 					             <a href="/services/set-up-pt-pma" class="img" style="background-image: url(/static/assets/images/investment.jpeg); border-radius: 15px !important;">	
@@ -515,7 +518,7 @@
 		
 		
 
-		<section class="ftco-section ftco-about img" style="background-image: url(/static/assets/images/team1.JPG); margin-top: -1em !important;">
+		<section class="ftco-section ftco-about img" style="background-image: url(/static/assets/images/team1.JPG); margin-top: -2em !important;">
 			<div class="overlay"></div>
 			<div class="container py-md-5">
 				<div class="row py-md-5">
@@ -543,7 +546,7 @@
 										<br>
 										<p>Our goal is to provide the best services in terms of professionally and efficiency creating a cool network of people to develop social, cultural and psychological growth serving people’s well-being, locally and globally. Chose your service, join our community.</p>
 										<br>
-										<p><a href="/#contact" class="btn btn-primary">Contact Us</a></p>
+										<p><a href="/#services" class="btn btn-primary">Our Services</a></p>
 									</div>
 								</div>
 							</div>			
@@ -660,11 +663,14 @@
 			    </div>
 			</div>
 		</section>
-
-		<section class="ftco-footer bg-bottom ftco-no-pt grey" style="background-image: url(/static/assets/images/balilut.JPG);" id="contact" style="padding-top: 2em !important; padding-bottom: 0em !important;">
+		<section id="kontak"></section>
+		<br><br><br>
+		<br>
+		<section class="ftco-footer bg-bottom ftco-no-pt grey" style="background-image: url(/static/assets/images/balilut.JPG);" style="padding-top: 2em !important; padding-bottom: 0em !important;">
 			<div class="overlay"></div>
 		  <div class="container">
 		    <div class="row">
+		    	
 		      <div class="col-lg-6 heading-section p-5">
 		      	<span class="subheading">Contact Us</span>
 				<h2 class="" style="color: #fff;">Get in Touch With Us</h2>

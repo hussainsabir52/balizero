@@ -34,7 +34,7 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="/"><img src="/static/assets/images/balizero.png" style="max-width: 75px;"></a>
+			<a class="navbar-brand" href="/"><img src="/static/assets/images/logo_bali.png" style="max-width: 150px;"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="oi oi-menu"></span> Menu
 			</button>
@@ -49,7 +49,7 @@
 					    <ul class="dropdown-menu">
 						  <li><a class="dropdown-item" href="/services/business-visa-offshore"> Business Visa Offshore</a></li>						  
 						  <li><a class="dropdown-item" href="/services/social-visa-onshore"> Social Visa Onshore </a></li>
-						  <li><a class="dropdown-item" href="#"> Other Visa &raquo </a>
+						  <li><a class="dropdown-item" href="#"> Other Services &raquo </a>
 							 <ul class="submenu dropdown-menu">
 							  <li><a class="dropdown-item" href="/services/investor-kitas"> Investor Kitas </a></li>
 							  <li><a class="dropdown-item" href="/services/retirment-kitas"> Retirment Kitas </a></li>
@@ -88,9 +88,14 @@
 	                      
 	                      <p>Welcome ! </p>
 	                      <p>If are you planning to come to Bali just for a while o for longer period you will find with us all the information you may need. Maybe you’re coming as tourist, or maybe you’re a digital nomad who wants to spend time working remotely in the beautiful Island of God, or maybe you want to explore the hundreds business possibilities there are now in Indonesia…</p>
-	                      <p>Whatever it will be your desire to come to Bali, you are welcome and we will help you in every step to came safe and legally following the rules of the new traveling world after the Pandemic. This website will be providing 100% remotely the documents you will need to travel and it will always be your updated info point to clarify every doubt you may need.</p><p>First step for you is to check out the type of Visa more suitable to your visit purpose !</p>
+	                      <p>Whatever it will be your desire to come to Bali, you are welcome and we will help you in every step to came safe and legally following the rules of the new traveling world after the Pandemic.</p>
+	                      <p>This website will be providing 100% remotely the documents you will need to travel and it will always be your updated info point to clarify every doubt you may need.</p><p>First step for you is to check out the type of Visa more suitable to your visit purpose !</p>
 	                      <br>
-	                     <a href="/#apply" class="btn btn-primary py-3 px-4 text-center">Apply Now</a><br>
+
+	                      <input type="checkbox" id="checkme"/>
+	                       <label for="checkme">I want to apply</label><br>
+  							
+	                     <a href="/#apply"><button class="btn btn-primary py-3 px-4 text-center" name="sendNewSms" disabled="disabled" id="sendNewSms" >Which Visa Type Should I Apply</button></a><br>
 	                      <br>	
 	                      <br>
 	                      
@@ -896,7 +901,19 @@ if ($(window).width() < 992) {
 
 
 
+<script type="text/javascript">
+	var checker = document.getElementById('checkme');
+ var sendbtn = document.getElementById('sendNewSms');
+ // when unchecked or checked, run the function
+ checker.onchange = function(){
+if(this.checked){
+    sendbtn.disabled = false;
+} else {
+    sendbtn.disabled = true;
+}
 
+}
+</script>
 
 		</body>
 		</html>
