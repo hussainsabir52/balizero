@@ -76,7 +76,7 @@ class StepTwoForm(FlaskForm):
 	gender =  SelectField("Gender",choices=[("Male","Male"),("Female","Female")])  
 	birthplace =  StringField("Birth Place",validators=[InputRequired(),Length(max=100)])
 	birthdate = DateField("Birth Date",format="%m/%d/%Y")
-	martial =  SelectField("Martial Status",choices=[("Single","Single"),("married","married")])  
+	martial =  SelectField("Marital Status",choices=[("Single","Single"),("married","married")])  
 	nationality = SelectField("Nationality",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),
 		("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])  
 	email =   StringField("email",validators=[InputRequired(),Length(max=100)])
@@ -91,7 +91,7 @@ class StepTwoForm(FlaskForm):
 
 class StepThreeForm(FlaskForm):
 	emergency_name =  StringField("full name",validators=[InputRequired(),Length(max=100)])
-	emergency_status =  SelectField("relationship",choices=[("Parents","Parents"),("Grand Parents","Grand Parents"),
+	emergency_status =  SelectField("add friend",choices=[("Parents","Parents"),("Grand Parents","Grand Parents"),
 		("Brother/Sister","Brother/Sister"),("Other Familly","Other Familly")])  
 	emergency_address =  StringField("address",validators=[InputRequired(),Length(max=100)])
 	emergency_city =StringField("city",validators=[InputRequired(),Length(max=100)])
