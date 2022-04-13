@@ -72,14 +72,15 @@ class StepOneSocialForm(FlaskForm):
 
 
 class StepTwoForm(FlaskForm):
-	fullname =  StringField("Full Name",validators=[InputRequired(),Length(max=100)])
+	fullname =  StringField("Name",validators=[InputRequired(),Length(max=100)])
+	surname =  StringField("Surname",validators=[InputRequired(),Length(max=100)])
 	gender =  SelectField("Gender",choices=[("Male","Male"),("Female","Female")])  
 	birthplace =  StringField("Birth Place",validators=[InputRequired(),Length(max=100)])
 	birthdate = DateField("Birth Date",format="%m/%d/%Y")
 	martial =  SelectField("Marital Status",choices=[("Single","Single"),("married","married")])  
 	nationality = SelectField("Nationality",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),
 		("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])  
-	email =   StringField("email",validators=[InputRequired(),Length(max=100)])
+	email =   StringField("email",validators=[InputRequired(),Email(),Length(max=100)])
 	phone =   StringField("whatsapp",validators=[InputRequired(),Length(max=100)])
 	original_address =   StringField("address",validators=[InputRequired(),Length(max=100)])
 	original_city =  StringField("city",validators=[InputRequired(),Length(max=100)])
@@ -98,7 +99,7 @@ class StepThreeForm(FlaskForm):
 	emergency_state =  StringField("state/region/province",validators=[InputRequired(),Length(max=100)])
 	emergency_zip =  StringField("zip",validators=[InputRequired(),Length(max=100)])
 	emergency_country =  SelectField("country",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])
-	emergency_email =  StringField("email",validators=[InputRequired(),Length(max=100)])
+	emergency_email =  StringField("email",validators=[InputRequired(),Email(),Length(max=100)])
 	emergency_phone =  	StringField("whatsapp",validators=[InputRequired(),Length(max=100)])
 
 class StepFourForm(FlaskForm):
@@ -106,7 +107,7 @@ class StepFourForm(FlaskForm):
 	document_number = StringField("Document Number",validators=[InputRequired(),Length(max=100)])
 	place_issued = StringField("Place issued",validators=[InputRequired(),Length(max=100)])
 	date_issued = DateField("Date issued",format="%m/%d/%Y")
-	date_expired = DateField("Date expired",format="%m/%d/%Y")
+	date_expired = DateField("Date expired (longer than 2023)",format="%m/%d/%Y")
 	
 
 

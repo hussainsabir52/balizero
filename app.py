@@ -97,6 +97,7 @@ class Booking(db.Model):
     services = db.Column(db.String(200))
     paymentmethod = db.Column(db.String(200))
     fullname = db.Column(db.String(200))
+    surname = db.Column(db.String(200))
     gender =  db.Column(db.String(200))
     birthplace = db.Column(db.String(200))
     birthdate = db.Column(db.DateTime())
@@ -781,6 +782,7 @@ def StepTwo(url):
             phone = form.phone.data
             if phone[0] == "+":
                 booking.fullname =   form.fullname.data
+                booking.surname =   form.surname.data
                 booking.gender =  form.gender.data   
                 booking.birthplace =   form.birthplace.data
                 booking.birthdate =  form.birthdate.data
@@ -799,6 +801,7 @@ def StepTwo(url):
                 flash("Please use + country on whatsapp form","danger")
     else:
         form.fullname.data= booking.fullname
+        form.surname.data= booking.surname
         form.gender.data  = booking.gender
         form.birthplace.data= booking.birthplace
         form.birthdate.data= booking.birthdate
@@ -815,6 +818,7 @@ def StepTwo(url):
             phone =  request.form["phone"]
             if phone[0] == "+":
                 booking.fullname= request.form["fullname"]
+                booking.surname= request.form["surname"]
                 booking.gender  = request.form["gender"] 
                 booking.birthplace= request.form["birthplace"]
                 date = datetime.strptime(request.form["birthdate"], '%m/%d/%Y').strftime('%Y-%m-%d') 
@@ -900,23 +904,31 @@ def StepFour(url):
         form.date_expired.data = travel.date_expired
         if form.validate_on_submit():
             expired = datetime.strptime(request.form["date_expired"], '%m/%d/%Y').strftime('%Y-%m-%d') 
-            issued = datetime.strptime(request.form["date_issued"], '%m/%d/%Y').strftime('%Y-%m-%d') 
-            travel.tipe = request.form["tipe"]
-            travel.document_number = request.form["document_number"]
-            travel.place_issued = request.form["place_issued"]
-            travel.date_issued = issued
-            travel.date_expired = expired
-            db.session.commit()        
-            return redirect(url_for("StepFive",url=url))
+            year = datetime.strptime(expired, "%Y-%m-%d")
+            if year.year < 2023 :
+                flash("Expired date must be longer than 2023","danger")
+            else:    
+                issued = datetime.strptime(request.form["date_issued"], '%m/%d/%Y').strftime('%Y-%m-%d') 
+                travel.tipe = request.form["tipe"]
+                travel.document_number = request.form["document_number"]
+                travel.place_issued = request.form["place_issued"]
+                travel.date_issued = issued
+                travel.date_expired = expired
+                db.session.commit()        
+                return redirect(url_for("StepFive",url=url))
 
     else: 
         if form.validate_on_submit():
-            travel = TravelDocument(tipe=form.tipe.data,document_number=form.document_number.data,
-                    place_issued=form.place_issued.data,date_issued=form.date_issued.data,date_expired=form.date_expired.data,
-                    traveldocumentowner_id=booking.id)
-            db.session.add(travel)
-            db.session.commit()                           
-            return redirect(url_for("StepFive",url=url))
+            expired = form.date_expired.data            
+            if expired.year < 2023 :
+                flash("Expired date must be longer than 2023","danger")
+            else:    
+                travel = TravelDocument(tipe=form.tipe.data,document_number=form.document_number.data,
+                        place_issued=form.place_issued.data,date_issued=form.date_issued.data,date_expired=form.date_expired.data,
+                        traveldocumentowner_id=booking.id)
+                db.session.add(travel)
+                db.session.commit()                           
+                return redirect(url_for("StepFive",url=url))
 
     return render_template("submission/stepfour.html",form=form,booking=booking,url=url)  
 
@@ -955,6 +967,7 @@ def StepFive(url):
                 msg.body = "Thank you for your order"
                 msg.html = "<p>Hello  {},</p><p>We received your request, thank you.<br>We will check your documentation quickly and will make sure your process starts as soon as possible.<br>Important:<br>To be effective and in order to start your application process the payment has to be undertaken to our secure credit card/pay pal page at this invoice link {}<p></p>Once the payment is done will get back to you within the next 24hours, often quicker!<br>If you have any further questions please send an email to info@balizero.com</p><p>Thank you<br>Bali Zero Team<br>https://www.balizero.com</p>".format(booking.fullname,link)
                 mail.send(msg)
+                
                 return redirect(url_for("InvoiceId",url=url))
             else:
                 flash("Please complete your data","danger")  
