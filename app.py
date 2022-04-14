@@ -715,7 +715,7 @@ def StepOne(url):
                     booking.pricing = 329
                     db.session.commit() 
                 elif services == "E-Visa Express Proccess Service":
-                    booking.pricing = 259
+                    booking.pricing = 249
                     db.session.commit() 
                 else:
                     booking.pricing = 700
