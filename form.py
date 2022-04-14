@@ -63,12 +63,14 @@ class StepOneBusinessForm(FlaskForm):
 	services = SelectField("Services",choices=[("E-Visa Super Express Proccess Service","E-Visa Super Express Proccess Service - 4M IDR + 50 USD (329 $)"),
 		("E-Visa Express Proccess Service","E-Visa Express Proccess Service - 3M IDR + 50 USD (249 $)"),
 		("E-Visa Super Express + Accomodation in COZero Living","E-Visa Super Express + Accomodation in COZero Living - USD 700")])
-	payment = SelectField("Payment",choices=[("Transferwise","Transferwise")])
+	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal"),("Transferwise","Transferwise")])
+
+
 
 class StepOneSocialForm(FlaskForm):
 	services = SelectField("Services",choices=[("E-Visa Service","E-Visa Service - 2,8M IDR + 50 USD (245 $)"),
 		("E-Visa Service + Visa Extention","E-Visa Service + Visa Extention - 3,8 IDR + 50 USD (315 $)")])
-	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal")])
+	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal"),("Transferwise","Transferwise")])
 
 
 class StepTwoForm(FlaskForm):

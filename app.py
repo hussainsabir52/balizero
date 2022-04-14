@@ -705,7 +705,7 @@ def StepOne(url):
             checked = request.form.getlist("vehicle")
             if len(checked) == 4:
                 services = form.services.data 
-                if services == "E-Visa Service":
+                if services == "E-Visa Service" :
                     booking.pricing = 245
                     db.session.commit()
                 elif services == "E-Visa Service + Visa Extention":

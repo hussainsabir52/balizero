@@ -9012,6 +9012,16 @@ h1, h2, h3, h4, h5,
   padding-right: 20px;
   background: #e3242b; }
 
+.project-wrap .img .price-cozero{
+    background: #8CC63F !important;  }
+
+.project-wrap .img .price-cozero:before{
+    border-color: transparent transparent transparent  #8CC63F !important;  }
+
+.project-wrap .img .price-cozero:after{
+    border-color: transparent transparent  #8CC63F transparent !important;  }
+
+
 .project-wrap {
   margin-bottom: 30px; 
 }
@@ -9029,7 +9039,7 @@ h1, h2, h3, h4, h5,
       background: #e3242b;
       color: #fff;
       padding: 8px;
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 500;
       -moz-transition: all 0.3s ease;
       -o-transition: all 0.3s ease;
