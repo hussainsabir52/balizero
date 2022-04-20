@@ -21,7 +21,7 @@ from flask_compress import Compress
 from werkzeug.utils import secure_filename
 import os
 from form import AppliedForm,StepOneSocialForm,StepOneBusinessForm,StepTwoForm,StepThreeForm,StepFourForm,UploadForm,SubmitForm
-from form import AppointmentForm
+from form import AppointmentForm,UserRegisterForm,UserLoginForm
 
 
 
@@ -57,6 +57,15 @@ configure_uploads(app,images)
 
 
 #################################################### Decorator ##############################################################################
+#login manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "UserLogin"
+
+#user loader
+@login_manager.user_loader
+def user_loader(user_id):
+    return User.query.get(int(user_id))
 
 
 
@@ -89,6 +98,18 @@ class User(db.Model):
     email = db.Column(db.String(200))   
     password = db.Column(db.String(500))        
     role = db.Column(db.String(100))    
+
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return self.id
+
+    def is_authenticated(self):
+        return self.authenticated
+
+    def is_anonymous(self):
+        return False
 
 
 class Booking(db.Model):
@@ -131,7 +152,6 @@ class Booking(db.Model):
     status = db.Column(db.String(200))   
     tipe = db.Column(db.String(200))
     pricing = db.Column(db.String(200)) 
-    services = db.Column(db.String(200))
     traveldocumentowner = db.relationship("TravelDocument",backref="traveldocumentowner") 
     documentowner = db.relationship("Document",backref="documentowner") 
 
@@ -427,17 +447,6 @@ def PopulateCountry():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 @app.route("/",methods=["GET","POST"])
 def Index():
     formone = AppliedForm()
@@ -612,23 +621,23 @@ def Result(messages,url):
 @app.route("/services/<name>",methods=["GET","POST"])
 def Services(name):
     if name == "investor-kitas" :
-        return render_template("investor.html") 
+        return render_template("services/investor.html") 
     elif name == "retirment-kitas"  :  
-        return render_template("retirment.html") 
+        return render_template("services/retirment.html") 
     elif name == "spouse-kitas"  :  
-        return render_template("spouse.html")     
+        return render_template("services/spouse.html")     
     elif name == "working-kitas"  :  
-        return render_template("working.html")     
+        return render_template("services/working.html")     
     elif name == "freelance-kitas"  :  
-        return render_template("freelance.html")
+        return render_template("services/freelance.html")
     elif name == "social-visa-onshore":
-        return render_template("social.html")
+        return render_template("services/social.html")
     elif name == "business-visa-offshore":
-        return render_template("business.html")
+        return render_template("services/business.html")
     elif name == "set-up-pt-pma":
-        return render_template("pma.html")    
+        return render_template("services/pma.html")    
     elif name == "cozero-living":  
-        return render_template("cozero-living.html")  
+        return render_template("services/cozero-living.html")  
                          
                      
 
@@ -1019,9 +1028,6 @@ def CheckFinishedData(url):
         return redirect(url_for("InvoiceId",url=url))
     
 
-
-
-
 @app.route("/sub/invoice/<url>",methods=["GET","POST"])
 def InvoiceId(url):
     booking = Booking.query.filter_by(url=url).first()
@@ -1036,7 +1042,62 @@ def InvoiceId(url):
 
 
 
+#Auth
+@app.route("/register/user",methods=["GET","POST"])
+def UserRegister():    
+    form = UserRegisterForm()
+    if form.validate_on_submit():
+        email = form.email.data 
+        check = User.query.filter_by(email=email).all()
+        if len(check) > 0 :
+            flash("Email already registered","danger")
+        else :
+                      
+            hass = generate_password_hash(form.password.data,method="sha256")   
+            user = User(username=form.username.data,email=email,
+                password=hass,role="owner")
 
+            db.session.add(user)
+            db.session.commit()
+            
+            login_user(user)
+            return redirect(url_for("UserDashboard"))   
+                
+    return render_template("dashboard/auth/register.html",form=form)
+
+
+@app.route("/login/user",methods=["GET","POST"])
+def UserLogin():
+    form = UserLoginForm()
+    if form.validate_on_submit():
+        email = form.email.data 
+        user = User.query.filter_by(email=email).first()
+        if user:
+            if check_password_hash(user.password,form.password.data):
+                login_user(user)
+                return redirect(url_for("UserDashboard"))   
+                
+        flash("Invalid login","danger")
+    return render_template("dashboard/auth/login.html",form=form)         
+
+
+@app.route("/dashboard",methods=["GET","POST"])
+@login_required
+def UserDashboard():
+    return render_template("dashboard/dashboard.html")    
+
+
+@app.route("/dashboard/invoice/<status>",methods=["GET","POST"])
+@login_required
+def AllInvoice(status):
+    if status == "all": 
+        all_invoice = Booking.query.filter(Booking.status != "uncomplete data").all()
+    elif status == "paid":
+        all_invoice = Booking.query.filter(Booking.status != "paid").all()
+    elif status == "unpaid":
+        all_invoice = Booking.query.filter(Booking.status != "unpaid").all()
+
+    return render_template("dashboard/invoice/all.html",all_invoice=all_invoice,status=status)
 
 
 

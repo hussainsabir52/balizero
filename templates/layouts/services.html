@@ -27,12 +27,41 @@
   <link href="{{url_for ('static',filename='assets/css/flaticon.css')}}" rel="stylesheet"/>
 
   <link href="{{url_for ('static',filename='assets/css/styles.css')}}" rel="stylesheet"/>
+    <link href="{{url_for ('static',filename='assets/css/pricing.css')}}" rel="stylesheet"/>
+      <link href="{{url_for ('static',filename='assets/css/time.css')}}" rel="stylesheet"/>
+
+
+
+    <link rel="shortcut icon" type="image/png" href="/static/assets/images/balizero.png"/>
+
+    <style type="text/css">
+  .float{
+  position:fixed;
+  width:100px;
+  height:100px;
+  bottom:40px;
+  right:40px; 
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+
+}
+
+.my-float{
+  margin-top:22px;
+}
+
+#float {
+            display: none;
+        }
+</style>
+
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-       <a class="navbar-brand" href="/"><img src="/static/assets/images/balizero.png" alt="logo" style="max-width: 75px;"></a>
+      <a class="navbar-brand" href="/"><img src="/static/assets/images/balizero.png" alt="logo" style="max-width: 75px;"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
@@ -41,7 +70,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
-              <li class="nav-item dropdown">
+         <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">  Services  </a>
               <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/services/business-visa-offshore"> Business Visa Offshore</a></li>             
@@ -68,23 +97,7 @@
       </div>
     </div>
   </nav>
- 
 
-
-<section class="ftco-section ftco-about img"style="background-image: url(/static/assets/images/Slide1.PNG);">
-      <div class="overlay"></div>
-      <div class="container py-md-5">
-        <div class="row py-md-5">
-          <div class="col-md d-flex align-items-center justify-content-center">
-            <a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex align-items-center justify-content-center mb-4">
-              <span class="fa fa-play"></span>
-
-            </a>
-            <h3 style="color: #fff; padding-left: 10px;">Working Kitas</h3>
-          </div>
-        </div>
-      </div>
-    </section>
 
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -111,39 +124,16 @@
       </div>
     </div>
   </div>
-</div> 
+</div>  
 
-    <section class="ftco-section ftco-about ftco-no-pt img">
-      <div class="container">
-        <div class="row d-flex">
-          <div class="col-md-12 about-intro">
-            <div class="row">
-              <div class="col-md-6 d-flex align-items-stretch">
-                <div class="img d-flex w-100 align-items-center justify-content-center" style="background-image:url(/static/assets/images/working.jpeg);">
-                </div>
-              </div>
-              <div class="col-md-6 pl-md-5 py-5">
-                <div class="row justify-content-start pb-3">
-                  <div class="col-md-12 heading-section ftco-animate">
-                   
-                   <span class="subheading">Working Kitas</span>
-                    <h2 class="mb-4" style="font-size:25px !important;">WORKING PERMIT AS EMPLOYEE</h2>
-                    <p>The Work Visa KITAS is issued to foreign nationals who want to work for an Indonesian company or organization.</p>
+{% block content %}
+{% endblock %}
 
-                    <p>For a work KITAS, your employer has to obtain a work permit (IMTA) for you from the Indonesian Ministry of Manpower. You will then receive a KITAS based on the duration of your work contract.</p>
-                    
-                  
-                    <p><a href="/sub/appointment/working kitas" class="btn btn-primary">GET WORKING VISA</a> <a data-toggle="modal" data-target="#exampleModalLong" class="btn btn-primary">Check out the latest regulation</a></p>
-                    <p style="font-size: 20px; color:#000 !important;"><u>Starting From 10,5M idr + 1,350 usd (2,095 $)</u></p>
+<a href="wa.me/6281332982993" class="float" id="float">
+   
+<img src="https://i.pinimg.com/originals/3a/8d/ad/3a8dad7f872542a95103cb9ca74dc415.png">
+</a>
 
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
 <section class="ftco-section" style="padding-top: 0em !important; padding-bottom: 1em !important;">
       <div class="container">
@@ -157,7 +147,7 @@
 
        <div class="container">
         <div class="row">
-         <div class="col-md-4 ftco-animate">
+          <div class="col-md-4 ftco-animate">
                     <div class="project-wrap">
                        <a href="/services/business-visa-offshore" class="img" style="background-image: url(/static/assets/images/pma.jpeg); border-radius: 15px !important;"> 
                         <span class="price">Starting From 3M idr + 50 usd (249 $)</span>                 
@@ -187,7 +177,7 @@
                     </div>
               </div>
 
-             <div class="col-md-4 ftco-animate">
+              <div class="col-md-4 ftco-animate">
                     <div class="project-wrap">
                        <a href="/services/cozero-living" class="img" style="background-image: url(/static/assets/images/coliving.jpeg); border-radius: 15px !important;"> 
                         <span class="price price-cozero">Package</span>                
@@ -200,11 +190,13 @@
                      </div>
                     </div>
               </div>
-          
+
+
     </div>
     
     </div>
     </section>
+
 <section class="ftco-footer bg-bottom ftco-no-pt grey" style="background-image: url(/static/assets/images/balilut.JPG);" id="contact">
       <div class="overlay"></div>
       <div class="container">
@@ -248,6 +240,7 @@
      </div>
     </section>
         
+    
     <footer class="ftco-footer bg-bottom ftco-no-pt" style="background-color: #000;color: #fff;">
       <div class="container">
         <div class="row">
@@ -268,7 +261,7 @@
               <ul class="list-unstyled">
                 <li><a href="/" class="py-2 d-block" style="color: #fff;">Online Payment</a></li>
                 <li><a href="/" class="py-2 d-block" style="color: #fff;">Refund Policy</a></li>
-                <li><a href="/" class="py-2 d-block" style="color: #fff;">Whatsapp Direct Question</a></li>
+                <li><a onclick="show()" id="btnID" class="py-2 d-block" style="color: #fff;">Whatsapp Direct Question</a></li>
                 <li><a href="/services/cozero-living" class="py-2 d-block" style="color: #fff;">COZero Living</a></li>
                 <li><a href="/" class="py-2 d-block" style="color: #fff;">Search in the website</a></li>
                 <li><a href="/#contact" class="py-2 d-block" style="color: #fff;">Contact Us</a></li>
@@ -306,18 +299,9 @@
         </div>
       </footer>         
       
-      
 
+   
 
-      
-
-
-      
-
-
-
-
-        
 
 
 
@@ -366,6 +350,20 @@
  </script>     
 
 <script type="text/javascript">
+        function show() {
+ 
+            /* Access image by id and change
+            the display property to block*/
+            document.getElementById('float')
+                    .style.display = "block";
+ 
+            document.getElementById('btnID')
+                    .style.display = "none";
+        }
+    </script>
+
+
+<script type="text/javascript">
   $(document).on('click', '.dropdown-menu', function (e) {
   e.stopPropagation();
 });
@@ -383,6 +381,5 @@ if ($(window).width() < 992) {
   });
 }
 </script>
-
 </body>
 </html>

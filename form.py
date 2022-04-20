@@ -21,6 +21,10 @@ class AddUserForm(FlaskForm):
 	password = PasswordField("password",validators=[InputRequired(),Length(min=6,max=100)])
 	role = SelectField("role",choices=[("manager","manager"),("director","director"),("admin","admin"),("project admin","project admin"),("production","production"),("design","design")])
 
+class UserLoginForm(FlaskForm):
+	email = StringField("email",validators=[InputRequired(),Email(),Length(max=200)])
+	password = PasswordField("password",validators=[InputRequired(),Length(max=100)])
+
 
 
 class SubmitForm(FlaskForm):
@@ -109,7 +113,7 @@ class StepFourForm(FlaskForm):
 	document_number = StringField("Document Number",validators=[InputRequired(),Length(max=100)])
 	place_issued = StringField("Place issued",validators=[InputRequired(),Length(max=100)])
 	date_issued = DateField("Date issued",format="%m/%d/%Y")
-	date_expired = DateField("Date expired (longer than 2023)",format="%m/%d/%Y")
+	date_expired = DateField("Expiration Date",format="%m/%d/%Y")
 	
 
 

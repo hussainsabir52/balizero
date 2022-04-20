@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% block title %}
+<title>Internal - My Dashboard</title>
+{% endblock %}
+
+{% block content %}
+
+<main class="d-flex align-items-center">
+    <div class="container">
+       <div class="row">
+        <div class="col-md-12" style="margin-top: 50px; margin-bottom: 20px;">
+          
+          <h3 style="font-weight: bold; font-size: 22px;">Hi {{current_user.username}}</h3>
+          <p>Here is summary from your website</p>
+        </div>  
+
+       
+        <div class="col-sm-4" style="margin-bottom: 15px;">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Leads</h5>
+              <p>50 total leads</p>
+              <a href="/dashboard/account//transaction" class="btn btn-outline-dark">Details</a>  
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4" style="margin-bottom: 15px;">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Unpaid Invoices</h5>
+              <p>29 unpaid invoices</p>
+              <a href="/dashboard/account//transaction" class="btn btn-outline-dark">Details</a>  
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4" style="margin-bottom: 15px;">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Incoming Appointment</h5>
+              <p>29 appointment</p>
+              <a href="/dashboard/account//transaction" class="btn btn-outline-dark">Details</a>  
+            </div>
+          </div>
+        </div>
+                
+      </div>
+      <br>
+      <br>
+
+    </div>
+
+  </main>
+
+{% endblock %}
