@@ -26,6 +26,8 @@ class UserLoginForm(FlaskForm):
 	password = PasswordField("password",validators=[InputRequired(),Length(max=100)])
 
 
+class SearchForm(FlaskForm):
+	keyword = StringField("",validators=[InputRequired(),Length(max=100)])	
 
 class SubmitForm(FlaskForm):
 	submit = SubmitField("")
@@ -84,17 +86,14 @@ class StepTwoForm(FlaskForm):
 	birthplace =  StringField("Birth Place",validators=[InputRequired(),Length(max=100)])
 	birthdate = DateField("Birth Date",format="%m/%d/%Y")
 	martial =  SelectField("Marital Status",choices=[("Single","Single"),("married","married")])  
-	nationality = SelectField("Nationality",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),
-		("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])  
+	nationality = SelectField('Nationality:',choices=[], render_kw={"placeholder": "*"}) 
 	email =   StringField("email",validators=[InputRequired(),Email(),Length(max=100)])
 	phone =   StringField("whatsapp",validators=[InputRequired(),Length(max=100)])
 	original_address =   StringField("address",validators=[InputRequired(),Length(max=100)])
 	original_city =  StringField("city",validators=[InputRequired(),Length(max=100)])
 	original_state =   StringField("state/province/region",validators=[InputRequired(),Length(max=100)])
 	original_zip =   StringField("zip",validators=[InputRequired(),Length(max=100)])
-	original_country = SelectField("country",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),
-		("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])
-	
+	original_country = SelectField('country:',choices=[], render_kw={"placeholder": "*"}) 
 
 class StepThreeForm(FlaskForm):
 	emergency_name =  StringField("full name",validators=[InputRequired(),Length(max=100)])
@@ -104,7 +103,7 @@ class StepThreeForm(FlaskForm):
 	emergency_city =StringField("city",validators=[InputRequired(),Length(max=100)])
 	emergency_state =  StringField("state/region/province",validators=[InputRequired(),Length(max=100)])
 	emergency_zip =  StringField("zip",validators=[InputRequired(),Length(max=100)])
-	emergency_country =  SelectField("country",choices=[("Afghanistan","Afghanistan"),("Albania","Albania"),("Brazil","Brazil"),("Japan","Japan"),("Usa","Usa")])
+	emergency_country =  SelectField('country:',choices=[], render_kw={"placeholder": "*"}) 
 	emergency_email =  StringField("email",validators=[InputRequired(),Email(),Length(max=100)])
 	emergency_phone =  	StringField("whatsapp",validators=[InputRequired(),Length(max=100)])
 
@@ -145,3 +144,15 @@ class AppointmentForm(FlaskForm):
 	countrytime = SelectField('country time:',choices=[], render_kw={"placeholder": "*"}) 
 
 
+####################### Dashboard
+class EditBookingStatusForm(FlaskForm):
+	payment = SelectField("Payment Status",choices=[("pending payment","pending payment")
+		,("payment received","payment received"),("payment rejected","payment rejected")]) 
+	visastatus = SelectField("Visa Status",choices=[("waiting payment","waiting payment")
+		,("document submited","document submited"),("visa approved","visa approved")]) 	
+
+
+class CreateBlogForm(FlaskForm):
+	title = StringField("title",validators=[InputRequired(),Length(max=100)])	
+	instagram = TextAreaField("instagram link",validators=[InputRequired()])	
+	content = TextAreaField("content",validators=[InputRequired()])	

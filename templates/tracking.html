@@ -1,0 +1,54 @@
+{% extends "layouts/index.html" %}
+
+{% block content %}
+
+<div id="tallModal" class="modal modal-wide fade" data-keyboard="false" data-backdrop="static">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+        <a href="/" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        
+      </div>		
+	      
+	      <div class="modal-body">   
+	      
+	               <div class="row">    
+	                    <div class="col-md-12 text-center">
+	                      
+	                      <br>	
+	                      <h6>{{message}}</h6>
+	                      <br>
+
+ 							
+	                    
+	                     	<a href="/"><button class="btn btn-primary py-3 px-4 text-center">Back to Home</button></a><br>
+	                      <br>	
+	                      <br>
+	                      
+	                    </div>                    
+	                </div>
+	    
+	      </div>
+
+	      
+	    </div>
+	  </div>
+	</div>  
+	
+
+
+<script type="text/javascript">
+	var checker = document.getElementById('checkme');
+ var sendbtn = document.getElementById('sendNewSms');
+ // when unchecked or checked, run the function
+ checker.onchange = function(){
+if(this.checked){
+    sendbtn.disabled = false;
+} else {
+    sendbtn.disabled = true;
+}
+
+}
+</script>
+
+{% endblock %} 

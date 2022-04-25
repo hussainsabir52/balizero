@@ -21,7 +21,7 @@ from flask_compress import Compress
 from werkzeug.utils import secure_filename
 import os
 from form import AppliedForm,StepOneSocialForm,StepOneBusinessForm,StepTwoForm,StepThreeForm,StepFourForm,UploadForm,SubmitForm
-from form import AppointmentForm,UserRegisterForm,UserLoginForm
+from form import AppointmentForm,UserRegisterForm,UserLoginForm,EditBookingStatusForm,CreateBlogForm,SearchForm
 
 
 
@@ -151,7 +151,8 @@ class Booking(db.Model):
     created_date = db.Column(db.DateTime())
     status = db.Column(db.String(200))   
     tipe = db.Column(db.String(200))
-    pricing = db.Column(db.String(200)) 
+    pricing = db.Column(db.BigInteger()) 
+    visastatus = db.Column(db.String(200))
     traveldocumentowner = db.relationship("TravelDocument",backref="traveldocumentowner") 
     documentowner = db.relationship("Document",backref="documentowner") 
 
@@ -170,7 +171,6 @@ class Document(db.Model):
     filename = db.Column(db.Text())
     documentowner_id =  db.Column(db.Integer(), db.ForeignKey("booking.id"))
 
-
 class Appointment(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(200))
@@ -182,11 +182,25 @@ class Appointment(db.Model):
     url = db.Column(db.String(200))
     time = db.Column(db.String(200))
     countrytime = db.Column(db.String(200))
-
+    status = db.Column(db.String(200))
 
 class CountryList(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(200))
+
+class Leads(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(200))
+    email = db.Column(db.String(200))  
+    services = db.Column(db.String(200))
+
+class BlogPost(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(200))
+    content = db.Column(db.Text())
+    instagram = db.Column(db.Text())
+    created_date = db.Column(db.DateTime())
+
 
 
 
@@ -196,109 +210,29 @@ class CountryList(db.Model):
 @app.route("/populate/country",methods=["GET","POST"])
 def PopulateCountry():
     countrylist = [
-    "Afghanistan",
-    "Albania",
-    "Algeria",
-    "American Samoa",
-    "Andorra",
-    "Angola",
-    "Anguilla",
-    "Antarctica",
-    "Antigua and Barbuda",
-    "Argentina",
-    "Armenia",
-    "Aruba",
-    "Australia",
-    "Austria",
-    "Azerbaijan",
-    "Bahamas",
-    "Bahrain",
-    "Bangladesh",
-    "Barbados",
-    "Belarus",
-    "Belgium",
-    "Belize",
-    "Benin",
-    "Bermuda",
-    "Bhutan",
-    "Bolivia",
-    "Bonaire Sint Eustatius and Saba",
-    "Bosnia and Herzegovina",
-    "Botswana",
-    "Bouvet Island",
-    "Brazil",
-    "British Indian Ocean Territory",
-    "Brunei Darussalam",
-    "Bulgaria",
-    "Burkina Faso",
-    "Burundi",
-    "Cabo Verde",
-    "Cambodia",
-    "Cameroon",
-    "Canada",
-    "Cayman Islands",
-    "Central African Republic",
-    "Chad",
-    "Chile",
-    "China",
-    "Christmas Island",    
-    "Colombia",
-    "Comoros",   
-    "Congo",
-    "Cook Islands",
-    "Costa Rica",
-    "Croatia",
-    "Cuba",
-    "Curacao",
-    "Cyprus",
-    "Czechia",
-    "Cote d'Ivoire",
-    "Denmark",
-    "Djibouti",
-    "Dominica",
-    "Dominican Republic",
-    "Ecuador",
-    "Egypt",
-    "El Salvador",
-    "Equatorial Guinea",
-    "Eritrea",
-    "Estonia",
-    "Eswatini",
-    "Ethiopia",
-    "Falkland Islands",
-    "Faroe Islands",
-    "Fiji",
-    "Finland",
-    "France",
-    "French Guiana",
-    "French Polynesia",
-    "French Southern Territories",
-    "Gabon",
-    "Gambia",
-    "Georgia",
-    "Germany",
-    "Ghana",
-    "Gibraltar",
-    "Greece",
-    "Greenland",
-    "Grenada",
-    "Guadeloupe",
-    "Guam",
-    "Guatemala",
-    "Guernsey",
-    "Guinea",
-    "Guinea-Bissau",
-    "Guyana",
-    "Haiti",
+    "Afghanistan",    "Albania",    "Algeria",    "American Samoa",    "Andorra",    "Angola",    "Anguilla",    "Antarctica",
+    "Antigua and Barbuda",    "Argentina",    "Armenia",    "Aruba","Australia",    "Austria","Azerbaijan",
+    "Bahamas","Bahrain",    "Bangladesh","Barbados",    "Belarus","Belgium",    "Belize","Benin",
+    "Bermuda","Bhutan",    "Bolivia","Bonaire Sint Eustatius and Saba",    "Bosnia and Herzegovina",    "Botswana","Bouvet Island",    "Brazil",    "British Indian Ocean Territory",    "Brunei Darussalam",    "Bulgaria",    "Burkina Faso",    "Burundi",    "Cabo Verde",    "Cambodia",    "Cameroon",    "Canada",    "Cayman Islands",    "Central African Republic",    "Chad",    "Chile",    "China",    "Christmas Island",    
+    "Colombia",    "Comoros",       "Congo",    "Cook Islands",    "Costa Rica",    "Croatia",    "Cuba",
+    "Curacao",    "Cyprus",    "Czechia",    "Cote d'Ivoire",    "Denmark",    "Djibouti",
+    "Dominica",    "Dominican Republic",    "Ecuador",    "Egypt",
+    "El Salvador",    "Equatorial Guinea",
+    "Eritrea",    "Estonia",    "Eswatini",    "Ethiopia",
+    "Falkland Islands",    "Faroe Islands",
+    "Fiji",    "Finland",    "France",    "French Guiana",
+    "French Polynesia",    "French Southern Territories",
+    "Gabon",    "Gambia",    "Georgia",    "Germany",
+    "Ghana",    "Gibraltar",    "Greece",    "Greenland",
+    "Grenada",    "Guadeloupe",
+    "Guam",    "Guatemala",    "Guernsey",
+    "Guinea",    "Guinea-Bissau",
+    "Guyana",    "Haiti",
     "Heard Island and McDonald Islands",
-    "Holy See",
-    "Honduras",
-    "Hong Kong",
-    "Hungary",
-    "Iceland",
-    "India",
-    "Indonesia",
-    "Iran",
+    "Holy See",    "Honduras",
+    "Hong Kong",    "Hungary",
+    "Iceland",    "India",
+    "Indonesia",    "Iran",
     "Iraq",
     "Ireland",
     "Isle of Man",
@@ -449,172 +383,83 @@ def PopulateCountry():
 
 @app.route("/",methods=["GET","POST"])
 def Index():
-    formone = AppliedForm()
-    formtwo = FormTwo()
+    all_blog = BlogPost.query.limit(3).all()
+    form = SearchForm()   
     if request.method == "POST":
-        email = request.form["email"]
-        if "@" in email:
-
-            if "form1" in request.form:
+        if "form1" in request.form:
+            email = request.form["email"]
+            if "@" in email:           
                 time = request.form["vehicle"]
                 purpose = request.form["manufacturer"]
-                if time == "Less than 30 days":
-                    if purpose == "Tourism":
-                        messages = "SINCE MARCH 2020 COMING FOR TOURISM PORPOSE IS POSSIBEL ONLY WITH A B211A ENTRY VISA"
-                        url = "APPLY FOR SINGLE ENTRY VISA"
-                    elif purpose == "Business/Other":
-                        messages = "YOU CAN APPLY WITH US. WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                        url = "APPLY FOR SINGLE ENTRY VISA"
-                    else:
-                        messages = "NO SERVICES WAS FOUND"    
-                        url = "GET HELP"
 
-                    return redirect(url_for("Result",messages=messages,url=url))     
+                if purpose == "Tourism":                                                     
+                    lead = Leads(name=request.form["name"],email=request.form["email"],services=purpose)
+                    db.session.add(lead)
+                    db.session.commit()        
+                    return redirect(url_for("Result",time=time,purpose=purpose))                       
+            else:
+                 return redirect(url_for("EnterEmail"))            
 
-                elif time == "More than 1 month and less than 6 month":
-                    if purpose == "Staycation/Business/Remotely":
-                        messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                        url = "APPLY FOR SINGLE ENTRY VISA"
-                    elif purpose == "Work":
-                        messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
-                        url = "WANT TO KNOW MORE ABOUT WORKING VISA"
-                    elif purpose == "Investment":
-                        messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                        url = "APPLY FOR INVESTOR KITAS"    
-                    else:
-                        messages = "NO SERVICES WAS FOUND"    
-                        url = "GET HELP"
+    if "form2" in request.form:        
+        url = request.form["tracking"]                
+        return redirect(url_for("TrackingResult",url=url)) 
+             
+    return render_template("index.html",form=form,all_blog=all_blog)    
 
-                    return redirect(url_for("Result",messages=messages,url=url))     
 
-                elif time == "Long term more than 6 month":
-                    if purpose == "I'm Retired":
-                        messages = "IF YOU HAVE MORE THAN 55 YEARS OLD YOU CAN APPLY FOR A LONG TERM STAY PERMIT"
-                        url = "APPLY FOR RETIREMENT VISA"
 
-                    elif purpose == "I'm Married With Indonesian":
-                        messages = "IF YOU MERRIED AND INDONESIAN CITIZEN YOU CANAPPLY FOR A LONG TERM STAY PERMIT"
-                        url = "APPLY FOR MARRIAGE VISA"
+@app.route("/result/<time>/<purpose>",methods=["GET","POST"])
+def Result(time,purpose):
+    form = SearchForm()    
+    return render_template("result.html",form=form,time=time,purpose=purpose)   
 
-                    elif purpose == "Investment":
-                        messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                        url = "APPLY FOR INVESTOR KITAS"    
 
-                    elif purpose == "Staycation/Business/Remotely":
-                        messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                        url = "APPLY FOR SINGLE ENTRY VISA"
-                    elif purpose == "Work":
-                        messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
-                        url = "WANT TO KNOW MORE ABOUT WORKING VISA"
-                    elif purpose == "Investment":
-                        messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                        url = "APPLY FOR INVESTOR KITAS"        
 
-                    else:
-                        messages = "NO SERVICES WAS FOUND"    
-                        url = "GET HELP"        
-                        
-                    return redirect(url_for("Result",messages=messages,url=url)) 
-            if "form2" in request.form:        
-                return "--"
-        else:
-            return redirect(url_for("EnterEmail"))      
-    return render_template("index.html",formone=formone,formtwo=formtwo)    
-
+@app.route("/tracking/<url>",methods=["GET","POST"])
+def TrackingResult(url):
+    booking = Booking.query.filter_by(url=url).first()
+    form = SearchForm()
+    if booking :
+        message = "Your visa application status is : {}".format(booking.visastatus)
+    else:
+        message = "Apllication not found"
+    return render_template("tracking.html",message=message,form=form)    
+                
 
 
 @app.route("/calling",methods=["GET","POST"])
 def Calling():
-    return render_template("calling.html")
+    form = SearchForm()
+    return render_template("calling.html",form=form)
 
 
 @app.route("/email",methods=["GET","POST"])
 def EnterEmail():
-    return render_template("email.html")    
+    form = SearchForm()
+    return render_template("email.html",form=form)    
+
+
+@app.route("/refund-policy",methods=["GET","POST"])
+def RefundPolicy():
+    return render_template("refund-policy.html")
 
 
 
-@app.route("/two",methods=["GET","POST"])
-def Index2():
-    formone = FormOne()
-    formtwo = FormTwo()
-    if formtwo.validate_on_submit():
-        messages = "YOU EGLIBED TO APPLY"    
-        url = "APPLY NOW"    
-        return redirect(url_for("Result",messages=messages,url=url))   
-                    
-    return render_template("bali.html",formone=formone,formtwo=formtwo)   
+#Seacrh Blog
+@app.route("/search",methods=["GET","POST"])
+def SearchBlog():
+    form = SearchForm()
+    if form.validate_on_submit():
+        keyword = form.keyword.data 
+        return redirect(url_for("IndexResult",keyword=keyword,_anchor="blog"))
+    return render_template("index.html",form=form)  
 
 
-
-@app.route("/result/<messages>/<url>",methods=["GET","POST"])
-def Result(messages,url):
-    formone = FormOne()
-    formtwo = FormTwo() 
-    if request.method == "POST":
-        if "form1" in request.form:
-            time = request.form["vehicle"]
-            purpose = request.form["manufacturer"]
-            if time == "Less than 30 days":
-                if purpose == "Tourism":
-                    messages = "SINCE MARCH 2020 COMING FOR TOURISM PORPOSE IS POSSIBEL ONLY WITH A B211A ENTRY VISA"
-                    url = "APPLY FOR SINGLE ENTRY VISA"
-                elif purpose == "Business/Other":
-                    messages = "YOU CAN APPLY WITH US. WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                    url = "APPLY FOR SINGLE ENTRY VISA"
-                else:
-                    messages = "NO SERVICES WAS FOUND"    
-                    url = "GET HELP"
-
-                return redirect(url_for("Result",messages=messages,url=url))     
-
-            elif time == "Less than 6 month":
-                if purpose == "Staycation/Business/Remotely":
-                    messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                    url = "APPLY FOR SINGLE ENTRY VISA"
-                elif purpose == "Work":
-                    messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
-                    url = "WANT TO KNOW MORE ABOUT WORKING VISA"
-                elif purpose == "Investment":
-                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                    url = "APPLY FOR INVESTOR KITAS"    
-                else:
-                    messages = "NO SERVICES WAS FOUND"    
-                    url = "GET HELP"
-
-                return redirect(url_for("Result",messages=messages,url=url))     
-
-            elif time == "Long term more than 6 month":
-                if purpose == "I'm Retired":
-                    messages = "IF YOU HAVE MORE THAN 55 YEARS OLD YOU CAN APPLY FOR A LONG TERM STAY PERMIT"
-                    url = "APPLY FOR RETIREMENT VISA"
-
-                elif purpose == "I'm Married With Indonesian":
-                    messages = "IF YOU MERRIED AND INDONESIAN CITIZEN YOU CANAPPLY FOR A LONG TERM STAY PERMIT"
-                    url = "APPLY FOR MARRIAGE VISA"
-
-                elif purpose == "Investment":
-                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                    url = "APPLY FOR INVESTOR KITAS"    
-
-                elif purpose == "Staycation/Business/Remotely":
-                    messages = "YOU CAN APPLY WITH US AND STAY IN INDONESIA UP TO 180 DAYS WE WILL BE YOUR SPONSOR TO APPLY FOR A B211A ENTRY VISA"
-                    url = "APPLY FOR SINGLE ENTRY VISA"
-                elif purpose == "Work":
-                    messages = "TO WORK AND GENERATE INCOME IN INDONESIA YOU MUST HAVE A WORKING PERMIT AND BE HIRED BY AN INDONESIAN COMPANY (WORKING VISA) OR WORK INDIPENENTLY AS A FREELANCE (FREELANCE VISA)"
-                    url = "WANT TO KNOW MORE ABOUT WORKING VISA"
-                elif purpose == "Investment":
-                    messages = "IF YOU WANT TO START YOUR BUSINESS IN INDONESIAYOU CAN OPEN YOUR OWN FOREIGN COMPANY (PT PMA) AND APPLY FOR AN INVESTOR VISA"
-                    url = "APPLY FOR INVESTOR KITAS"        
-
-                else:
-                    messages = "NO SERVICES WAS FOUND"    
-                    url = "GET HELP"        
-                    
-                return redirect(url_for("Result",messages=messages,url=url)) 
-        if "form2" in request.form:        
-            return "--"
-    return render_template("result.html",formone=formone,formtwo=formtwo,messages=messages,url=url)   
+@app.route("/<keyword>",methods=["GET","POST"])
+def IndexResult(keyword):
+    all_blog = BlogPost.query.filter(BlogPost.content.like('%' + keyword + '%')).all()     
+    form = SearchForm()
+    return render_template("index.html",all_blog=all_blog,form=form)    
 
 
 
@@ -638,7 +483,9 @@ def Services(name):
         return render_template("services/pma.html")    
     elif name == "cozero-living":  
         return render_template("services/cozero-living.html")  
-                         
+    elif name == "multi-entry":  
+        return render_template("services/multi.html")                       
+
                      
 
 @app.route("/sub/appointment/<services>",methods=["GET","POST"])
@@ -649,7 +496,7 @@ def CreateAppointment(services):
         phone = form.phone.data
         if phone[0] == "+": 
             string = []
-            chars = 'abccdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+            chars = '1234567890'
             finished = False
             while not finished:
                 for x in range(1, 6+1):
@@ -661,10 +508,10 @@ def CreateAppointment(services):
 
             
             meeting = request.form["meeting"]
-            time = form.time.data + ""+ form.ampm.data         
+            time = form.time.data + " "+ form.ampm.data         
             country = CountryList.query.filter_by(name=form.countrytime.data).first()
             order = Appointment(name=form.name.data,email=form.email.data,date=form.date.data,meeting=form.meeting.data,
-                    services=services,url=string,phone=form.phone.data,time=time,countrytime=country.name)
+                    services=services,url=string,phone=form.phone.data,time=time,countrytime=country.name,status="pending")
             db.session.add(order)
             db.session.commit()
             return redirect(url_for("ThankYou",url=order.url))
@@ -683,7 +530,7 @@ def ThankYou(url):
 @app.route("/sub/order/<tipe>",methods=["GET","POST"])
 def CreateOrder(tipe):
     string = []
-    chars = 'abccdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+    chars = '1234567890'
     finished = False
     while not finished:
         for x in range(1, 6+1):
@@ -707,8 +554,11 @@ def StepOne(url):
     if booking.services == None: 
         if booking.tipe == "business visa offshore":
             form = StepOneBusinessForm()  
+        elif booking.tipe == "business visa multi entry":
+            form = StepOneBusinessForm()      
         else:    
             form = StepOneSocialForm()   
+            
 
         if form.validate_on_submit():
             checked = request.form.getlist("vehicle")
@@ -743,9 +593,11 @@ def StepOne(url):
         booking = Booking.query.filter_by(url=url).first()
         if booking.tipe == "business visa offshore":
             form = StepOneBusinessForm()  
+        elif booking.tipe == "business visa multi entry":
+            form = StepOneBusinessForm()      
         else:    
-            form = StepOneSocialForm()
-
+            form = StepOneSocialForm()   
+        
         form.services.data = booking.services
         form.payment.data = booking.paymentmethod     
         if form.validate_on_submit():
@@ -786,8 +638,12 @@ def StepOne(url):
 def StepTwo(url):
     booking = Booking.query.filter_by(url=url).first()
     form = StepTwoForm()    
+    form.nationality.choices = [(str(x.name),str(x.name)) for x in CountryList.query.all()]    
+    form.original_country.choices = [(str(x.name),str(x.name)) for x in CountryList.query.all()]    
     if booking.fullname == None:
         if form.validate_on_submit():
+            nationality = CountryList.query.filter_by(name=form.nationality.data).first()
+            original_country = CountryList.query.filter_by(name=form.original_country.data).first()
             phone = form.phone.data
             if phone[0] == "+":
                 booking.fullname =   form.fullname.data
@@ -796,14 +652,14 @@ def StepTwo(url):
                 booking.birthplace =   form.birthplace.data
                 booking.birthdate =  form.birthdate.data
                 booking.martial =  form.martial.data 
-                booking.nationality =   form.nationality.data
+                booking.nationality =  nationality.name
                 booking.email =  form.email.data   
                 booking.phone =  form.phone.data 
                 booking.original_address = form.original_address.data 
                 booking.original_city = form.original_city.data
                 booking.original_state =form.original_state.data
                 booking.original_zip =  form.original_zip.data
-                booking.original_country =  form.original_country.data       
+                booking.original_country =  original_country.name     
                 db.session.commit()
                 return redirect(url_for("StepThree",url=url))
             else:
@@ -824,6 +680,9 @@ def StepTwo(url):
         form.original_zip.data= booking.original_zip
         form.original_country.data  = booking.original_country
         if form.validate_on_submit():
+          
+            nationality = CountryList.query.filter_by(name=request.form["nationality"]).first()
+            original_country = CountryList.query.filter_by(name=request.form["original_country"]).first()
             phone =  request.form["phone"]
             if phone[0] == "+":
                 booking.fullname= request.form["fullname"]
@@ -833,14 +692,14 @@ def StepTwo(url):
                 date = datetime.strptime(request.form["birthdate"], '%m/%d/%Y').strftime('%Y-%m-%d') 
                 booking.birthdate= date
                 booking.martial = request.form["martial"]
-                booking.nationality= request.form["nationality"]
+                booking.nationality= nationality.name
                 booking.email = request.form["email"]  
                 booking.phone = request.form["phone"]
                 booking.original_address = request.form["original_address"]
                 booking.original_city= request.form["original_city"]
                 booking.original_state= request.form["original_state"]
                 booking.original_zip= request.form["original_zip"]
-                booking.original_country  = request.form["original_country"]
+                booking.original_country  = original_country.name
                 db.session.commit()     
                 return redirect(url_for("StepThree",url=url))
             else:
@@ -853,8 +712,10 @@ def StepTwo(url):
 def StepThree(url):
     booking = Booking.query.filter_by(url=url).first()
     form = StepThreeForm()    
+    form.emergency_country.choices = [(str(x.name),str(x.name)) for x in CountryList.query.all()]   
     if booking.emergency_name == None:
         if form.validate_on_submit():
+            emergency_country = CountryList.query.filter_by(name=form.emergency_country.data).first()
             phone = form.emergency_phone.data
             if phone[0] == "+":
                 booking.emergency_name = form.emergency_name.data 
@@ -863,7 +724,7 @@ def StepThree(url):
                 booking.emergency_city = form.emergency_city.data
                 booking.emergency_state = form.emergency_state.data
                 booking.emergency_zip =  form.emergency_zip.data
-                booking.emergency_country =  form.emergency_country.data
+                booking.emergency_country =  emergency_country.name
                 booking.emergency_email = form.emergency_email.data
                 booking.emergency_phone =  form.emergency_phone.data
                 db.session.commit()
@@ -882,6 +743,7 @@ def StepThree(url):
         form.emergency_phone.data = booking.emergency_phone        
         if form.validate_on_submit():
             phone = request.form["emergency_phone"]
+            emergency_country = CountryList.query.filter_by(name=request.form["emergency_country"]).first()
             if phone[0] == "+":
                 booking.emergency_name  = request.form["emergency_name"]
                 booking.emergency_status = request.form["emergency_status"]
@@ -889,7 +751,7 @@ def StepThree(url):
                 booking.emergency_city = request.form["emergency_city"]
                 booking.emergency_state = request.form["emergency_state"]
                 booking.emergency_zip = request.form["emergency_zip"]
-                booking.emergency_country = request.form["emergency_country"]
+                booking.emergency_country = emergency_country.name
                 booking.emergency_email = request.form["emergency_email"]
                 booking.emergency_phone = request.form["emergency_phone"]
                 db.session.commit()
@@ -950,7 +812,8 @@ def StepFive(url):
     if form.validate_on_submit():
         if booking.tipe == "social visa onshore":
             if len(all_document) == 3 :        
-                booking.status = "complete order"
+                booking.status = "pending payment"
+                booking.visastatus = "waiting payment"
                 db.session.commit()
 
                 email = booking.email
@@ -960,13 +823,22 @@ def StepFive(url):
                 msg.body = "Thank you for your order"
                 msg.html = "<p>Hello  {},</p><p>We received your request, thank you.<br>We will check your documentation quickly and will make sure your process starts as soon as possible.<br>Important:<br>To be effective and in order to start your application process the payment has to be undertaken to our secure credit card/pay pal page at this invoice link {}<p></p>Once the payment is done will get back to you within the next 24hours, often quicker!<br>If you have any further questions please send an email to info@balizero.com</p><p>Thank you<br>Bali Zero Team<br>https://www.balizero.com</p>".format(booking.fullname,link)
                 mail.send(msg)
+
+                admin = "iam.natagon@gmail.com"
+                msg = Message("New Customer", sender="info@balizero.com", recipients=[admin])
+
+                msg.body = "New Customer"
+                msg.html = "Hello, you got new customer. You can login to dashboard to see their info"
+                mail.send(msg)
+
                 return redirect(url_for("InvoiceId",url=url))
             else:
                 flash("Please complete your data","danger")  
                 return redirect(url_for("StepFive",url=url))      
         else:
             if len(all_document) == 3 :        
-                booking.status = "complete order"
+                booking.status = "pending payment"
+                booking.visastatus = "waiting payment"
                 db.session.commit()
 
                 email = booking.email
@@ -975,6 +847,13 @@ def StepFive(url):
                 link = url_for("InvoiceId", url=url, _external=True)
                 msg.body = "Thank you for your order"
                 msg.html = "<p>Hello  {},</p><p>We received your request, thank you.<br>We will check your documentation quickly and will make sure your process starts as soon as possible.<br>Important:<br>To be effective and in order to start your application process the payment has to be undertaken to our secure credit card/pay pal page at this invoice link {}<p></p>Once the payment is done will get back to you within the next 24hours, often quicker!<br>If you have any further questions please send an email to info@balizero.com</p><p>Thank you<br>Bali Zero Team<br>https://www.balizero.com</p>".format(booking.fullname,link)
+                mail.send(msg)
+
+                admin = "iam.natagon@gmail.com"
+                msg = Message("New Customer", sender="info@balizero.com", recipients=[admin])
+
+                msg.body = "New Customer"
+                msg.html = "Hello, you got new customer. You can login to dashboard to see their info"
                 mail.send(msg)
                 
                 return redirect(url_for("InvoiceId",url=url))
@@ -1023,7 +902,7 @@ def CheckFinishedData(url):
     booking = Booking.query.filter_by(url=url).first()
     all_document = Document.query.filter_by(documentowner_id=booking.id).all()  
     if len(all_document) == 3 :
-        booking.status = "complete order"
+        booking.status = "pending payment"
         db.session.commit()
         return redirect(url_for("InvoiceId",url=url))
     
@@ -1033,12 +912,6 @@ def InvoiceId(url):
     booking = Booking.query.filter_by(url=url).first()
     pricing = int(booking.pricing)
     return render_template("submission/invoice.html",booking=booking,pricing=pricing)
-
-
-
-
-
-
 
 
 
@@ -1084,35 +957,152 @@ def UserLogin():
 @app.route("/dashboard",methods=["GET","POST"])
 @login_required
 def UserDashboard():
-    return render_template("dashboard/dashboard.html")    
+    all_leads =  Leads.query.all()
+    all_booking = Booking.query.all()
+    all_appointment = Appointment.query.all()
+    return render_template("dashboard/dashboard.html",all_booking=all_booking,all_leads=all_leads,all_appointment=all_appointment)    
 
 
-@app.route("/dashboard/invoice/<status>",methods=["GET","POST"])
+@app.route("/dashboard/booking/<status>",methods=["GET","POST"])
 @login_required
 def AllInvoice(status):
     if status == "all": 
-        all_invoice = Booking.query.filter(Booking.status != "uncomplete data").all()
-    elif status == "paid":
-        all_invoice = Booking.query.filter(Booking.status != "paid").all()
-    elif status == "unpaid":
-        all_invoice = Booking.query.filter(Booking.status != "unpaid").all()
+        all_booking = Booking.query.filter(Booking.status != "uncomplete data").all()
+    elif status == "pending payment":
+        all_booking = Booking.query.filter(Booking.status != "pending payment").all()
+    elif status == "payment received":
+        all_booking = Booking.query.filter(Booking.status != "payment received").all()
+    elif status == "payment rejected":
+        all_booking = Booking.query.filter(Booking.status != "payment rejected").all()    
 
-    return render_template("dashboard/invoice/all.html",all_invoice=all_invoice,status=status)
-
-
-
-
+    return render_template("dashboard/booking/all.html",all_booking=all_booking,status=status)
 
 
 
 
+@app.route("/dashboard/booking/<status>/<id>",methods=["GET","POST"])
+@login_required
+def BookingId(status,id):
+    booking = Booking.query.filter_by(id=id).first_or_404()
+    selfie = Document.query.filter_by(tipe="photo",documentowner_id=id).first()
+    passport = Document.query.filter_by(tipe="passport",documentowner_id=id).first()
+    covid = Document.query.filter_by(tipe="covid",documentowner_id=id).first()
+    return render_template("dashboard/booking/booking_detail.html",passport=passport,covid=covid,
+        booking=booking,selfie=selfie,status=status)
+
+
+@app.route("/dashboard/booking/<status>/<id>/status",methods=["GET","POST"])
+@login_required
+def EditBookingStatus(status,id):
+    booking = Booking.query.filter_by(id=id).first_or_404()
+    selfie = Document.query.filter_by(tipe="photo",documentowner_id=id).first()
+    passport = Document.query.filter_by(tipe="passport",documentowner_id=id).first()
+    covid = Document.query.filter_by(tipe="covid",documentowner_id=id).first()
+    form = EditBookingStatusForm()
+    form.payment.data = booking.status
+    form.visastatus.data = booking.visastatus
+    if form.validate_on_submit():
+        payment = request.form["payment"]
+        booking.status = payment        
+        visastatus = request.form["visastatus"]
+        booking.visastatus = visastatus        
+        db.session.commit()
+        return redirect(url_for("BookingId",status=status,id=id))
+    return render_template("dashboard/booking/edit_status.html",passport=passport,covid=covid,booking=booking,selfie=selfie,status=status,form=form)
 
 
 
+@app.route("/dashboard/booking/<status>/<id>/invoice",methods=["GET","POST"])
+@login_required
+def ViewInvoiceId(status,id):
+    booking = Booking.query.filter_by(id=id).first_or_404()
+    return render_template("dashboard/booking/id.html",booking=booking)
 
 
 
+#Appointment
+@app.route("/dashboard/appointment",methods=["GET","POST"])
+@login_required
+def AllAppointment():
+    all_appointment = Appointment.query.all()
+    return render_template("dashboard/appointment/all.html",all_appointment=all_appointment)
 
+
+@app.route("/dashboard/appointment/<id>/<url>/<status>",methods=["GET","POST"])
+@login_required
+def MarkAsDone(id,url,status):
+    appointment = Appointment.query.filter_by(id=id,url=url).first_or_404()
+    if status == "pending":
+        appointment.status = "pending"
+    else:
+        appointment.status = "done"
+            
+    db.session.commit()
+    return redirect(url_for("AllAppointment"))
+
+
+#leads
+@app.route("/dashboard/leads",methods=["GET","POST"])
+@login_required
+def AllLeads():
+    all_leads  = Leads.query.order_by(Leads.id.desc()).all()
+    return render_template("dashboard/leads/all.html",all_leads=all_leads)
+
+
+@app.route("/dashboard/blog",methods=["GET","POST"])
+@login_required
+def AllBlog():
+    all_blog = BlogPost.query.order_by(BlogPost.created_date.desc()).all()
+    return render_template("dashboard/blog/all.html",all_blog=all_blog)    
+
+
+@app.route("/dashboard/blog/create",methods=["GET","POST"])
+@login_required
+def CreateBlog():
+    form = CreateBlogForm()
+    today  = datetime.today()
+    if form.validate_on_submit():
+        blog = BlogPost(title=form.title.data,content=form.content.data,
+            instagram=form.instagram.data,created_date=today)
+        db.session.add(blog)
+        db.session.commit()
+        return redirect(url_for("AllBlog"))
+    return render_template("dashboard/blog/create.html",form=form)        
+
+
+@app.route("/dashboard/blog/<id>/view",methods=["GET","POST"])
+@login_required
+def ViewBlog(id):
+    blog = BlogPost.query.filter_by(id=id).first_or_404()
+    return render_template("dashboard/blog/id.html",blog=blog)
+
+@app.route("/dashboard/blog/<id>/edit",methods=["GET","POST"])
+@login_required
+def EditBlog(id):
+    blog = BlogPost.query.filter_by(id=id).first_or_404()
+    form = CreateBlogForm()
+    form.title.data = blog.title
+    form.content.data = blog.content
+    form.instagram.data = blog.instagram
+    if form.validate_on_submit():
+        blog.title = request.form["title"]
+        blog.content = request.form["content"]
+        blog.instagram = request.form["instagram"]
+        db.session.commit()
+        return redirect(url_for("ViewBlog",id=id))
+    return render_template("dashboard/blog/create.html",blog=blog,form=form)    
+
+@app.route("/dashboard/blog/<id>/delete",methods=["GET","POST"])
+@login_required
+def DeleteBlog(id):
+    blog = BlogPost.query.filter_by(id=id).first_or_404()
+    all_blog = BlogPost.query.order_by(BlogPost.created_date.desc()).all()
+    form = SubmitForm()  
+    if form.validate_on_submit():
+        db.session.delete(blog)
+        db.session.commit()
+        return redirect(url_for("AllBlog"))
+    return render_template("dashboard/blog/delete.html",all_blog=all_blog,blog=blog,form=form)        
 
 
 

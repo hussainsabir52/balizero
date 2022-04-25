@@ -105,10 +105,19 @@
           
               <input type="checkbox" id="vehicle3" name="vehicle" value="Boat">
               <label for="vehicle3">Selfie picture in colour showing your face</label><br>
-              {% endif %}
-             
               <input type="checkbox" onchange="checkAll(this)" name="select" value="Bike">
                  <label for="select">Select all</label><br>
+              {% else %}  
+              <input type="checkbox" onchange="checkAll(this)" name="select" value="Bike">
+                 <label for="select">Select all</label><br>       
+                  <input type="checkbox" id="vehicle3" name="vehicle" value="Boat" checked="checked" style="display: none;">
+              <label for="vehicle3" style="display: none;">Selfie picture in colour showing your face</label><br>
+              
+              {% endif %}
+             
+              
+
+                
             </div>
             <div class="col-md-6"></div>
             <div class="col-md-6">
