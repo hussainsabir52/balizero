@@ -97,8 +97,8 @@ class StepTwoForm(FlaskForm):
 
 class StepThreeForm(FlaskForm):
 	emergency_name =  StringField("full name",validators=[InputRequired(),Length(max=100)])
-	emergency_status =  SelectField("add friend",choices=[("Parents","Parents"),("Grand Parents","Grand Parents"),
-		("Brother/Sister","Brother/Sister"),("Other Familly","Other Familly")])  
+	emergency_status =  SelectField("relationship",choices=[("Parents","Parents"),("Grand Parents","Grand Parents"),
+		("Brother/Sister","Brother/Sister"),("Friend","Friend")])  
 	emergency_address =  StringField("address",validators=[InputRequired(),Length(max=100)])
 	emergency_city =StringField("city",validators=[InputRequired(),Length(max=100)])
 	emergency_state =  StringField("state/region/province",validators=[InputRequired(),Length(max=100)])

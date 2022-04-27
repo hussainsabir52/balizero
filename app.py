@@ -383,7 +383,7 @@ def PopulateCountry():
 
 @app.route("/",methods=["GET","POST"])
 def Index():
-    all_blog = BlogPost.query.limit(3).all()
+    all_blog = BlogPost.query.all()
     form = SearchForm()   
     if request.method == "POST":
         if "form1" in request.form:
@@ -958,7 +958,7 @@ def UserLogin():
 @login_required
 def UserDashboard():
     all_leads =  Leads.query.all()
-    all_booking = Booking.query.all()
+    all_booking = Booking.query.filter(Booking.status != "uncomplete data").all()
     all_appointment = Appointment.query.all()
     return render_template("dashboard/dashboard.html",all_booking=all_booking,all_leads=all_leads,all_appointment=all_appointment)    
 
