@@ -667,27 +667,7 @@
 
 
     <section class="ftco-section" id="blog" style="padding-top: 2em !important; padding-bottom: 0em !important;">
-      <div class="container">
-        <div class="row pb-4" style="margin-bottom: -250px;">
-          
-
-          <div class="col-md-12 heading-section text-lefts ftco-animate">
-            <br>
-            <span class="subheading">Stay Update</span>
-            <h2 class="">Our Blog & Instagram</h2>   
-            {% from "includes/_formhelpers.html" import render_field %}
-            <form method="POST" enctype="multipart/form-data" id="form" action="{{ url_for('SearchBlog') }}" >
-            {{ form.hidden_tag() }}          
-                
-                     <div class="form-group">
-                    {{ render_field(form.keyword, class="form-control",autocomplete="off",placeholder="Search by keyword, ex : visa, offshore ",style="height : 35px !important; width : 400px;")}}
-                      </div>
-                        
-            
-          </div>
-
-        </div>        
-      </div>
+      
       <div class="container text-center my-3">
           <div class="row mx-auto my-auto">
               <div id="BlogCarousel" class="carousel slide w-100" data-ride="carousel">
@@ -699,8 +679,24 @@
                       <div class="carousel-item py-5"> 
                       {% endif %}     
                           <div class="row">                     
-                              <div class="col-md-8 ftco-animate" style="text-align: left !important; padding-top: 200px;">
-                                <h3 style="text-align: left;">{{blog.title}} </h3>  
+                              <div class="col-md-8 ftco-animate" style="text-align: left !important; padding-top: 75px;">
+                                <div class="heading-section text-lefts ftco-animate">
+                                <span class="subheading">Stay Updated</span>
+                                <h2 class="">Our Blog & Instagram</h2>   
+                                </div>
+                                {% from "includes/_formhelpers.html" import render_field %}
+                                 <form method="POST" enctype="multipart/form-data" id="form" action="{{ url_for('SearchBlog') }}" >
+                                  {{ form.hidden_tag() }}          
+                
+                                 <div class="form-group">
+                                 {{ render_field(form.keyword, class="form-control",autocomplete="off",placeholder="Search by keyword, ex : visa, offshore ",style="height : 35px !important; width : 400px;")}}
+                                 </div>  
+                                 <br>
+                                <h3 style="text-align: left;">{{blog.title}} </h3> 
+                                 {% if blog.showdate != None %}                                  
+                                 <p>{{blog.showdate.strftime("%d %B %Y")}}</p>
+                                 {% endif %}  
+                                
                                 <p style="text-align: left !important;">{{blog.content | safe}} </p>    
                               </div>   
                     

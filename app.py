@@ -199,7 +199,9 @@ class BlogPost(db.Model):
     title = db.Column(db.String(200))
     content = db.Column(db.Text())
     instagram = db.Column(db.Text())
+    showdate = db.Column(db.DateTime())
     created_date = db.Column(db.DateTime())
+
 
 
 
@@ -420,10 +422,9 @@ def TrackingResult(url):
     booking = Booking.query.filter_by(url=url).first()
     form = SearchForm()
     if booking :
-        message = "Your visa application status is : {}".format(booking.visastatus)
+        return render_template("tracking.html",booking=booking,form=form)    
     else:
-        message = "Apllication not found"
-    return render_template("tracking.html",message=message,form=form)    
+        return "404"    
                 
 
 
@@ -570,12 +571,15 @@ def StepOne(url):
                 elif services == "E-Visa Service + Visa Extention":
                     booking.pricing = 315
                     db.session.commit()
-                elif services == "E-Visa Super Express Proccess Service":
+                elif services == "E-Visa Super Express Process Service":
                     booking.pricing = 329
                     db.session.commit() 
-                elif services == "E-Visa Express Proccess Service":
+                elif services == "E-Visa Express Process Service":
                     booking.pricing = 249
                     db.session.commit() 
+                elif services == "E-Visa Regular Process Service":
+                    booking.pricing = 221
+                    db.session.commit()     
                 else:
                     booking.pricing = 700
                     db.session.commit()                    
@@ -611,10 +615,10 @@ def StepOne(url):
                 elif services == "E-Visa Service + Visa Extention":
                     booking.pricing = 6500000
                     db.session.commit()
-                elif services == "E-Visa Super Express Proccess Service":
+                elif services == "E-Visa Super Express Process Service":
                     booking.pricing = 329
                     db.session.commit() 
-                elif services == "E-Visa Express Proccess Service":
+                elif services == "E-Visa Express Process Service":
                     booking.pricing = 259
                     db.session.commit() 
                 else:
@@ -1063,7 +1067,7 @@ def CreateBlog():
     today  = datetime.today()
     if form.validate_on_submit():
         blog = BlogPost(title=form.title.data,content=form.content.data,
-            instagram=form.instagram.data,created_date=today)
+            instagram=form.instagram.data,created_date=today,showdate=form.showdate.data)
         db.session.add(blog)
         db.session.commit()
         return redirect(url_for("AllBlog"))
@@ -1084,12 +1088,15 @@ def EditBlog(id):
     form.title.data = blog.title
     form.content.data = blog.content
     form.instagram.data = blog.instagram
+    form.showdate.data = blog.showdate
     if form.validate_on_submit():
+        date = datetime.strptime(request.form["showdate"], '%m/%d/%Y').strftime('%Y-%m-%d') 
         blog.title = request.form["title"]
+        blog.showdate = date
         blog.content = request.form["content"]
         blog.instagram = request.form["instagram"]
         db.session.commit()
-        return redirect(url_for("ViewBlog",id=id))
+        return redirect(url_for("AllBlog"))
     return render_template("dashboard/blog/create.html",blog=blog,form=form)    
 
 @app.route("/dashboard/blog/<id>/delete",methods=["GET","POST"])

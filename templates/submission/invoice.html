@@ -2,6 +2,12 @@
 
 {% block content %}
 
+<style type="text/css">
+  .grey{
+  color:  grey;
+}
+</style>
+
 <main class="d-flex align-items-center">
     <div class="container">
        
@@ -21,7 +27,7 @@
                                             </div> 
                                             <div class="iv-right col-6 text-md-right">
                                                 <h3>Invoice</h3>                                                
-                                                <span>#{{booking.url}}</span>              
+                                                <span>{{booking.url}}</span>              
                                             </div>
                                         </div>
                                     </div>
@@ -83,12 +89,15 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        {% if booking.paymentmethod == "Transferwise" %} 
                                         <h3 style="font-weight: 600;">Notes</h3>
                                         <p>For payment through Transfert Wise (Wise), please direct the payment to :
-                                          <br>BIC/SWIFT: TRWIBEB1XXX  IBAN: BE87 9670 8610 0394<br>
-                                          Wise Address: Avenue Louise 54, Room S52, Brussels, 1050, Belgium<br>
-                                          Account name: Gaetano Merola 
+                                          <br><span class="grey">BIC/SWIFT:</span> TRWIBEB1XXX  <span class="grey">IBAN:</span> BE87 9670 8610 0394<br>
+                                         <span class="grey">Wise Address:</span> Avenue Louise 54, Room S52, Brussels, 1050, Belgium<br>
+                                          <span class="grey">Account name</span>: Gaetano Merola 
                                         </p>
+                                         {% endif %} 
+                                         
                                     </div>    
                                
                                     <br>

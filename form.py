@@ -66,15 +66,17 @@ class FormTwo(FlaskForm):
 
 
 class StepOneBusinessForm(FlaskForm):
-	services = SelectField("Services",choices=[("E-Visa Super Express Proccess Service","E-Visa Super Express Proccess Service - 4M IDR + 50 USD (329 $)"),
-		("E-Visa Express Proccess Service","E-Visa Express Proccess Service - 3M IDR + 50 USD (249 $)"),
+	services = SelectField("Services",choices=[("E-Visa Super Express Process Service","E-Visa Super Express Process Service - 4M IDR + 50 USD (329 $)"),
+		("E-Visa Express Process Service","E-Visa Express Process Service - 3M IDR + 50 USD (249 $)"),
+		("E-Visa Regular Process Service","E-Visa Regular Process Service - 3,2M IDR (221 $)"),
 		("E-Visa Super Express + Accomodation in COZero Living","E-Visa Super Express + Accomodation in COZero Living - USD 700")])
 	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal"),("Transferwise","Transferwise")])
 
 
 
 class StepOneSocialForm(FlaskForm):
-	services = SelectField("Services",choices=[("E-Visa Service","E-Visa Service - 2,8M IDR + 50 USD (245 $)"),
+	services = SelectField("Services",choices=[("E-Visa Regular Process Service","E-Visa Regular Process Service - 3,2M IDR (221 $)"),
+		("E-Visa Service","E-Visa Service - 2,8M IDR + 50 USD (245 $)"),
 		("E-Visa Service + Visa Extention","E-Visa Service + Visa Extention - 3,8 IDR + 50 USD (315 $)")])
 	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal"),("Transferwise","Transferwise")])
 
@@ -149,10 +151,13 @@ class EditBookingStatusForm(FlaskForm):
 	payment = SelectField("Payment Status",choices=[("pending payment","pending payment")
 		,("payment received","payment received"),("payment rejected","payment rejected")]) 
 	visastatus = SelectField("Visa Status",choices=[("waiting payment","waiting payment")
-		,("document submited","document submited"),("visa approved","visa approved")]) 	
+		,("document submited","document submited"),("documents error","documents error"),
+		("documents at the Immigration","documents at the Immigration"),
+		("visa approved","visa approved"),("delay","delay")]) 	
 
 
 class CreateBlogForm(FlaskForm):
 	title = StringField("title",validators=[InputRequired(),Length(max=100)])	
 	instagram = TextAreaField("instagram link",validators=[InputRequired()])	
 	content = TextAreaField("content",validators=[InputRequired()])	
+	showdate =  DateField("date",format="%m/%d/%Y")

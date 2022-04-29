@@ -21,7 +21,8 @@
             <thead class="thead-dark">
               <tr>                
                 <th scope="col">Title</th>
-                <th scope="col">Created Date</th>  
+                <th scope="col">Created Date</th> 
+                <th scope="col">Published Date</th>  
                 <th scope="col"></th>    
                
               </tr>
@@ -32,6 +33,11 @@
               <tr>
                 <th>{{x.title}}</th>
                 <td>{{x.created_date.strftime("%d %B %Y")}}</td>
+                {% if x.showdate == None %}
+                <td>-</td>
+                {% else %}
+                 <td>{{x.showdate.strftime("%d %B %Y")}}</td>
+                 {% endif %}
                  <td>
                   <p class="dropdown-toggle" data-toggle="dropdown">menu</p>
                     <div class="dropdown-menu">
