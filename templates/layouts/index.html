@@ -671,6 +671,18 @@
       <div class="container text-center my-3">
           <div class="row mx-auto my-auto">
               <div id="BlogCarousel" class="carousel slide w-100" data-ride="carousel">
+                  <div class="heading-section text-left ftco-animate">
+                    <span class="subheading">Stay Update</span>
+                     <h2 class="">Our Blog & Instagram</h2>   
+                     </div>
+                     {% from "includes/_formhelpers.html" import render_field %}
+                     <form method="POST" enctype="multipart/form-data" id="form" action="{{ url_for('SearchBlog') }}" >
+                     {{ form.hidden_tag() }}          
+                
+                      <div class="form-group">
+                      {{ render_field(form.keyword, class="form-control",autocomplete="off",placeholder="Search by keyword, ex : visa, offshore ",style="height : 35px !important; width : 400px;")}}
+                      </div>  
+                               
                   <div class="carousel-inner" role="listbox">
                       {% for blog in all_blog %}    
                       {% if loop.index == 1  %}    
@@ -679,19 +691,7 @@
                       <div class="carousel-item py-5"> 
                       {% endif %}     
                           <div class="row">                     
-                              <div class="col-md-8 ftco-animate" style="text-align: left !important; padding-top: 75px;">
-                                <div class="heading-section text-lefts ftco-animate">
-                                <span class="subheading">Stay Updated</span>
-                                <h2 class="">Our Blog & Instagram</h2>   
-                                </div>
-                                {% from "includes/_formhelpers.html" import render_field %}
-                                 <form method="POST" enctype="multipart/form-data" id="form" action="{{ url_for('SearchBlog') }}" >
-                                  {{ form.hidden_tag() }}          
-                
-                                 <div class="form-group">
-                                 {{ render_field(form.keyword, class="form-control",autocomplete="off",placeholder="Search by keyword, ex : visa, offshore ",style="height : 35px !important; width : 400px;")}}
-                                 </div>  
-                                 <br>
+                              <div class="col-md-8 ftco-animate" style="text-align: left !important;">                                
                                 <h3 style="text-align: left;">{{blog.title}} </h3> 
                                  {% if blog.showdate != None %}                                  
                                  <p>{{blog.showdate.strftime("%d %B %Y")}}</p>
@@ -700,7 +700,7 @@
                                 <p style="text-align: left !important;">{{blog.content | safe}} </p>    
                               </div>   
                     
-                              <div class="col-md-4 ftco-animate">
+                              <div class="col-md-4" style="z-index: -1 !important;">
                                 {{blog.instagram | safe}} 
                                     
                               </div>
