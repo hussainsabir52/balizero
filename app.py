@@ -385,7 +385,7 @@ def PopulateCountry():
 
 @app.route("/",methods=["GET","POST"])
 def Index():
-    all_blog = BlogPost.query.order_by(BlogPost.showdate.asc()).all()
+    all_blog = BlogPost.query.order_by(BlogPost.showdate.desc()).all()
     form = SearchForm()   
     if request.method == "POST":
         if "form1" in request.form:
@@ -411,7 +411,7 @@ def Index():
 
 @app.route("/tracking",methods=["GET","POST"])
 def Tracking():
-    all_blog = BlogPost.query.all()
+    all_blog = BlogPost.query.order_by(BlogPost.showdate.desc()).all()
     form = SearchForm()   
     if request.method == "POST":
         if "form1" in request.form:
