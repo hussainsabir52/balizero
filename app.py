@@ -804,11 +804,14 @@ def StepFour(url):
         form.date_issued.data = travel.date_issued        
         form.date_expired.data = travel.date_expired
         if form.validate_on_submit():
-            expired = datetime.strptime(request.form["date_expired"], '%m/%d/%Y').strftime('%Y-%m-%d') 
-            year = datetime.strptime(expired, "%Y-%m-%d")
-            if year.year < 2023 :
-                flash("Expired date must be longer than 2023","danger")
-            else:    
+            ex = datetime.strptime(request.form["date_expired"], '%m/%d/%Y').strftime('%Y-%m-%d') 
+            expired = datetime.strptime(ex, "%Y-%m-%d")
+            today = datetime.today()                       
+            date1 = date(expired.year, expired.month, expired.day)
+            date2 = date(today.year, today.month, today.day)
+            check = date1 - date2
+
+            if check.days > 180:
                 issued = datetime.strptime(request.form["date_issued"], '%m/%d/%Y').strftime('%Y-%m-%d') 
                 travel.tipe = request.form["tipe"]
                 travel.document_number = request.form["document_number"]
@@ -817,19 +820,29 @@ def StepFour(url):
                 travel.date_expired = expired
                 db.session.commit()        
                 return redirect(url_for("StepFive",url=url))
+            else:
+                flash("The passport expiration must to expire longer than 6 months of the day of the application ","danger")                                    
 
     else: 
         if form.validate_on_submit():
-            expired = form.date_expired.data            
-            if expired.year < 2023 :
-                flash("Expired date must be longer than 2023","danger")
-            else:    
+            today = datetime.today()            
+            expired = form.date_expired.data
+            date1 = date(expired.year, expired.month, expired.day)
+            date2 = date(today.year, today.month, today.day)
+            check = date1 - date2
+
+            if check.days > 180:
                 travel = TravelDocument(tipe=form.tipe.data,document_number=form.document_number.data,
                         place_issued=form.place_issued.data,date_issued=form.date_issued.data,date_expired=form.date_expired.data,
                         traveldocumentowner_id=booking.id)
                 db.session.add(travel)
                 db.session.commit()                           
                 return redirect(url_for("StepFive",url=url))
+            else:
+                flash("The passport expiration must to expire longer than 6 months of the day of the application ","danger")
+                               
+                  
+            
 
     return render_template("submission/stepfour.html",form=form,booking=booking,url=url)  
 
@@ -1017,8 +1030,9 @@ def BookingId(status,id):
     selfie = Document.query.filter_by(tipe="photo",documentowner_id=id).first()
     passport = Document.query.filter_by(tipe="passport",documentowner_id=id).first()
     covid = Document.query.filter_by(tipe="covid",documentowner_id=id).first()
+    travel = TravelDocument.query.filter_by(traveldocumentowner_id=booking.id).first()
     return render_template("dashboard/booking/booking_detail.html",passport=passport,covid=covid,
-        booking=booking,selfie=selfie,status=status)
+        booking=booking,selfie=selfie,status=status,travel=travel)
 
 
 @app.route("/dashboard/booking/<status>/<id>/status",methods=["GET","POST"])
@@ -1028,6 +1042,7 @@ def EditBookingStatus(status,id):
     selfie = Document.query.filter_by(tipe="photo",documentowner_id=id).first()
     passport = Document.query.filter_by(tipe="passport",documentowner_id=id).first()
     covid = Document.query.filter_by(tipe="covid",documentowner_id=id).first()
+    travel = TravelDocument.query.filter_by(traveldocumentowner_id=booking.id).first()
     form = EditBookingStatusForm()
     form.payment.data = booking.status
     form.visastatus.data = booking.visastatus
@@ -1038,7 +1053,7 @@ def EditBookingStatus(status,id):
         booking.visastatus = visastatus        
         db.session.commit()
         return redirect(url_for("BookingId",status=status,id=id))
-    return render_template("dashboard/booking/edit_status.html",passport=passport,covid=covid,booking=booking,selfie=selfie,status=status,form=form)
+    return render_template("dashboard/booking/edit_status.html",travel=travel,passport=passport,covid=covid,booking=booking,selfie=selfie,status=status,form=form)
 
 
 

@@ -27,7 +27,7 @@
                             
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="profile-head">
                                     <h5>
                                         {{booking.fullname}}  {{booking.surname}}
@@ -49,11 +49,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Address</a>
-                                </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#emergency" role="tab" aria-controls="profile" aria-selected="false">Emergency Info</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#document" role="tab" aria-controls="profile" aria-selected="false">Document</a>
                                 </li>
                             </ul>
                         </div>
@@ -89,12 +90,21 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
+                                                <label>Type</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{booking.tipe}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <label>Services</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p>{{booking.services}}</p>
                                             </div>
                                         </div>
+                                        
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Payment Status</label>
@@ -178,6 +188,14 @@
                                                 <p>{{booking.birthdate.strftime("%d %B %Y")}}</p>
                                             </div>
                                         </div>
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Nationality</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{booking.nationality}}</p>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Martial Status</label>
@@ -186,10 +204,7 @@
                                                 <p>{{booking.martial}}</p>
                                             </div>
                                         </div>
-                                       
-                            </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
+                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Adress</label>
                                             </div>
@@ -229,8 +244,9 @@
                                                 <p>{{booking.original_country}}</p>
                                             </div>
                                         </div>
-                                
+                                       
                             </div>
+                            
                             <div class="tab-pane fade" id="emergency" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -238,6 +254,14 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <p>{{booking.emergency_name}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Relationship</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{booking.emergency_status}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -280,7 +304,99 @@
                                                 <p>{{booking.emergency_country}}</p>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{booking.emergency_email}}</p>
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Whatsapp</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{booking.emergency_phone}}</p>
+                                            </div>
+                                        </div>
                                 
+                            </div>
+                            <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Type of Travel Document</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{travel.tipe}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Document Number</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{travel.document_number}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Place Issued</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{travel.place_issued}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Date Issued</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{travel.date_issued.strftime("%d %B %Y") }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Expiration Date</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{travel.date_expired.strftime("%d %B %Y") }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Invoice</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a href="/dashboard/booking/{{status}}/{{booking.id}}/invoice" target="__blank"><p>view here</p></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Passport Document</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a href="/static/document/{{passport.filename}}" target="__blank"><p>view here</p></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Vaccine Document</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a href="/static/document/{{covid.filename}}" target="__blank"><p>view here</p></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Selfie Photo</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a href="/static/document/{{selfie.filename}}" target="__blank"><p>view here</p></a>
+                                            </div>
+                                        </div>
+
+                                                                      
                             </div>
                         </div>
                     </div>
