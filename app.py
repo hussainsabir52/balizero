@@ -385,6 +385,32 @@ def PopulateCountry():
 
 @app.route("/",methods=["GET","POST"])
 def Index():
+    all_blog = BlogPost.query..order_by(BlogPost.showdate.asc())all()
+    form = SearchForm()   
+    if request.method == "POST":
+        if "form1" in request.form:
+            email = request.form["email"]
+            if "@" in email:           
+                time = request.form["vehicle"]
+                purpose = request.form["manufacturer"]
+
+                if purpose == "Tourism":                                                     
+                    lead = Leads(name=request.form["name"],email=request.form["email"],services=purpose)
+                    db.session.add(lead)
+                    db.session.commit()        
+                return redirect(url_for("Result",time=time,purpose=purpose))                       
+            else:
+                 return redirect(url_for("EnterEmail"))            
+
+    if "form2" in request.form:        
+        url = request.form["tracking"]                
+        return redirect(url_for("TrackingResult",url=url)) 
+             
+    return render_template("index.html",form=form,all_blog=all_blog)    
+
+
+@app.route("/tracking",methods=["GET","POST"])
+def Tracking():
     all_blog = BlogPost.query.all()
     form = SearchForm()   
     if request.method == "POST":
@@ -398,7 +424,7 @@ def Index():
                     lead = Leads(name=request.form["name"],email=request.form["email"],services=purpose)
                     db.session.add(lead)
                     db.session.commit()        
-                    return redirect(url_for("Result",time=time,purpose=purpose))                       
+                return redirect(url_for("Result",time=time,purpose=purpose))                       
             else:
                  return redirect(url_for("EnterEmail"))            
 
@@ -406,7 +432,7 @@ def Index():
         url = request.form["tracking"]                
         return redirect(url_for("TrackingResult",url=url)) 
              
-    return render_template("index.html",form=form,all_blog=all_blog)    
+    return render_template("tracking.html",form=form,all_blog=all_blog)    
 
 
 
@@ -422,7 +448,7 @@ def TrackingResult(url):
     booking = Booking.query.filter_by(url=url).first()
     form = SearchForm()
     if booking :
-        return render_template("tracking.html",booking=booking,form=form)    
+        return render_template("tracking_result.html",booking=booking,form=form)    
     else:
         return "404"    
                 
