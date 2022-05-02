@@ -191,12 +191,15 @@
 <script type="text/javascript">
 	var checker = document.getElementById('checkme');
  var sendbtn = document.getElementById('sendNewSms');
+ var send = document.getElementById('sendNew');
  // when unchecked or checked, run the function
  checker.onchange = function(){
 if(this.checked){
     sendbtn.disabled = false;
+    send.disabled = false;
 } else {
     sendbtn.disabled = true;
+    send.disabled = true;
 }
 
 }
