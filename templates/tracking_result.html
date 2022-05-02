@@ -14,7 +14,7 @@
 	      
 	               <div class="row">    
 	                    <div class="col-md-12 text-center">
-	                      
+	                      <p>Last updated at {{booking.lastupdate.strftime("%d %B %Y")}}</p>
 	                      <br>	
 	                      {% if booking.visastatus == "waiting payment" %}	
 	                      <h6>Hi ! We are already working on your application process. Our team received your documents and is double checking that everything is ok. We are waiting for your payment to continue with the application process, check out your email to find the payment link. See you soon!</h6>

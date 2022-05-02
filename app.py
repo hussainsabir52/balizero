@@ -153,6 +153,7 @@ class Booking(db.Model):
     tipe = db.Column(db.String(200))
     pricing = db.Column(db.BigInteger()) 
     visastatus = db.Column(db.String(200))
+    lastupdate = db.Column(db.DateTime(200))
     traveldocumentowner = db.relationship("TravelDocument",backref="traveldocumentowner") 
     documentowner = db.relationship("Document",backref="documentowner") 
 
@@ -851,12 +852,14 @@ def StepFour(url):
 def StepFive(url):
     booking = Booking.query.filter_by(url=url).first()
     all_document = Document.query.filter_by(documentowner_id=booking.id).all() 
+    today = datetime.today()
     form = SubmitForm()
     if form.validate_on_submit():
         if booking.tipe == "social visa onshore":
             if len(all_document) == 3 :        
                 booking.status = "pending payment"
                 booking.visastatus = "waiting payment"
+                booking.lastupdate = today 
                 db.session.commit()
 
                 email = booking.email
@@ -882,6 +885,7 @@ def StepFive(url):
             if len(all_document) == 3 :        
                 booking.status = "pending payment"
                 booking.visastatus = "waiting payment"
+                booking.lastupdate = today 
                 db.session.commit()
 
                 email = booking.email
@@ -939,16 +943,7 @@ def DeleteDocument(url,tipe,filename):
     return redirect(url_for("StepFive",url=url))
 
 
-
-@app.route("/sub/step6/<url>/finished",methods=["GET","POST"])
-def CheckFinishedData(url):
-    booking = Booking.query.filter_by(url=url).first()
-    all_document = Document.query.filter_by(documentowner_id=booking.id).all()  
-    if len(all_document) == 3 :
-        booking.status = "pending payment"
-        db.session.commit()
-        return redirect(url_for("InvoiceId",url=url))
-    
+   
 
 @app.route("/sub/invoice/<url>",methods=["GET","POST"])
 def InvoiceId(url):
@@ -1046,11 +1041,13 @@ def EditBookingStatus(status,id):
     form = EditBookingStatusForm()
     form.payment.data = booking.status
     form.visastatus.data = booking.visastatus
+    today = datetime.today()
     if form.validate_on_submit():
         payment = request.form["payment"]
         booking.status = payment        
         visastatus = request.form["visastatus"]
-        booking.visastatus = visastatus        
+        booking.visastatus = visastatus    
+        booking.lastupdate = today     
         db.session.commit()
         return redirect(url_for("BookingId",status=status,id=id))
     return render_template("dashboard/booking/edit_status.html",travel=travel,passport=passport,covid=covid,booking=booking,selfie=selfie,status=status,form=form)

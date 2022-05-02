@@ -24,7 +24,8 @@
                 <th scope="col">Type</th>    
                 <th scope="col">Services</th>            
                 <th scope="col">Visa Status</th>                
-                <th scope="col">Payment Status</th>                
+                <th scope="col">Payment Status</th>       
+                <th scope="col">Last Update</th>                
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -39,6 +40,7 @@
                 <td>{{x.visastatus}}</td>            
                 
                 <td>{{x.status}}</td>
+                <td>{{x.lastupdate.strftime("%d %B %Y")}}</td>
                
                 <td>
                   <p class="dropdown-toggle" data-toggle="dropdown">menu</p>
