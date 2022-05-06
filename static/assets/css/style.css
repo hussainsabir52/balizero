@@ -5,6 +5,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -10203,3 +10204,39 @@ textarea.form-control {
    font-weight: 500;
    margin-top: 10px;
     }
+
+.project-wrap .img .price-cozero{
+    background: #8CC63F !important;  }
+
+.project-wrap .img .price-cozero:before{
+    border-color: transparent transparent transparent  #8CC63F !important;  }
+
+.project-wrap .img .price-cozero:after{
+    border-color: transparent transparent  #8CC63F transparent !important;  }
+    
+@media (min-width: 992px){
+  .dropdown-menu .dropdown-toggle:after{
+    border-top: .3em solid transparent;
+      border-right: 0;
+      border-bottom: .3em solid transparent;
+      border-left: .3em solid;
+  }
+  .dropdown-menu .dropdown-menu{
+    margin-left:0; margin-right: 0;
+  }
+  .dropdown-menu li{
+    position: relative;
+  }
+  .nav-item .submenu{ 
+    display: none;
+    position: absolute;
+    left:100%; top:-7px;
+  }
+  .nav-item .submenu-left{ 
+    right:100%; left:auto;
+  }
+  .dropdown-menu > li:hover{ background-color: #f1f1f1 }
+  .dropdown-menu > li:hover > .submenu{
+    display: block;
+  }
+}    
