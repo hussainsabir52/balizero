@@ -33,6 +33,8 @@
 
 <link rel="shortcut icon" type="image/png" href="/static/assets/images/balizero.png"/>
 
+
+
 <style type="text/css">
   .float{
   position:fixed;
@@ -642,7 +644,7 @@
                 </div>
               </div>      
               <div class="row">   
-                <div class="col-md-1"></div>
+               
                  <div class="col-md-2">
                 <img src="/static/assets/images/team/Slide5.PNG" class="w-100" style="border:solid 1px; border-color: #fff; border-radius: 20px;">
                 <h2 class="text-center team">Zainal Abidin</h2>
@@ -652,6 +654,11 @@
                 <img src="/static/assets/images/team/Slide2.PNG" class="w-100" style="border:solid 1px; border-color: #fff; border-radius: 20px;">
                 <h2 class="text-center team">Antonello</h2>
                 <p class="text-center">The Bridge</p>
+              </div>  
+               <div class="col-md-2">
+                <img src="/static/assets/images/team/6.jpeg" class="w-100" style="border:solid 1px; border-color: #fff; border-radius: 20px;">
+                <h2 class="text-center team">Gaetano Merola</h2>
+                <p class="text-center">Web Director</p>
               </div>  
              
               <div class="col-md-2">
@@ -670,7 +677,7 @@
                 <h2 class="text-center team">Bayu</h2>
                 <p class="text-center">Visa Consultant</p>
               </div>    
-              </div>
+              
               
 
             </div>
@@ -702,19 +709,29 @@
     <section class="ftco-section" id="blog" style="padding-top: 2em !important; padding-bottom: 0em !important;">
       
       <div class="container text-center my-3">
-          <div class="row mx-auto my-auto">
-              <div id="BlogCarousel" class="carousel slide w-100" data-ride="carousel">
-                  <div class="heading-section text-left ftco-animate">
-                    <span class="subheading">Stay Update</span>
-                     <h2 class="">Our Blog & Instagram</h2>   
-                     </div>
+          <div class="row">
+            <div class="col-md-6">
+                      <div class="heading-section text-left ftco-animate">
+                      
+                      <span class="subheading">Stay Update</span>
+                       <h2 class="">Our Blog & Instagram</h2>   
+                       </div>
+                    </div> 
+
+                    <div class="col-md-6">
+                      <div class="float-right">
                      {% from "includes/_formhelpers.html" import render_field %}
                      <form method="POST" enctype="multipart/form-data" id="form" action="{{ url_for('SearchBlog') }}" >
-                     {{ form.hidden_tag() }}          
-                
-                      <div class="form-group">
+                     {{ form.hidden_tag() }} 
+                     <div class="form-group">
                       {{ render_field(form.keyword, class="form-control",autocomplete="off",placeholder="Search by keyword, ex : visa, offshore ",style="height : 35px !important; width : 400px;")}}
-                      </div>  
+                      </div>           
+                    </div>
+                  </div>
+          </div>
+          <div class="row mx-auto my-auto">
+              <div id="BlogCarousel" class="carousel slide w-100" data-interval="false">
+                                         
                                
                   <div class="carousel-inner" role="listbox">
                       {% for blog in all_blog %}    
@@ -969,7 +986,13 @@ if ($(window).width() < 992) {
 </script>
 
 
+<!-- <script type="text/javascript">
+  $('#BlogCarousel').carousel({
+  interval: 5000
+})
 
+</script> 
+-->
 
 
     </body>
