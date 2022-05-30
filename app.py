@@ -184,6 +184,7 @@ class Appointment(db.Model):
     time = db.Column(db.String(200))
     countrytime = db.Column(db.String(200))
     status = db.Column(db.String(200))
+    new = db.Column(db.Integer)
 
 class CountryList(db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -194,6 +195,7 @@ class Leads(db.Model):
     name = db.Column(db.String(200))
     email = db.Column(db.String(200))  
     services = db.Column(db.String(200))
+    new = db.Column(db.Integer)
 
 class BlogPost(db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -393,12 +395,10 @@ def Index():
             email = request.form["email"]
             if "@" in email:           
                 time = request.form["vehicle"]
-                purpose = request.form["manufacturer"]
-
-                if purpose == "Tourism":                                                     
-                    lead = Leads(name=request.form["name"],email=request.form["email"],services=purpose)
-                    db.session.add(lead)
-                    db.session.commit()        
+                purpose = request.form["manufacturer"]                                          
+                lead = Leads(name=request.form["name"],email=request.form["email"],services=purpose,new=1)
+                db.session.add(lead)
+                db.session.commit()        
                 return redirect(url_for("Result",time=time,purpose=purpose))                       
             else:
                  return redirect(url_for("EnterEmail"))            
@@ -1081,14 +1081,30 @@ def MarkAsDone(id,url,status):
     db.session.commit()
     return redirect(url_for("AllAppointment"))
 
+@app.route("/dashboard/appointment/<id>",methods=["GET","POST"])
+@login_required
+def MarkAsReadAppointment(id):
+    appointment = Appointment.query.filter_by(id=id).first_or_404()
+    appointment.new = 0
+    db.session.commit()
+    return redirect(url_for("AllAppointment"))
+
 
 #leads
 @app.route("/dashboard/leads",methods=["GET","POST"])
 @login_required
 def AllLeads():
     all_leads  = Leads.query.order_by(Leads.id.desc()).all()
+    print(all_leads)
     return render_template("dashboard/leads/all.html",all_leads=all_leads)
 
+@app.route("/dashboard/leads/<id>",methods=["GET","POST"])
+@login_required
+def MarkAsRead(id):
+    lead = Leads.query.filter_by(id=id).first_or_404()
+    lead.new = 0
+    db.session.commit()
+    return redirect(url_for("AllLeads"))
 
 @app.route("/dashboard/blog",methods=["GET","POST"])
 @login_required
