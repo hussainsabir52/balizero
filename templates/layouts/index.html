@@ -994,16 +994,18 @@ if ($(window).width() < 992) {
         console.log(levelClass);
         $('#qmt-manufacturer option').each(function () {
             var self = $(this);
+            self.addClass('hide');
             if (self.hasClass(levelClass) || typeof(levelClass) == "undefined") {
                 // self.show();
-                self.addClass('hide');
-                self.removeClass('show');
-            } else {
-                // self.hide();
                 self.addClass('show');
                 self.removeClass('hide');
+            } 
+            // else {
+            //     // self.hide();
+            //     self.addClass('show');
+            //     self.removeClass('hide');
 
-            }
+            // }
         });
     });
 });
