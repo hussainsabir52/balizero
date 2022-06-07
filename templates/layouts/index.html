@@ -56,6 +56,14 @@
 #float {
             display: none;
         }
+
+.hide {
+  visibility: hidden !important;
+}
+
+.show {
+  visibility: visible !important;
+}
 </style>
 
 </head>
@@ -980,15 +988,18 @@ if ($(window).width() < 992) {
 
 <script type="text/javascript">
   $(function(){
-    $("#qmt-vehicle").on("change",function(){
+    $("#qmt-vehicle").on("change",function(event){
+      event.preventDefault();
         var levelClass = $('#qmt-vehicle').find('option:selected').attr('class');
         console.log(levelClass);
         $('#qmt-manufacturer option').each(function () {
             var self = $(this);
             if (self.hasClass(levelClass) || typeof(levelClass) == "undefined") {
-                self.show();
+                // self.show();
+                self.addClass('hide');
             } else {
-                self.hide();
+                // self.hide();
+                self.addClass('show');
             }
         });
     });
