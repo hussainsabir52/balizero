@@ -58,11 +58,11 @@
         }
 
 .hide {
-  visibility: hidden !important;
+  display: none;
 }
 
 .show {
-  visibility: visible !important;
+  display: block;
 }
 </style>
 
@@ -997,9 +997,12 @@ if ($(window).width() < 992) {
             if (self.hasClass(levelClass) || typeof(levelClass) == "undefined") {
                 // self.show();
                 self.addClass('hide');
+                self.removeClass('show');
             } else {
                 // self.hide();
                 self.addClass('show');
+                self.removeClass('hide');
+
             }
         });
     });
