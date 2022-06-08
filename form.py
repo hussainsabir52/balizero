@@ -35,7 +35,7 @@ class SubmitForm(FlaskForm):
 class FormOne(FlaskForm):
 	name = StringField("Your Name",validators=[InputRequired(),Length(max=100)])		
 	email  = StringField("Email",validators=[InputRequired(),Length(max=100)])	
-	time =  SelectField("Stay Duration",choices=[("Less than 30 days","Less than 30 days")
+	time =  SelectField("Stay Duration",choices=[("Less than 30 days","Less than 30 days.")
 		,("More than 1 month and less than 6 month","More than 1 month and less than 6 month"),
 		("Long term more than 6 month","Long term more than 6 month")])
 	purpose = SelectField("My Travel Purpose",choices=[("Tourism","Tourism"),("Business/Other","Business/Other"),
