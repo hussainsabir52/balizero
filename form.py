@@ -66,15 +66,15 @@ class FormTwo(FlaskForm):
 
 
 class StepOneBusinessForm(FlaskForm):
-	services = SelectField("Services",choices=[("E-Visa Super Express Process Service","E-Visa Super Express Process Service - 4M IDR + 50 USD (329 $)"),
-		("E-Visa Express Process Service","E-Visa Express Process Service - 3M IDR + 50 USD (249 $)"),
-		("E-Visa Regular Process Service","E-Visa Regular Process Service - 3,2M IDR (221 $)")])
+	services = SelectField("Services",choices=[("E-Visa Super Express Process Service","E-Visa Super Express Process Service - 5,700,00 IDR (391 USD)"),
+		("E-Visa Express Process Service","E-Visa Express Process Service - 4,600,000 IDR (315 USD)"),
+		("E-Visa Regular Process Service","E-Visa Regular Process Service - 3,900,000 IDR (268 USD)")])
 	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal"),("Transferwise","Transferwise")])
 
 
 
 class StepOneSocialForm(FlaskForm):
-	services = SelectField("Services",choices=[("E-Visa Regular Process Service","E-Visa Regular Process Service - 3,2M IDR (221 $)"),
+	services = SelectField("Services",choices=[("E-Visa Regular Process Service","E-Visa Regular Process Service - 3,900,000 IDR (268 USD)"),
 		("E-Visa Service","E-Visa Service - 2,8M IDR + 50 USD (245 $)"),
 		("E-Visa Service + Visa Extention","E-Visa Service + Visa Extention - 3,8 IDR + 50 USD (315 $)")])
 	payment = SelectField("Payment",choices=[("Credit Card","Credit Card"),("Paypal","Paypal"),("Transferwise","Transferwise")])
@@ -85,7 +85,7 @@ class StepTwoForm(FlaskForm):
 	surname =  StringField("Surname",validators=[InputRequired(),Length(max=100)])
 	gender =  SelectField("Gender",choices=[("Male","Male"),("Female","Female")])  
 	birthplace =  StringField("Birth Place",validators=[InputRequired(),Length(max=100)])
-	birthdate = DateField("Birth Date",format="%m/%d/%Y")
+	birthdate = DateField("Birth Date")
 	martial =  SelectField("Marital Status",choices=[("Single","Single"),("married","married")])  
 	nationality = SelectField('Nationality:',choices=[], render_kw={"placeholder": "*"}) 
 	email =   StringField("email",validators=[InputRequired(),Email(),Length(max=100)])
@@ -112,8 +112,8 @@ class StepFourForm(FlaskForm):
 	tipe = SelectField("Type of Travel Document ",choices=[("Passport","Passport"),("Other Travel Document","Other Travel Document")])  
 	document_number = StringField("Document Number",validators=[InputRequired(),Length(max=100)])
 	place_issued = StringField("Place issued",validators=[InputRequired(),Length(max=100)])
-	date_issued = DateField("Date issued",format="%m/%d/%Y")
-	date_expired = DateField("Expiration Date",format="%m/%d/%Y")
+	date_issued = DateField("Date issued")
+	date_expired = DateField("Expiration Date")
 	
 
 
@@ -121,8 +121,8 @@ class step(FlaskForm):
 	tipe = SelectField("Type of Travel Document ",choices=[("Passport","Passport"),("Other Travel Document","Other Travel Document")])  
 	document_number = StringField("Document Number",validators=[InputRequired(),Length(max=100)])
 	place_issued = StringField("Place issued",validators=[InputRequired(),Length(max=100)])
-	date_issued = DateField("Date issued",format="%m/%d/%Y")
-	date_expired = DateField("Date expired",format="%m/%d/%Y")
+	date_issued = DateField("Date issued")
+	date_expired = DateField("Date expired")
 	visit_purpose = SelectField("Visit Purpose",choices=[("Business Visit","Business Visit"),("Investment Visit","Investment Visit"),("Business Meeting","Business Meeting"),("Tourist Visit Purpose","Tourist Visit Purpose")])  
 	activities = TextAreaField("Description of Your Activities")
 	deported = SelectField("Do you has ever been deported from Indonesia? ",choices=[("No","No"),("Yes","Yes")])  

@@ -598,13 +598,13 @@ def StepOne(url):
                     booking.pricing = 315
                     db.session.commit()
                 elif services == "E-Visa Super Express Process Service":
-                    booking.pricing = 329
+                    booking.pricing = 391
                     db.session.commit() 
                 elif services == "E-Visa Express Process Service":
-                    booking.pricing = 249
+                    booking.pricing = 315
                     db.session.commit() 
                 elif services == "E-Visa Regular Process Service":
-                    booking.pricing = 221
+                    booking.pricing = 268
                     db.session.commit()     
                 else:
                     booking.pricing = 700
@@ -636,16 +636,16 @@ def StepOne(url):
 
                 services = request.form["services"]
                 if services == "E-Visa Service":
-                    booking.pricing = 3300000
+                    booking.pricing = 3900000
                     db.session.commit()
                 elif services == "E-Visa Service + Visa Extention":
                     booking.pricing = 6500000
                     db.session.commit()
                 elif services == "E-Visa Super Express Process Service":
-                    booking.pricing = 329
+                    booking.pricing = 391
                     db.session.commit() 
                 elif services == "E-Visa Express Process Service":
-                    booking.pricing = 259
+                    booking.pricing = 315
                     db.session.commit() 
                 else:
                     booking.pricing = 700
@@ -719,7 +719,7 @@ def StepTwo(url):
                 booking.surname= request.form["surname"]
                 booking.gender  = request.form["gender"] 
                 booking.birthplace= request.form["birthplace"]
-                date = datetime.strptime(request.form["birthdate"], '%m/%d/%Y').strftime('%Y-%m-%d') 
+                date = datetime.strptime(request.form["birthdate"], '%Y-%m-%d').strftime('%Y-%m-%d') 
                 booking.birthdate= date
                 booking.martial = request.form["martial"]
                 booking.nationality= nationality.name
@@ -804,7 +804,7 @@ def StepFour(url):
         form.date_issued.data = travel.date_issued        
         form.date_expired.data = travel.date_expired
         if form.validate_on_submit():
-            ex = datetime.strptime(request.form["date_expired"], '%m/%d/%Y').strftime('%Y-%m-%d') 
+            ex = datetime.strptime(request.form["date_expired"], '%Y-%m-%d').strftime('%Y-%m-%d') 
             expired = datetime.strptime(ex, "%Y-%m-%d")
             today = datetime.today()                       
             date1 = date(expired.year, expired.month, expired.day)
@@ -812,7 +812,7 @@ def StepFour(url):
             check = date1 - date2
 
             if check.days > 180:
-                issued = datetime.strptime(request.form["date_issued"], '%m/%d/%Y').strftime('%Y-%m-%d') 
+                issued = datetime.strptime(request.form["date_issued"], '%Y-%m-%d').strftime('%Y-%m-%d') 
                 travel.tipe = request.form["tipe"]
                 travel.document_number = request.form["document_number"]
                 travel.place_issued = request.form["place_issued"]
